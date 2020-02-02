@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "rofl_server",
+    "rofl_client",
+    "rofl_gui",
+]
