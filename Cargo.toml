@@ -1,8 +1,8 @@
 [workspace]
 
 members = [
-    "rofl_proto",
-    "rofl_server",
-    "rofl_client",
-    "rofl_gui",
+    "proto",
+    "server",
+    "client",
+    "gui",
 ]
