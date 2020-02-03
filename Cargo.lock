@@ -1413,25 +1413,25 @@ dependencies = [
 ]
 
 [[package]]
-name = "rofl_client"
+name = "roffl_client"
 version = "0.1.0"
 dependencies = [
  "noise 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
-name = "rofl_gui"
+name = "roffl_gui"
 version = "0.1.0"
 dependencies = [
  "druid 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
-name = "rofl_proto"
+name = "roffl_proto"
 version = "0.1.0"
 
 [[package]]
-name = "rofl_server"
+name = "roffl_server"
 version = "0.1.0"
 dependencies = [
  "irc 0.13.6 (registry+https://github.com/rust-lang/crates.io-index)",
