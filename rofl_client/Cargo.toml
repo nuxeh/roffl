@@ -5,3 +5,4 @@ authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+noise = "0.6.0"

@@ -5,3 +5,4 @@ authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
 
 [dependencies]
+druid = "0.4.0"
