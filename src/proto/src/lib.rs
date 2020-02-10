@@ -1,9 +1,10 @@
-pub enum CommandType<'a> {
+pub enum MessageType<'a> {
     Identify(Identify<'a>),
     Authenticate(Authenticate<'a>),
     Notice(Notice<'a>),
     Message(Message<'a>),
     ServerMessage(ServerMessage<'a>),
+    Command(Command<'a>),
     Backscroll(Backscroll<'a>),
 }
 
@@ -30,6 +31,16 @@ pub struct ServerMessage<'a> {
 
 pub struct Ping<'a> {
     time: &'a str,
+}
+
+pub enum CommandType {
+    Mode,
+    Oper,
+}
+
+pub struct Command<'a> {
+    kind: CommandType,
+    params: Vec<&'a str>,
 }
 
 pub struct Backscroll<'a> {
