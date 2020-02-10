@@ -1,10 +1,10 @@
-pub enum CommandType {
-    Identify(Identify),
-    Authenticate(Authenticate),
-    Notice(Notice),
-    Message(Message),
-    ServerMessage(ServerMessage),
-    Backscroll(Backscroll),
+pub enum CommandType<'a> {
+    Identify(Identify<'a>),
+    Authenticate(Authenticate<'a>),
+    Notice(Notice<'a>),
+    Message(Message<'a>),
+    ServerMessage(ServerMessage<'a>),
+    Backscroll(Backscroll<'a>),
 }
 
 //#[derive(Serialize, Deserialize)]
@@ -13,25 +13,25 @@ pub struct Identify<'a> {
 }
 
 pub struct Authenticate<'a> {
-    password: &'a str,
+    pass: &'a str,
 }
 
 pub struct Notice<'a> {
-    content: &'a str,
+    text: &'a str,
 }
 
 pub struct Message<'a> {
-    content: &'a str,
+    text: &'a str,
 }
 
 pub struct ServerMessage<'a> {
-    content: &'a str,
+    text: &'a str,
 }
 
 pub struct Ping<'a> {
-    content: &'a str,
+    time: &'a str,
 }
 
 pub struct Backscroll<'a> {
-    content: &'a str,
+    something: &'a str,
 }
