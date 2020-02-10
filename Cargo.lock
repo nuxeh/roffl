@@ -1448,7 +1448,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "roffl_client"
+name = "roffl"
 version = "0.1.0"
 dependencies = [
  "noise 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",

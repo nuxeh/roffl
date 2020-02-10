@@ -3,6 +3,7 @@ name = "roffl_server"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
+description = "roffl server"
 
 [dependencies]
 irc = "0.13.6"

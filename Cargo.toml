@@ -1,8 +1,8 @@
 [workspace]
 
 members = [
-    "src/proto",
-    "src/server",
-    "src/client",
     "src/gui",
+    "src/proto",
+    "src/roffl",
+    "src/server",
 ]
