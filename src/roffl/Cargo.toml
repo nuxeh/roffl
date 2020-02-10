@@ -6,4 +6,10 @@ edition = "2018"
 description = "roffl, client and server library"
 
 [dependencies]
-noise = "0.6.0"
+rmp = "0.8.9"
+rmp-serde = "0.14.2"
+snow = "0.6.2"
+
+[dependencies.tokio]
+version = "0.2.11"
+features = ["macros", "net"]
