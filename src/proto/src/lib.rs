@@ -1,7 +1,14 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+enum CommandType {
+    Identify,
+    Authenticate,
+    Notice,
+    Message,
+    ServerMessage,
+}
+
+
+//#[derive(Serialize, Deserialize)]
+struct RofflMessage<'a> {
+    command: CommandType,
+    content: &'a str
 }
