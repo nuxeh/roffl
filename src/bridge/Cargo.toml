@@ -1,9 +1,9 @@
 [package]
-name = "roffl_server"
+name = "roffl_bridge"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
-description = "roffl server"
+description = "roffl bridge"
 
 [dependencies]
 irc = "0.13.6"

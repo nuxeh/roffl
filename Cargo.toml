@@ -1,8 +1,8 @@
 [workspace]
 
 members = [
+    "src/bridge",
     "src/gui",
     "src/proto",
     "src/roffl",
-    "src/server",
 ]
