@@ -9,6 +9,7 @@ description = "roffl, client and server library"
 rmp = "0.8.9"
 rmp-serde = "0.14.2"
 snow = "0.6.2"
+blake3 = "0.1.5"
 
 [dependencies.tokio]
 version = "0.2.11"
