@@ -23,7 +23,16 @@ pub fn verify_user_password(hash: &str, password: &str) -> bool {
 /// Encrypt a string.
 ///
 /// Using random key, encrypted with user password as a key.
+fn encrypt_string(key: &str, string: &str) -> String {
+    unimplemented!()
+}
 
 /// Encrypt a block of data.
+fn encrypt_block(key: &str, block: &[u8]) -> Vec<u8> {
+    unimplemented!()
+}
 
 /// Generate a hopefully cryptographically secure random encryption key.
+fn generate_random_key() -> String {
+    unimplemented!()
+}
