@@ -6,7 +6,7 @@ edition = "2018"
 description = "roffl bridge"
 
 [dependencies]
-irc = "0.13.6"
 docopt = "1.1.0"
+irc = "0.13.6"
 xmpp = "0.3.0"
 slack = "0.23.0"
