@@ -15,22 +15,25 @@ pre-shared passphrase on both client and server, using BLAKE3 as a key
 derivation function (PBKDF).
 
 This passphrase becomes the "server password", set interactively on server
-start, the key generated from which is saved in plain text in the server
-configuration. The server passphrase is stored in a system keyring on client
-applications, and generated on initiating a connection.
+configuration, the key generated from which is saved in plain text in the
+server configuration. The server passphrase is stored in a system keyring on
+client applications, and the derived server key is generated on initiating a
+connection.
 
 1.2.1 Key derivation
 
 A 256 bit key is generated from the server passphrase using BLAKE3. The PSK is
 this length as a stipulation of the noise protocol framework.
 
+The derived key is stored in Base64 encoding.
+
 2. User authentication
 
 A user is added on the server explicitly before a user can authenticate. The
 process of adding a new user will take the unencrypted passphrase, and hash it
 using the Argon2 hash function. The result of adding a new user is that a
-stored Argon2 hash in the server's configuration, corresponding to the user
-name.
+stored Argon2 hash and salt in the server's configuration, corresponding to the
+user name.
 
 Users are authenticated by a user passphrase, sent over the encrypted
 communication channel, but otherwise in plain text, with an LOGIN command,
@@ -38,6 +41,11 @@ containing also the user's username.
 
 Upon receiving this message, the server will verify the correctness of the
 password by comparison with the stored Argon2 hash for the supplied user name.
+
+2.0.1 Password generation and salting
+
+When the user is created, the Argon2 hash is generated, using a randomised
+salt.
 
 2.1 Rate limiting of authentication attempts
 
@@ -140,6 +148,13 @@ channel), it may send an UpdateTree command.
 
 5.0 Encryption
 
+5.1 Secret channels
+
 Secret channels and queries are encrypted end-to-end. This is a symmetric
 encryption using the
 [chacha](https://en.wikipedia.org/wiki/Salsa20#ChaCha_variant) stream cypher.
+
+5.2 Queries
+
+Queries between users on the network are encrypted using public key
+cryptography.
