@@ -10,6 +10,9 @@ pub enum MessageType<'a> {
     ServerMessage(ServerMessage<'a>),
     Command(Command<'a>),
     Backscroll(Backscroll<'a>),
+    Ping,
+    PingResponse,
+    Keepalive,
 }
 
 //#[derive(Serialize, Deserialize)]
