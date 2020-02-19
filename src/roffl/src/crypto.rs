@@ -1,3 +1,5 @@
+use rand::Rng;
+
 const SERVER_PASS_CONTEXT: &str = "roffl server pass v1 Wed 19 Feb 22:31:18 CST 2020";
 
 /// Derive a key from passphrase using BLAKE3 as a PBKDF.
@@ -36,9 +38,15 @@ fn encrypt_block(key: &str, block: &[u8]) -> Vec<u8> {
     unimplemented!()
 }
 
-/// Generate a hopefully cryptographically secure random encryption key.
-fn generate_random_key() -> String {
-    unimplemented!()
+/// Generate a cryptographically secure random encryption key.
+fn generate_random_data(bytes: usize) -> String {
+    let mut rng = rand::thread_rng();
+    let output: Vec<u8> = vec![0; bytes];
+    let output: Vec<u8> = output
+        .iter()
+        .map(|_| rng.gen::<u8>())
+        .collect();
+    base64::encode(&output)
 }
 
 #[cfg(test)]
@@ -48,5 +56,10 @@ mod tests {
     #[test]
     fn test_derive_key() {
         assert_eq!(derive_key("hunter2", 256), "xGc2M/5ZA5BwL9ZpZ1TXp5VODBh4/oU98tmyWym3a3k=");
+    }
+
+    #[test]
+    fn test_generate_random_data() {
+        assert_eq!(generate_random_data(8), "");
     }
 }
