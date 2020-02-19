@@ -1,3 +1,7 @@
+#[macro_use] extern crate serde_derive;
+
+pub mod types;
+
 pub enum MessageType<'a> {
     Identify(Identify<'a>),
     Authenticate(Authenticate<'a>),
