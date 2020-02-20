@@ -13,13 +13,21 @@ pub fn derive_key(passphrase: &str, bits: usize) -> Vec<u8> {
     output
 }
 
-/// Hash user password using Argon2 hash function.
+/// Hash user password
 ///
-/// Used for authenticating users.
-pub fn hash_user_password(pass: &str) -> String {
+/// Used for authenticating users. Returns a 2 array of strings, first salt,
+/// then hash, both Base64 encoded.
+pub fn hash_user_password(pass: &str) -> [String; 2] {
     let salt = generate_random_data(USER_PASS_SALT_SIZE);
+    [base64::encode(&salt), hash_password(pass, &salt)]
+}
+
+/// Hash a password using Argon2 hash function.
+///
+/// Hashed password is returned in a Base64 encoded string.
+fn hash_password(pass: &str, salt: &[u8]) -> String {
     let conf = argon2::Config::default();
-    let output = argon2::hash_encoded(pass.as_bytes(), &salt, &conf).unwrap();
+    let output = argon2::hash_encoded(pass.as_bytes(), salt, &conf).unwrap();
     base64::encode(&output)
 }
 
