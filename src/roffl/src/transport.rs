@@ -9,12 +9,11 @@ lazy_static! {
     static ref PARAMS: NoiseParams = "Noise_XXpsk3_25519_ChaChaPoly_BLAKE2s".parse().unwrap();
 }
 
-#[derive(Clone, Copy)]
-pub struct Transport {
+pub struct Connector {
     secret: [u8; 32],
 }
 
-impl Transport {
+impl Connector {
     /// Connect or begin listening
     fn init() {
 
@@ -22,17 +21,13 @@ impl Transport {
 }
 
 pub struct TransportBuilder {
-    transport: Transport,
+    secret: [u8; 32],
 }
 
 impl TransportBuilder {
     fn new() -> TransportBuilder {
-        let transport = Transport {
-            secret: [0; 32],
-        };
-
         TransportBuilder {
-            transport,
+            secret: [0; 32],
         }
     }
 
@@ -40,14 +35,16 @@ impl TransportBuilder {
         let secret = derive_key(password, 32);
 
         for (i, v) in secret.iter().enumerate() {
-            self.transport.secret[i] = *v;
+            self.secret[i] = *v;
         }
 
         self
     }
 
-    fn build(&self) -> Transport {
-        self.transport
+    fn build(&self) -> Connector {
+        Connector {
+            secret: self.secret,
+        }
     }
 }
 
