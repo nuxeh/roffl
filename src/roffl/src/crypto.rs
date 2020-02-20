@@ -77,6 +77,8 @@ mod tests {
         let generated = base64::encode(&generate_random_data(8));
         assert_ne!(generated, base64::encode(&[0; 8]));
         assert_ne!(generated, base64::encode(&[255; 8]));
+        assert_ne!(generate_random_data(64), generate_random_data(64));
+        assert_ne!(generate_random_data(64), generate_random_data(64));
     }
 
     #[test]
