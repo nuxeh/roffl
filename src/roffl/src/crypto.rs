@@ -1,5 +1,6 @@
 use rand::Rng;
 
+const USER_PASS_SALT_SIZE: usize = 32;
 const SERVER_PASS_CONTEXT: &str = "roffl server pass v1 Wed 19 Feb 22:31:18 CST 2020";
 
 /// Derive a key from passphrase using BLAKE3 as a PBKDF.
@@ -15,8 +16,11 @@ pub fn derive_key(passphrase: &str, bits: usize) -> Vec<u8> {
 /// Hash user password using Argon2 hash function.
 ///
 /// Used for authenticating users.
-pub fn hash_user_password(password: &str) -> String {
-    unimplemented!()
+pub fn hash_user_password(pass: &str) -> String {
+    let salt = generate_random_data(USER_PASS_SALT_SIZE);
+    let conf = argon2::Config::default();
+    let output = argon2::hash_encoded(pass.as_bytes(), &salt, &conf).unwrap();
+    base64::encode(&output)
 }
 
 /// Verify user password using Argon2 hash.
