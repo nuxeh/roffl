@@ -7,8 +7,8 @@ const SERVER_PASS_CONTEXT: &str = "roffl server pass v1 Wed 19 Feb 22:31:18 CST 
 ///
 /// This is used for example as a PSK for noise protocol communications, the
 /// password used here being the "server password".
-pub fn derive_key(passphrase: &str, bits: usize) -> Vec<u8> {
-    let mut output = vec![0; bits / 8];
+pub fn derive_key(passphrase: &str, bytes: usize) -> Vec<u8> {
+    let mut output = vec![0; bytes];
     blake3::derive_key(SERVER_PASS_CONTEXT, passphrase.as_bytes(), &mut output);
     output
 }
@@ -65,7 +65,7 @@ mod tests {
 
     #[test]
     fn test_derive_key() {
-        let derived = base64::encode(&derive_key("hunter2", 256));
+        let derived = base64::encode(&derive_key("hunter2", 32));
         assert_eq!(derived, "xGc2M/5ZA5BwL9ZpZ1TXp5VODBh4/oU98tmyWym3a3k=");
     }
 
