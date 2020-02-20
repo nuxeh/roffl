@@ -13,10 +13,11 @@ pub fn derive_key(passphrase: &str, bytes: usize) -> Vec<u8> {
     output
 }
 
-/// Hash user password
+/// Hash password with a random salt
 ///
-/// Used for... authenticating users
-pub fn hash_user_password(pass: &str) -> String {
+/// Used for:
+/// - authenticating users
+pub fn hash_password_rand_salt(pass: &str) -> String {
     let salt = generate_random_data(USER_PASS_SALT_SIZE);
     hash_password(pass, &salt)
 }
