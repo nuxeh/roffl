@@ -4,8 +4,9 @@
 
 All transfers are done between TCP streams, using the noise protocol framework
 for handshaking, establishing a secure channel, and processing data sent and
-received via TCP, using the "" protocol. Transfers are always 64 kB blocks.
-BLAKE2 is used as the noise protocol hashing function.
+received via TCP, using the "Noise_XXpsk3_25519_ChaChaPoly_BLAKE2s" protocol.
+
+Transfers are always 64 kB blocks.
 
 1.2 Server password
 
@@ -24,8 +25,6 @@ connection.
 
 A 256 bit key is generated from the server passphrase using BLAKE3. The PSK is
 this length as a stipulation of the noise protocol framework.
-
-The derived key is stored in Base64 encoding.
 
 2. User authentication
 
