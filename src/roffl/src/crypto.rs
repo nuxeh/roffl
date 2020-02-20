@@ -13,13 +13,22 @@ pub fn derive_key(passphrase: &str, bits: usize) -> Vec<u8> {
     output
 }
 
+pub struct HashedPassword {
+    hash: String,
+    salt: Vec<u8>,
+}
+
 /// Hash user password
 ///
 /// Used for authenticating users. Returns a 2 array of strings, first salt,
 /// then hash, both Base64 encoded.
-pub fn hash_user_password(pass: &str) -> [String; 2] {
+pub fn hash_user_password(pass: &str) -> HashedPassword {
     let salt = generate_random_data(USER_PASS_SALT_SIZE);
-    [base64::encode(&salt), hash_password(pass, &salt)]
+
+    HashedPassword {
+        hash: hash_password(pass, &salt),
+        salt,
+    }
 }
 
 /// Hash a password using Argon2 hash function.
@@ -27,8 +36,7 @@ pub fn hash_user_password(pass: &str) -> [String; 2] {
 /// Hashed password is returned in a Base64 encoded string.
 fn hash_password(pass: &str, salt: &[u8]) -> String {
     let conf = argon2::Config::default();
-    let output = argon2::hash_encoded(pass.as_bytes(), salt, &conf).unwrap();
-    base64::encode(&output)
+    argon2::hash_encoded(pass.as_bytes(), salt, &conf).unwrap()
 }
 
 /// Verify user password using Argon2 hash.
@@ -78,5 +86,13 @@ mod tests {
         let generated = base64::encode(&generate_random_data(8));
         assert_ne!(generated, base64::encode(&[0; 8]));
         assert_ne!(generated, base64::encode(&[255; 8]));
+    }
+
+    #[test]
+    fn test_hash_password() {
+        assert_eq!(
+            hash_password("hunter2", b"saltysaltysalty"),
+            "$argon2i$v=19$m=4096,t=3,p=1$c2FsdHlzYWx0eXNhbHR5$68Gy4/yqHHgRxiN/YDPMfB2X+JAqw47VmER7obMQfQY"
+        );
     }
 }
