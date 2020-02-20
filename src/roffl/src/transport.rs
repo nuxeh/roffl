@@ -50,3 +50,24 @@ impl TransportBuilder {
         self.transport
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_set_password() {
+        let t = TransportBuilder::new()
+            .password("foobarbaz")
+            .build();
+
+        assert_eq!(
+            base64::encode(&t.secret),
+            "IG/rVwGaJn3JUrVtAymJw2XNA9XN8BIPYpk/thUnZVk="
+        );
+        assert_eq!(
+            base64::encode(&t.secret),
+            base64::encode(&derive_key("foobarbaz", 32))
+        );
+    }
+}
