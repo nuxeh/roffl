@@ -9,7 +9,14 @@ lazy_static! {
     static ref PARAMS: NoiseParams = "Noise_XXpsk3_25519_ChaChaPoly_BLAKE2s".parse().unwrap();
 }
 
+#[derive(Clone, Copy)]
+enum ConnectorType {
+    Server,
+    Client,
+}
+
 pub struct Connector {
+    kind: ConnectorType,
     secret: [u8; 32],
 }
 
@@ -25,13 +32,21 @@ pub struct TransportBuilder {
 }
 
 impl TransportBuilder {
-    fn new() -> TransportBuilder {
-        let connector = Connector {
-            secret: [0; 32],
-        };
-
+    fn client() -> TransportBuilder {
         TransportBuilder {
-            connector,
+            connector: Connector {
+                kind: ConnectorType::Client,
+                secret: [0; 32],
+            },
+        }
+    }
+
+    fn server() -> TransportBuilder {
+        TransportBuilder {
+            connector: Connector {
+                kind: ConnectorType::Server,
+                secret: [0; 32],
+            },
         }
     }
 
@@ -56,7 +71,7 @@ mod tests {
 
     #[test]
     fn test_set_password() {
-        let t = TransportBuilder::new()
+        let t = TransportBuilder::client()
             .password("foobarbaz")
             .build();
 
