@@ -9,7 +9,7 @@ lazy_static! {
     static ref PARAMS: NoiseParams = "Noise_XXpsk3_25519_ChaChaPoly_BLAKE2s".parse().unwrap();
 }
 
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 enum ConnectorType {
     Server,
     Client,
@@ -68,6 +68,20 @@ impl TransportBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_build_client() {
+        let t = TransportBuilder::client().build();
+        assert_eq!(t.kind, ConnectorType::Client);
+        assert_ne!(t.kind, ConnectorType::Server);
+    }
+
+    #[test]
+    fn test_build_server() {
+        let t = TransportBuilder::server().build();
+        assert_eq!(t.kind, ConnectorType::Server);
+        assert_ne!(t.kind, ConnectorType::Client);
+    }
 
     #[test]
     fn test_set_password() {
