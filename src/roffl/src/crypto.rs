@@ -33,8 +33,8 @@ fn hash_password(pass: &str, salt: &[u8]) -> String {
 /// Verify user password using Argon2 hash.
 ///
 /// Used for authenticating users.
-pub fn verify_user_password(hash: &str, password: &str) -> bool {
-    unimplemented!()
+pub fn verify_password(hash: &str, password: &str) -> bool {
+    argon2::verify_encoded(hash, password.as_bytes()).unwrap()
 }
 
 /// Encrypt a string.
@@ -85,5 +85,12 @@ mod tests {
             hash_password("hunter2", b"saltysaltysalty"),
             "$argon2i$v=19$m=4096,t=3,p=1$c2FsdHlzYWx0eXNhbHR5$68Gy4/yqHHgRxiN/YDPMfB2X+JAqw47VmER7obMQfQY"
         );
+    }
+
+    #[test]
+    fn test_verify_user_password() {
+        let hash = "$argon2i$v=19$m=4096,t=3,p=1$c2FsdHlzYWx0eXNhbHR5$68Gy4/yqHHgRxiN/YDPMfB2X+JAqw47VmER7obMQfQY";
+        assert!(verify_password(&hash, "hunter2"));
+        assert!(!verify_password(&hash, "hunter1"));
     }
 }
