@@ -22,7 +22,19 @@ pub struct Connector {
 
 impl Connector {
     /// Connect or begin listening
-    fn init() {
+    pub fn init(&self) {
+        if self.kind == ConnectorType::Client {
+            self.init_client();
+        } else {
+            self.init_server();
+        }
+    }
+
+    fn init_client(&self) {
+
+    }
+
+    fn init_server(&self) {
 
     }
 }
@@ -32,7 +44,7 @@ pub struct TransportBuilder {
 }
 
 impl TransportBuilder {
-    fn client() -> TransportBuilder {
+    pub fn client() -> TransportBuilder {
         TransportBuilder {
             connector: Connector {
                 kind: ConnectorType::Client,
@@ -41,7 +53,7 @@ impl TransportBuilder {
         }
     }
 
-    fn server() -> TransportBuilder {
+    pub fn server() -> TransportBuilder {
         TransportBuilder {
             connector: Connector {
                 kind: ConnectorType::Server,
@@ -50,7 +62,7 @@ impl TransportBuilder {
         }
     }
 
-    fn password(&mut self, password: &str) -> &mut TransportBuilder {
+    pub fn password(&mut self, password: &str) -> &mut TransportBuilder {
         let secret = derive_key(password, 32);
 
         for (i, v) in secret.iter().enumerate() {
@@ -60,7 +72,7 @@ impl TransportBuilder {
         self
     }
 
-    fn build(&self) -> Connector {
+    pub fn build(&self) -> Connector {
         Connector { ..self.connector }
     }
 }
