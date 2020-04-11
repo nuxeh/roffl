@@ -6,3 +6,4 @@ edition = "2018"
 
 [dependencies]
 sntp_request = { git = "https://github.com/nuxeh/sntp_request", branch = "nuxeh/64-bit-timestamp" }
+failure = "0.1.7"
