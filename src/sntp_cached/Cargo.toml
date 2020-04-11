@@ -1,0 +1,8 @@
+[package]
+name = "sntp_cached"
+version = "0.1.0"
+authors = ["Ed Cragg <drq.11235@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+sntp_request = { git = "https://github.com/nuxeh/sntp_request", branch = "nuxeh/64-bit-timestamp" }

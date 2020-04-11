@@ -5,4 +5,5 @@ members = [
     "src/gui",
     "src/proto",
     "src/roffl",
+    "src/sntp_cached",
 ]
