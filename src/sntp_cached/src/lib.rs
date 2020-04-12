@@ -6,6 +6,7 @@ use std::time::Instant;
 use sntp_request::{SntpRequest, SntpTimestamp};
 
 /// Cached NTP struct
+#[derive(Default)]
 pub struct SntpCached {
     /// The last cached NTP timestamp
     timestamp: Option<SntpTimestamp>,
@@ -16,10 +17,7 @@ pub struct SntpCached {
 impl SntpCached {
     /// Get a new cached NTP struct
     pub fn new() -> Self {
-        SntpCached {
-            timestamp: None,
-            last_sync: None,
-        }
+        SntpCached::default()
     }
 
     /// Initialise
