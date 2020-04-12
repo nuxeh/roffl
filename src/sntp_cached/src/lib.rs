@@ -35,7 +35,7 @@ impl SntpCached {
 
     /// Get an NTP timestamp for now
     pub fn get_timestamp(&mut self) -> Result<SntpTimestamp, Error> {
-        if let None = self.timestamp {
+        if self.timestamp.is_none() {
             self.sync()?
         }
 
