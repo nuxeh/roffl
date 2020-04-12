@@ -7,7 +7,9 @@ use sntp_request::{SntpRequest, SntpTimestamp};
 
 /// Cached NTP struct
 pub struct SntpCached {
+    /// The last cached NTP timestamp
     timestamp: Option<SntpTimestamp>,
+    /// An instant for counting the time since the update
     last_sync: Option<Instant>,
 }
 
@@ -20,6 +22,7 @@ impl SntpCached {
         }
     }
 
+    /// Initialise
     pub fn init(&mut self) -> Result<(), Error> {
         self.sync()
     }
@@ -71,14 +74,17 @@ impl SntpCached {
     }
 }
 
+/// Rescale the fractional part of the timestamp to a given scale
 pub fn rescale_frac(ts: &SntpTimestamp, scale: u128) -> u128 {
     ((ts.frac as f64 / u32::max_value() as f64) * scale as f64) as u128
 }
 
+/// Rescale the fractional part of the timestamp to milliseconds
 pub fn rescale_frac_ms(ts: &SntpTimestamp) -> u32 {
     rescale_frac(ts, 1e+3 as u128) as u32
 }
 
+/// Rescale the fractional part of the timestamp to nanoseconds
 pub fn rescale_frac_ns(ts: &SntpTimestamp) -> u128 {
     rescale_frac(ts, 1e+9 as u128) as u128
 }

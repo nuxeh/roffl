@@ -1,3 +1,6 @@
+// Sync the clock on initialisation, and just use the internal clock from then
+// onwards. Timing will creep due to OS scheduling of the sleep.
+
 use sntp_cached::{SntpCached, rescale_frac_ms};
 use std::{thread, time};
 
