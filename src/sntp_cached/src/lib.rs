@@ -41,7 +41,7 @@ impl SntpCached {
 
         let nsec = self.last_sync
             .as_ref()
-            .and_then(|last| Some(last.elapsed().as_nanos()));
+            .map(|last| last.elapsed().as_nanos());
 
         let ts = if let (Some(t), Some(ns)) = (self.timestamp.as_ref(), nsec) {
             let ntp_ns = (t.frac as f64 / u32::max_value() as f64)*1.0e+9;
