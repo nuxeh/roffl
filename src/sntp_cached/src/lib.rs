@@ -28,6 +28,7 @@ impl SntpCached {
     }
 
     /// Trigger an NTP sync
+    /// TODO: Consider making this asynchronous to cope with long updates
     pub fn sync(&mut self) -> Result<(), Error> {
         self.sntp_sync()
     }
