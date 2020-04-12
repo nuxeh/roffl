@@ -1,4 +1,4 @@
-use sntp_cached::SntpCached;
+use sntp_cached::{SntpCached, rescale_frac_ms};
 use std::{thread, time};
 
 fn main() {
@@ -8,7 +8,8 @@ fn main() {
 
     loop {
         let timestamp = ntp.get_timestamp().unwrap();
-        println!("secs {} frac {}", timestamp.secs, timestamp.frac);
+        let msec = rescale_frac_ms(&timestamp);
+        println!("secs {} frac {} ms {}", timestamp.secs, timestamp.frac, msec);
         thread::sleep(delay);
     }
 }
