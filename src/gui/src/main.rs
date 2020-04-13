@@ -16,7 +16,7 @@ struct AppData {
 
 fn main() {
     let main_window = WindowDesc::new(ui_builder)
-        .title(LocalizedString::new("list-demo-window-title").with_placeholder("List Demo"));
+        .title(LocalizedString::new("roffl-window-title").with_placeholder("roffl"));
     // Set our initial data
     let data = AppData {
         left: Arc::new(vec![1, 2]),
@@ -72,6 +72,7 @@ fn ui_builder() -> impl Widget<AppData> {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
                         format!("List item #{}", item)
                     })
+                    .with_text_size(10.0)
                     .align_vertical(UnitPoint::LEFT),
                 )
                 .with_flex_spacer(1.0)
@@ -85,9 +86,9 @@ fn ui_builder() -> impl Widget<AppData> {
                         .fix_size(80.0, 20.0)
                         .align_vertical(UnitPoint::CENTER),
                 )
-                .padding(10.0)
+                .padding(2.0)
                 .background(Color::rgb(0.5, 0.0, 0.5))
-                .fix_height(50.0)
+                .fix_height(20.0)
         }))
         .vertical()
         .lens(lens::Id.map(
