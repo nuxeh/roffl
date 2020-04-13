@@ -109,14 +109,14 @@ fn ui_builder() -> impl Widget<AppData> {
     // Add lists
     root.add_flex_child(lists, 0.0);
 
-    let textbox_msg = TextBox::new();
-
-    let send_bar = Flex::row()
-        .with_child(Padding::new(5.0, textbox_msg))
-            .fix_height(30.0)
-            .expand_width();
-
-    //root.add_child(send_bar);
+    // Construct the footer
+    let mut footer = Flex::row();
+    footer.add_flex_child(
+        Label::new("blah")
+            .expand_width(),
+            1.0
+    );
+    footer.add_child(Button::new("Send").padding(2.0));
 
     // Spacer to keep footer at the bottom
     root.add_flex_spacer(1.0);
@@ -125,6 +125,12 @@ fn ui_builder() -> impl Widget<AppData> {
         Button::new("Send")
             .on_click(|_, data: &mut AppData, _| {
             })
+            .fix_height(30.0)
+            .expand_width(),
+    );
+
+    root.add_child(
+        footer
             .fix_height(30.0)
             .expand_width(),
     );
