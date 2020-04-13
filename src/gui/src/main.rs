@@ -1,3 +1,5 @@
+//! `roffl` main window
+
 use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
@@ -100,7 +102,5 @@ fn ui_builder() -> impl Widget<AppData> {
     );
 
     root.add_flex_child(lists, 1.0);
-
-    // Mark the widget as needing its layout rects painted
-    root.debug_paint_layout()
+    root
 }
