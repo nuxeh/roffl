@@ -27,6 +27,7 @@ fn main() {
         messages: Arc::new(vec![1, 2, 3]),
         nicks: Arc::new(vec![1, 2]),
     };
+
     AppLauncher::with_window(main_window)
         .use_simple_logger()
         .launch(data)
@@ -38,17 +39,8 @@ fn ui_builder() -> impl Widget<AppData> {
 
     // Build a button to add children to both lists
     root.add_child(
-        Button::new("Add")
-            .on_click(|_, data: &mut AppData, _| {
-                // Add child to channel list
-                let value = data.channels.len() + 1;
-                Arc::make_mut(&mut data.channels).push(value as u32);
-
-                // Add child to message list
-                let value = data.messages.len() + 1;
-                Arc::make_mut(&mut data.messages).push(value as u32);
-            })
-            .fix_height(30.0)
+        Label::new("Channel name")
+            .padding(4.0)
             .expand_width(),
     );
 
