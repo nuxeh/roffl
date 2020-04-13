@@ -112,7 +112,8 @@ fn ui_builder() -> impl Widget<AppData> {
     // Construct the footer
     let mut footer = Flex::row();
     footer.add_flex_child(
-        Label::new("blah")
+        Button::new("blah")
+            .padding(2.0)
             .expand_width(),
             1.0
     );
