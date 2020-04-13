@@ -3,7 +3,7 @@
 use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
-use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox, Padding, SizedBox};
+use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox, Padding};
 use druid::{
     AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
 };
@@ -119,7 +119,7 @@ fn ui_builder() -> impl Widget<AppData> {
     //root.add_child(send_bar);
 
     // Spacer to keep footer at the bottom
-    root.add_flex_child(SizedBox::empty().expand(), 1.0);
+    root.add_flex_spacer(1.0);
 
     root.add_child(
         Button::new("Send")
