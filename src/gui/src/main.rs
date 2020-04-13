@@ -13,6 +13,11 @@ struct AppData {
     channels: Arc<Vec<u32>>,
     messages: Arc<Vec<u32>>,
     nicks: Arc<Vec<u32>>,
+    message_text: String,
+}
+
+#[derive(Clone, Data, Lens)]
+struct AppState {
 }
 
 fn main() {
@@ -26,6 +31,7 @@ fn main() {
         channels: Arc::new(vec![1, 2]),
         messages: Arc::new(vec![1, 2, 3]),
         nicks: Arc::new(vec![1, 2]),
+        message_text: String::from(""),
     };
 
     AppLauncher::with_window(main_window)
@@ -111,11 +117,9 @@ fn ui_builder() -> impl Widget<AppData> {
 
     // Construct the footer
     let mut footer = Flex::row();
-    footer.add_flex_child(
-        Button::new("blah")
-            .padding(2.0)
-            .expand_width(),
-            1.0
+    footer.add_child(
+        TextBox::new()
+            .lens(AppData::message_text),
     );
     footer.add_child(Button::new("Send").padding(2.0));
 
