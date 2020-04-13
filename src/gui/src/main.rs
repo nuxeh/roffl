@@ -3,7 +3,7 @@
 use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
-use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll};
+use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox, Padding};
 use druid::{
     AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc,
 };
@@ -111,6 +111,25 @@ fn ui_builder() -> impl Widget<AppData> {
         1.0,
     );
 
+    // Add lists
     root.add_flex_child(lists, 1.0);
+
+    let textbox_msg = TextBox::new();
+
+    let send_bar = Flex::row()
+        .with_child(Padding::new(5.0, textbox_msg))
+            .fix_height(30.0)
+            .expand_width();
+
+    //root.add_child(send_bar);
+
+    root.add_child(
+        Button::new("Send")
+            .on_click(|_, data: &mut AppData, _| {
+            })
+            .fix_height(30.0)
+            .expand_width(),
+    );
+
     root
 }
