@@ -5,7 +5,7 @@ use std::sync::Arc;
 use druid::lens::{self, LensExt};
 use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox, Padding};
 use druid::{
-    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc, MenuDesc,
+    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
 };
 
 #[derive(Clone, Data, Lens)]
@@ -19,7 +19,7 @@ fn main() {
     // Make the window
     let main_window = WindowDesc::new(ui_builder)
         .title(LocalizedString::new("roffl-window-title").with_placeholder("roffl"))
-        .menu(make_main_menu());
+        .menu(make_menu());
 
     // Set our initial data
     let data = AppData {
@@ -129,13 +129,35 @@ fn ui_builder() -> impl Widget<AppData> {
     root
 }
 
-fn make_main_menu<T: Data>() -> MenuDesc<T> {
+const MENU_COLOURS_ACTION: Selector = Selector::new("menu-colours-action");
+const MENU_MESSAGING_ACTION: Selector = Selector::new("menu-messaging-action");
+const MENU_CONNECT_ACTION: Selector = Selector::new("menu-server-action");
+
+fn make_menu<T: Data>() -> MenuDesc<T> {
     let edit_menu = MenuDesc::new(LocalizedString::new("common-menu-edit-menu"))
         .append(druid::platform_menus::common::cut())
         .append(druid::platform_menus::common::copy())
         .append(druid::platform_menus::common::paste());
 
+    let settings_menu = MenuDesc::new(LocalizedString::new("Settings"))
+        .append(MenuItem::new(
+            LocalizedString::new("Colours"),
+            MENU_COLOURS_ACTION
+        ))
+        .append(MenuItem::new(
+            LocalizedString::new("Messaging"),
+            MENU_MESSAGING_ACTION
+        ));
+
+    let server_menu = MenuDesc::new(LocalizedString::new("Server"))
+        .append(MenuItem::new(
+            LocalizedString::new("Connect..."),
+            MENU_CONNECT_ACTION
+        ));
+
     MenuDesc::platform_default()
         .unwrap_or(MenuDesc::empty())
+        .append(server_menu)
         .append(edit_menu)
+        .append(settings_menu)
 }
