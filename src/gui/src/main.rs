@@ -3,7 +3,7 @@
 use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
-use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox, Padding};
+use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox};
 use druid::{
     AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
 };
