@@ -117,11 +117,19 @@ fn ui_builder() -> impl Widget<AppData> {
 
     // Construct the footer
     let mut footer = Flex::row();
-    footer.add_child(
+    footer.add_flex_child(
         TextBox::new()
+            .padding(2.0)
+            .expand()
+            .align_vertical(UnitPoint::CENTER)
             .lens(AppData::message_text),
+            1.0
     );
-    footer.add_child(Button::new("Send").padding(2.0));
+    footer.add_child(
+        Button::new("Send")
+            .padding(2.0)
+            .align_vertical(UnitPoint::CENTER)
+    );
 
     // Spacer to keep footer at the bottom
     root.add_flex_spacer(1.0);
@@ -129,6 +137,7 @@ fn ui_builder() -> impl Widget<AppData> {
     root.add_child(
         footer
             .fix_height(30.0)
+            .padding(4.0)
             .expand_width(),
     );
 
