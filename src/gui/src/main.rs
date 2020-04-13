@@ -5,7 +5,7 @@ use std::sync::Arc;
 use druid::lens::{self, LensExt};
 use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox, Padding};
 use druid::{
-    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc,
+    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc, MenuDesc,
 };
 
 #[derive(Clone, Data, Lens)]
@@ -16,8 +16,11 @@ struct AppData {
 }
 
 fn main() {
+    // Make the window
     let main_window = WindowDesc::new(ui_builder)
-        .title(LocalizedString::new("roffl-window-title").with_placeholder("roffl"));
+        .title(LocalizedString::new("roffl-window-title").with_placeholder("roffl"))
+        .menu(make_main_menu());
+
     // Set our initial data
     let data = AppData {
         channels: Arc::new(vec![1, 2]),
@@ -132,4 +135,15 @@ fn ui_builder() -> impl Widget<AppData> {
     );
 
     root
+}
+
+fn make_main_menu<T: Data>() -> MenuDesc<T> {
+    let edit_menu = MenuDesc::new(LocalizedString::new("common-menu-edit-menu"))
+        .append(druid::platform_menus::common::cut())
+        .append(druid::platform_menus::common::copy())
+        .append(druid::platform_menus::common::paste());
+
+    MenuDesc::platform_default()
+        .unwrap_or(MenuDesc::empty())
+        .append(edit_menu)
 }
