@@ -10,8 +10,9 @@ use druid::{
 
 #[derive(Clone, Data, Lens)]
 struct AppData {
-    left: Arc<Vec<u32>>,
-    right: Arc<Vec<u32>>,
+    channels: Arc<Vec<u32>>,
+    messages: Arc<Vec<u32>>,
+    nicks: Arc<Vec<u32>>,
 }
 
 fn main() {
@@ -19,8 +20,9 @@ fn main() {
         .title(LocalizedString::new("roffl-window-title").with_placeholder("roffl"));
     // Set our initial data
     let data = AppData {
-        left: Arc::new(vec![1, 2]),
-        right: Arc::new(vec![1, 2, 3]),
+        channels: Arc::new(vec![1, 2]),
+        messages: Arc::new(vec![1, 2, 3]),
+        nicks: Arc::new(vec![1, 2]),
     };
     AppLauncher::with_window(main_window)
         .use_simple_logger()
@@ -35,13 +37,13 @@ fn ui_builder() -> impl Widget<AppData> {
     root.add_child(
         Button::new("Add")
             .on_click(|_, data: &mut AppData, _| {
-                // Add child to left list
-                let value = data.left.len() + 1;
-                Arc::make_mut(&mut data.left).push(value as u32);
+                // Add child to channel list
+                let value = data.channels.len() + 1;
+                Arc::make_mut(&mut data.channels).push(value as u32);
 
-                // Add child to right list
-                let value = data.right.len() + 1;
-                Arc::make_mut(&mut data.right).push(value as u32);
+                // Add child to message list
+                let value = data.messages.len() + 1;
+                Arc::make_mut(&mut data.messages).push(value as u32);
             })
             .fix_height(30.0)
             .expand_width(),
@@ -49,7 +51,7 @@ fn ui_builder() -> impl Widget<AppData> {
 
     let mut lists = Flex::row().cross_axis_alignment(CrossAxisAlignment::Start);
 
-    // Build a simple list
+    // Build the channel list
     lists.add_flex_child(
         Scroll::new(List::new(|| {
             Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
@@ -61,11 +63,11 @@ fn ui_builder() -> impl Widget<AppData> {
                 .background(Color::rgb(0.5, 0.5, 0.5))
         }))
         .vertical()
-        .lens(AppData::left),
+        .lens(AppData::channels),
         1.0,
     );
 
-    // Build a list with shared data
+    // Build the message list with shared data
     lists.add_flex_child(
         Scroll::new(List::new(|| {
             Flex::row()
@@ -84,12 +86,28 @@ fn ui_builder() -> impl Widget<AppData> {
         .vertical()
         .lens(lens::Id.map(
             // Expose shared data with children data
-            |d: &AppData| (d.right.clone(), d.right.clone()),
+            |d: &AppData| (d.messages.clone(), d.messages.clone()),
             |d: &mut AppData, x: (Arc<Vec<u32>>, Arc<Vec<u32>>)| {
                 // If shared data was changed reflect the changes in our AppData
-                d.right = x.0
+                d.messages = x.0
             },
         )),
+        1.0,
+    );
+
+    // Build the nick list
+    lists.add_flex_child(
+        Scroll::new(List::new(|| {
+            Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
+                .with_text_size(10.0)
+                .align_vertical(UnitPoint::LEFT)
+                .padding(2.0)
+                .expand()
+                .height(20.0)
+                .background(Color::rgb(0.5, 0.5, 0.5))
+        }))
+        .vertical()
+        .lens(AppData::nicks),
         1.0,
     );
 
