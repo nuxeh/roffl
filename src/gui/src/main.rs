@@ -122,14 +122,6 @@ fn ui_builder() -> impl Widget<AppData> {
     root.add_flex_spacer(1.0);
 
     root.add_child(
-        Button::new("Send")
-            .on_click(|_, data: &mut AppData, _| {
-            })
-            .fix_height(30.0)
-            .expand_width(),
-    );
-
-    root.add_child(
         footer
             .fix_height(30.0)
             .expand_width(),
