@@ -1,6 +1,7 @@
 //! `roffl` main window
 
-//mod widgets;
+mod widgets;
+use widgets::panel2::Panel;
 //use widgets::panel::Stretch;
 
 use std::sync::Arc;
