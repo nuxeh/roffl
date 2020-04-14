@@ -179,6 +179,7 @@ const MENU_COLOURS_ACTION: Selector = Selector::new("menu-colours-action");
 const MENU_MESSAGING_ACTION: Selector = Selector::new("menu-messaging-action");
 const MENU_CONNECT_ACTION: Selector = Selector::new("menu-server-action");
 const MENU_VIEW_RBAR_ACTION: Selector = Selector::new("menu-right-bar-action");
+const MENU_SEARCH_ACTION: Selector = Selector::new("menu-search-action");
 
 fn make_menu<T: Data>() -> MenuDesc<T> {
     let edit_menu = MenuDesc::new(LocalizedString::new("common-menu-edit-menu"))
@@ -198,12 +199,22 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
 
     let view_menu = MenuDesc::new(LocalizedString::new("View"))
         .append(MenuItem::new(
-            LocalizedString::new("Right bar"),
+            LocalizedString::new("Toggle right panel"),
             MENU_VIEW_RBAR_ACTION
         ))
         .append(MenuItem::new(
-            LocalizedString::new("Left bar"),
+            LocalizedString::new("Toggle left panel"),
             MENU_VIEW_RBAR_ACTION
+        ));
+
+    let search_menu = MenuDesc::new(LocalizedString::new("Search"))
+        .append(MenuItem::new(
+            LocalizedString::new("Search"),
+            MENU_SEARCH_ACTION
+        ))
+        .append(MenuItem::new(
+            LocalizedString::new("Build database"),
+            MENU_SEARCH_ACTION
         ));
 
     let server_menu = MenuDesc::new(LocalizedString::new("Server"))
@@ -217,5 +228,6 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
         .append(server_menu)
         .append(edit_menu)
         .append(view_menu)
+        .append(search_menu)
         .append(settings_menu)
 }
