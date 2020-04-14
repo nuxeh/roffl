@@ -121,14 +121,14 @@ fn ui_builder() -> impl Widget<AppData> {
         TextBox::new()
             .padding(2.0)
             .expand()
-            .align_vertical(UnitPoint::CENTER)
+            .align_vertical(UnitPoint::BOTTOM)
             .lens(AppData::message_text),
             1.0
     );
     footer.add_child(
         Button::new("Send")
             .padding(2.0)
-            .align_vertical(UnitPoint::CENTER)
+            .align_vertical(UnitPoint::BOTTOM)
     );
 
     // Spacer to keep footer at the bottom
@@ -137,7 +137,7 @@ fn ui_builder() -> impl Widget<AppData> {
     root.add_child(
         footer
             .fix_height(30.0)
-            .padding(4.0)
+            .padding(2.0)
             .expand_width(),
     );
 
