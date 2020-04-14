@@ -26,8 +26,8 @@ struct AppState {
 
 fn main() {
     // Make the window
-    let main_window = WindowDesc::new(ui_builder)
-        .title(LocalizedString::new("roffl-window-title").with_placeholder("roffl"))
+    let main_window = WindowDesc::new(make_ui)
+        .title(LocalizedString::new("roffl").with_placeholder("roffl"))
         .menu(make_menu());
 
     // Set our initial data
@@ -44,7 +44,7 @@ fn main() {
         .expect("launch failed");
 }
 
-fn ui_builder() -> impl Widget<AppData> {
+fn make_ui() -> impl Widget<AppData> {
     let mut root = Flex::column();
 
     // Build a button to add children to both lists
