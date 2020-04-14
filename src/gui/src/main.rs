@@ -189,11 +189,11 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
 
     let settings_menu = MenuDesc::new(LocalizedString::new("Settings"))
         .append(MenuItem::new(
-            LocalizedString::new("Colours"),
+            LocalizedString::new("Colours..."),
             MENU_COLOURS_ACTION
         ))
         .append(MenuItem::new(
-            LocalizedString::new("Messaging"),
+            LocalizedString::new("Messaging..."),
             MENU_MESSAGING_ACTION
         ));
 
@@ -209,7 +209,7 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
 
     let search_menu = MenuDesc::new(LocalizedString::new("Search"))
         .append(MenuItem::new(
-            LocalizedString::new("Search"),
+            LocalizedString::new("Search..."),
             MENU_SEARCH_ACTION
         ))
         .append(MenuItem::new(
