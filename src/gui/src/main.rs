@@ -171,6 +171,7 @@ fn make_ui() -> impl Widget<AppData> {
 const MENU_COLOURS_ACTION: Selector = Selector::new("menu-colours-action");
 const MENU_MESSAGING_ACTION: Selector = Selector::new("menu-messaging-action");
 const MENU_CONNECT_ACTION: Selector = Selector::new("menu-server-action");
+const MENU_VIEW_RBAR_ACTION: Selector = Selector::new("menu-right-bar-action");
 
 fn make_menu<T: Data>() -> MenuDesc<T> {
     let edit_menu = MenuDesc::new(LocalizedString::new("common-menu-edit-menu"))
@@ -188,6 +189,16 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
             MENU_MESSAGING_ACTION
         ));
 
+    let view_menu = MenuDesc::new(LocalizedString::new("View"))
+        .append(MenuItem::new(
+            LocalizedString::new("Right bar"),
+            MENU_VIEW_RBAR_ACTION
+        ))
+        .append(MenuItem::new(
+            LocalizedString::new("Left bar"),
+            MENU_VIEW_RBAR_ACTION
+        ));
+
     let server_menu = MenuDesc::new(LocalizedString::new("Server"))
         .append(MenuItem::new(
             LocalizedString::new("Connect..."),
@@ -198,5 +209,6 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
         .unwrap_or(MenuDesc::empty())
         .append(server_menu)
         .append(edit_menu)
+        .append(view_menu)
         .append(settings_menu)
 }
