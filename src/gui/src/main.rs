@@ -169,10 +169,15 @@ fn make_ui() -> impl Widget<AppData> {
     // Spacer to keep footer at the bottom
     //root.add_flex_spacer(1.0);
 
+    // Add panel layout
     let panel = Panel::new(Label::new("hi panel"))
         .expand_height();
 
-    root.add_flex_child(panel, 1.0);
+    let mut midsection = Flex::row();
+    midsection.add_flex_child(panel, 0.0);
+    midsection.add_flex_spacer(1.0);
+
+    root.add_flex_child(midsection, 1.0);
 
     root.add_child(
         footer
