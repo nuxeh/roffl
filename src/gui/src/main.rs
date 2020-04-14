@@ -1,7 +1,7 @@
 //! `roffl` main window
 
-mod widgets;
-use widgets::panel::Stretch;
+//mod widgets;
+//use widgets::panel::Stretch;
 
 use std::sync::Arc;
 
@@ -120,12 +120,12 @@ fn make_ui() -> impl Widget<AppData> {
     );
 
     // Add lists
-    //root.add_flex_child(lists, 0.0);
+    root.add_flex_child(lists, 0.0);
 
 
 
 
-
+/*
     let draggable_cols =
             Split::vertical(
                 Label::new("Split A"),
@@ -144,9 +144,9 @@ fn make_ui() -> impl Widget<AppData> {
             .fill_splitter_handle(true)
             .min_size(10.0)
             .expand();//.fix_height(100.0);
+*/
 
-
-    root.add_flex_child(draggable_cols, 1.0);
+    //root.add_flex_child(draggable_cols, 1.0);
 
 
     // Construct the footer

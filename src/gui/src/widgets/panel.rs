@@ -15,7 +15,6 @@
 //! A widget with draggable resizing on one edge.
 
 use druid::kurbo::{Line, Point, Rect, Size};
-use druid::widget::flex::Axis;
 use druid::{
     theme, BoxConstraints, Color, Cursor, Data, Env, Event, EventCtx, LayoutCtx, LifeCycle,
     LifeCycleCtx, PaintCtx, RenderContext, UpdateCtx, Widget, WidgetPod,
@@ -23,7 +22,6 @@ use druid::{
 
 /// A container containing two other widgets, splitting the area either horizontally or vertically.
 pub struct Stretch<T> {
-    split_axis: Axis,
     width_chosen: f64,
     min_size: f64,     // Integers only
     bar_size: f64,     // Integers only
@@ -38,12 +36,10 @@ impl<T> Stretch<T> {
     ///
     /// Horizontal split axis means that the children are left and right.
     /// Vertical split axis means that the children are up and down.
-    fn new(
-        split_axis: Axis,
+    pub fn new(
         child: impl Widget<T> + 'static,
     ) -> Self {
         Stretch {
-            split_axis,
             width_chosen: 0.5,
             min_size: 0.0,
             bar_size: 6.0,
@@ -52,31 +48,6 @@ impl<T> Stretch<T> {
             draggable: false,
             child: WidgetPod::new(child).boxed(),
         }
-    }
-
-    /// Create a new split panel, with the horizontal axis split in two by a vertical bar.
-    /// The children are laid out left and right.
-    pub fn vertical(child: impl Widget<T> + 'static) -> Self {
-        Self::new(Axis::Horizontal, child)
-    }
-
-    /// Create a new split panel, with the vertical axis split in two by a horizontal bar.
-    /// The children are laid out up and down.
-    pub fn horizontal(child1: impl Widget<T> + 'static, child2: impl Widget<T> + 'static) -> Self {
-        Self::new(Axis::Vertical, child1)
-    }
-
-    /// Builder-style method to set the split point as a fraction of the split axis.
-    ///
-    /// The value must be between `0.0` and `1.0`, inclusive.
-    /// The default split point is `0.5`.
-    pub fn split_point(mut self, split_point: f64) -> Self {
-        assert!(
-            split_point >= 0.0 && split_point <= 1.0,
-            "split_point must be in the range [0.0-1.0]!"
-        );
-        self.split_point_chosen = split_point;
-        self
     }
 
     /// Builder-style method to set the minimum size for both sides of the split axis.
@@ -148,37 +119,21 @@ impl<T> Stretch<T> {
     /// given the specified total size.
     fn bar_edges(&self, size: Size) -> (f64, f64) {
         let bar_area = self.bar_area();
-        match self.split_axis {
-            Axis::Horizontal => {
-                let reduced_width = size.width - bar_area;
-                let edge1 = (reduced_width * self.split_point_effective).floor();
-                let edge2 = edge1 + bar_area;
-                (edge1, edge2)
-            }
-            Axis::Vertical => {
-                let reduced_height = size.height - bar_area;
-                let edge1 = (reduced_height * self.split_point_effective).floor();
-                let edge2 = edge1 + bar_area;
-                (edge1, edge2)
-            }
-        }
+        let reduced_width = size.width - bar_area;
+        let edge1 = (reduced_width * 0.5).floor();
+        let edge2 = edge1 + bar_area;
+        (edge1, edge2)
     }
 
     /// Returns true if the provided mouse position is inside the splitter bar area.
     fn bar_hit_test(&self, size: Size, mouse_pos: Point) -> bool {
         let (edge1, edge2) = self.bar_edges(size);
-        match self.split_axis {
-            Axis::Horizontal => mouse_pos.x >= edge1 && mouse_pos.x <= edge2,
-            Axis::Vertical => mouse_pos.y >= edge1 && mouse_pos.y <= edge2,
-        }
+        mouse_pos.x >= edge1 && mouse_pos.x <= edge2
     }
 
     /// Set a new chosen split point.
     fn update_size(&mut self, size: Size, mouse_pos: Point) {
-        self.width_chosen = match self.stretch_axis {
-            Axis::Horizontal => size.width,
-            Axis::Vertical => size.height,
-        }
+        size.width
     }
 
     /// Returns the color of the splitter bar.
@@ -194,15 +149,11 @@ impl<T> Stretch<T> {
         let size = ctx.size();
         let (edge1, edge2) = self.bar_edges(size);
         let padding = self.bar_padding();
-        let rect = match self.split_axis {
-            Axis::Horizontal => Rect::from_points(
+        let rect = {
+            Rect::from_points(
                 Point::new(edge1 + padding.ceil(), 0.0),
                 Point::new(edge2 - padding.floor(), size.height),
-            ),
-            Axis::Vertical => Rect::from_points(
-                Point::new(0.0, edge1 + padding.ceil()),
-                Point::new(size.width, edge2 - padding.floor()),
-            ),
+            )
         };
         let splitter_color = self.bar_color(env);
         ctx.fill(rect, &splitter_color);
@@ -216,8 +167,8 @@ impl<T> Stretch<T> {
         let line_midpoint = line_width / 2.0;
         let (edge1, edge2) = self.bar_edges(size);
         let padding = self.bar_padding();
-        let (line1, line2) = match self.split_axis {
-            Axis::Horizontal => (
+        let (line1, line2) = {
+            (
                 Line::new(
                     Point::new(edge1 + line_midpoint + padding.ceil(), 0.0),
                     Point::new(edge1 + line_midpoint + padding.ceil(), size.height),
@@ -226,17 +177,7 @@ impl<T> Stretch<T> {
                     Point::new(edge2 - line_midpoint - padding.floor(), 0.0),
                     Point::new(edge2 - line_midpoint - padding.floor(), size.height),
                 ),
-            ),
-            Axis::Vertical => (
-                Line::new(
-                    Point::new(0.0, edge1 + line_midpoint + padding.ceil()),
-                    Point::new(size.width, edge1 + line_midpoint + padding.ceil()),
-                ),
-                Line::new(
-                    Point::new(0.0, edge2 - line_midpoint - padding.floor()),
-                    Point::new(size.width, edge2 - line_midpoint - padding.floor()),
-                ),
-            ),
+            )
         };
         let splitter_color = self.bar_color(env);
         ctx.stroke(line1, &splitter_color, line_width);
@@ -273,10 +214,7 @@ impl<T: Data> Widget<T> for Stretch<T> {
                 }
 
                 if ctx.is_hot() && self.bar_hit_test(ctx.size(), mouse.pos) || ctx.is_active() {
-                    match self.split_axis {
-                        Axis::Horizontal => ctx.set_cursor(&Cursor::ResizeLeftRight),
-                        Axis::Vertical => ctx.set_cursor(&Cursor::ResizeUpDown),
-                    };
+                    ctx.set_cursor(&Cursor::ResizeLeftRight)
                 }
             }
             _ => {}
@@ -297,19 +235,6 @@ impl<T: Data> Widget<T> for Stretch<T> {
     fn layout(&mut self, ctx: &mut LayoutCtx, bc: &BoxConstraints, data: &T, env: &Env) -> Size {
         bc.debug_check("Stretch");
 
-        match self.split_axis {
-            Axis::Horizontal => {
-                if !bc.is_width_bounded() {
-                    //log::warn!("A Stretch widget was given an unbounded width to split.")
-                }
-            }
-            Axis::Vertical => {
-                if !bc.is_height_bounded() {
-                    //log::warn!("A Stretch widget was given an unbounded height to split.")
-                }
-            }
-        }
-
         let mut my_size = bc.max();
         let bar_area = self.bar_area();
         let reduced_size = Size::new(
@@ -317,23 +242,14 @@ impl<T: Data> Widget<T> for Stretch<T> {
             (my_size.height - bar_area).max(0.),
         );
 
-        let child_size = self.child.layout(ctx, &child, &data, env);
+        let child_size = self.child.layout(ctx, &child_bc, &data, env);
 
-        let child_rect = match self.split_axis {
-            Axis::Horizontal => {
-                my_size.height = child_size.height;
-                Rect::from_origin_size(
-                    Point::new(child1_size.width + bar_area, 0.0),
-                    child_size,
-                )
-            }
-            Axis::Vertical => {
-                my_size.width = child_size.width;
-                Rect::from_origin_size(
-                    Point::new(0.0, child.height + bar_area),
-                    child_size,
-                )
-            }
+        let child_rect = {
+            my_size.height = child_size.height;
+            Rect::from_origin_size(
+                Point::new(child_size.width + bar_area, 0.0),
+                child_size,
+            )
         };
         self.child.set_layout_rect(child_rect);
 
