@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! A widget which splits an area in two, with a settable ratio, and optional draggable resizing.
+//! A widget with draggable resizing on one edge.
 
-use crate::kurbo::{Line, Point, Rect, Size};
-use crate::widget::flex::Axis;
-use crate::{
+use druid::kurbo::{Line, Point, Rect, Size};
+use druid::widget::flex::Axis;
+use druid::{
     theme, BoxConstraints, Color, Cursor, Data, Env, Event, EventCtx, LayoutCtx, LifeCycle,
     LifeCycleCtx, PaintCtx, RenderContext, UpdateCtx, Widget, WidgetPod,
 };
@@ -24,8 +24,7 @@ use crate::{
 /// A container containing two other widgets, splitting the area either horizontally or vertically.
 pub struct Stretch<T> {
     split_axis: Axis,
-    split_point_chosen: f64,
-    split_point_effective: f64,
+    width_chosen: f64,
     min_size: f64,     // Integers only
     bar_size: f64,     // Integers only
     min_bar_area: f64, // Integers only
@@ -41,32 +40,30 @@ impl<T> Stretch<T> {
     /// Vertical split axis means that the children are up and down.
     fn new(
         split_axis: Axis,
-        child1: impl Widget<T> + 'static,
-        child2: impl Widget<T> + 'static,
+        child: impl Widget<T> + 'static,
     ) -> Self {
         Stretch {
             split_axis,
-            split_point_chosen: 0.5,
-            split_point_effective: 0.5,
+            width_chosen: 0.5,
             min_size: 0.0,
             bar_size: 6.0,
             min_bar_area: 6.0,
             solid: false,
             draggable: false,
-            child: WidgetPod::new(child1).boxed(),
+            child: WidgetPod::new(child).boxed(),
         }
     }
 
     /// Create a new split panel, with the horizontal axis split in two by a vertical bar.
     /// The children are laid out left and right.
-    pub fn columns(child1: impl Widget<T> + 'static, child2: impl Widget<T> + 'static) -> Self {
-        Self::new(Axis::Horizontal, child1, child2)
+    pub fn vertical(child: impl Widget<T> + 'static) -> Self {
+        Self::new(Axis::Horizontal, child)
     }
 
     /// Create a new split panel, with the vertical axis split in two by a horizontal bar.
     /// The children are laid out up and down.
-    pub fn rows(child1: impl Widget<T> + 'static, child2: impl Widget<T> + 'static) -> Self {
-        Self::new(Axis::Vertical, child1, child2)
+    pub fn horizontal(child1: impl Widget<T> + 'static, child2: impl Widget<T> + 'static) -> Self {
+        Self::new(Axis::Vertical, child1)
     }
 
     /// Builder-style method to set the split point as a fraction of the split axis.
@@ -176,27 +173,11 @@ impl<T> Stretch<T> {
         }
     }
 
-    /// Returns the minimum and maximum split coordinate of the provided size.
-    fn split_side_limits(&self, size: Size) -> (f64, f64) {
-        let split_axis_size = self.split_axis.major(size);
-
-        let mut min_limit = self.min_size;
-        let mut max_limit = (split_axis_size - min_limit).max(0.0);
-
-        if min_limit > max_limit {
-            min_limit = 0.5 * (min_limit + max_limit);
-            max_limit = min_limit;
-        }
-
-        (min_limit, max_limit)
-    }
-
     /// Set a new chosen split point.
-    fn update_split_point(&mut self, size: Size, mouse_pos: Point) {
-        let (min_limit, max_limit) = self.split_side_limits(size);
-        self.split_point_chosen = match self.split_axis {
-            Axis::Horizontal => clamp(mouse_pos.x, min_limit, max_limit) / size.width,
-            Axis::Vertical => clamp(mouse_pos.y, min_limit, max_limit) / size.height,
+    fn update_size(&mut self, size: Size, mouse_pos: Point) {
+        self.width_chosen = match self.stretch_axis {
+            Axis::Horizontal => size.width,
+            Axis::Vertical => size.height,
         }
     }
 
@@ -265,65 +246,52 @@ impl<T> Stretch<T> {
 
 impl<T: Data> Widget<T> for Stretch<T> {
     fn event(&mut self, ctx: &mut EventCtx, event: &Event, data: &mut T, env: &Env) {
-        if self.child1.is_active() {
-            self.child1.event(ctx, event, data, env);
+        if self.child.is_active() {
+            self.child.event(ctx, event, data, env);
             if ctx.is_handled() {
                 return;
             }
         }
-        if self.child2.is_active() {
-            self.child2.event(ctx, event, data, env);
-            if ctx.is_handled() {
-                return;
+        match event {
+            Event::MouseDown(mouse) => {
+                if mouse.button.is_left() && self.bar_hit_test(ctx.size(), mouse.pos) {
+                    ctx.set_active(true);
+                    ctx.set_handled();
+                }
             }
-        }
-        if self.draggable {
-            match event {
-                Event::MouseDown(mouse) => {
-                    if mouse.button.is_left() && self.bar_hit_test(ctx.size(), mouse.pos) {
-                        ctx.set_active(true);
-                        ctx.set_handled();
-                    }
+            Event::MouseUp(mouse) => {
+                if mouse.button.is_left() && ctx.is_active() {
+                    ctx.set_active(false);
+                    self.update_size(ctx.size(), mouse.pos);
+                    ctx.request_paint();
                 }
-                Event::MouseUp(mouse) => {
-                    if mouse.button.is_left() && ctx.is_active() {
-                        ctx.set_active(false);
-                        self.update_split_point(ctx.size(), mouse.pos);
-                        ctx.request_paint();
-                    }
+            }
+            Event::MouseMove(mouse) => {
+                if ctx.is_active() {
+                    self.update_size(ctx.size(), mouse.pos);
+                    ctx.request_layout();
                 }
-                Event::MouseMove(mouse) => {
-                    if ctx.is_active() {
-                        self.update_split_point(ctx.size(), mouse.pos);
-                        ctx.request_layout();
-                    }
 
-                    if ctx.is_hot() && self.bar_hit_test(ctx.size(), mouse.pos) || ctx.is_active() {
-                        match self.split_axis {
-                            Axis::Horizontal => ctx.set_cursor(&Cursor::ResizeLeftRight),
-                            Axis::Vertical => ctx.set_cursor(&Cursor::ResizeUpDown),
-                        };
-                    }
+                if ctx.is_hot() && self.bar_hit_test(ctx.size(), mouse.pos) || ctx.is_active() {
+                    match self.split_axis {
+                        Axis::Horizontal => ctx.set_cursor(&Cursor::ResizeLeftRight),
+                        Axis::Vertical => ctx.set_cursor(&Cursor::ResizeUpDown),
+                    };
                 }
-                _ => {}
             }
+            _ => {}
         }
-        if !self.child1.is_active() {
-            self.child1.event(ctx, event, data, env);
-        }
-        if !self.child2.is_active() {
-            self.child2.event(ctx, event, data, env);
+        if !self.child.is_active() {
+            self.child.event(ctx, event, data, env);
         }
     }
 
     fn lifecycle(&mut self, ctx: &mut LifeCycleCtx, event: &LifeCycle, data: &T, env: &Env) {
-        self.child1.lifecycle(ctx, event, data, env);
-        self.child2.lifecycle(ctx, event, data, env);
+        self.child.lifecycle(ctx, event, data, env);
     }
 
     fn update(&mut self, ctx: &mut UpdateCtx, _old_data: &T, data: &T, env: &Env) {
-        self.child1.update(ctx, &data, env);
-        self.child2.update(ctx, &data, env);
+        self.child.update(ctx, &data, env);
     }
 
     fn layout(&mut self, ctx: &mut LayoutCtx, bc: &BoxConstraints, data: &T, env: &Env) -> Size {
@@ -332,12 +300,12 @@ impl<T: Data> Widget<T> for Stretch<T> {
         match self.split_axis {
             Axis::Horizontal => {
                 if !bc.is_width_bounded() {
-                    log::warn!("A Stretch widget was given an unbounded width to split.")
+                    //log::warn!("A Stretch widget was given an unbounded width to split.")
                 }
             }
             Axis::Vertical => {
                 if !bc.is_height_bounded() {
-                    log::warn!("A Stretch widget was given an unbounded height to split.")
+                    //log::warn!("A Stretch widget was given an unbounded height to split.")
                 }
             }
         }
@@ -349,87 +317,27 @@ impl<T: Data> Widget<T> for Stretch<T> {
             (my_size.height - bar_area).max(0.),
         );
 
-        // Update our effective split point to respect our constraints
-        self.split_point_effective = {
-            let (min_limit, max_limit) = self.split_side_limits(reduced_size);
-            let reduced_axis_size = self.split_axis.major(reduced_size);
-            if reduced_axis_size.is_infinite() || reduced_axis_size <= std::f64::EPSILON {
-                0.5
-            } else {
-                clamp(
-                    self.split_point_chosen,
-                    min_limit / reduced_axis_size,
-                    max_limit / reduced_axis_size,
-                )
-            }
-        };
+        let child_size = self.child.layout(ctx, &child, &data, env);
 
-        let (child1_bc, child2_bc) = match self.split_axis {
+        let child_rect = match self.split_axis {
             Axis::Horizontal => {
-                let child1_width = (reduced_size.width * self.split_point_effective)
-                    .floor()
-                    .max(0.0);
-                let child2_width = (reduced_size.width - child1_width).max(0.0);
-                (
-                    BoxConstraints::new(
-                        Size::new(child1_width, bc.min().height),
-                        Size::new(child1_width, bc.max().height),
-                    ),
-                    BoxConstraints::new(
-                        Size::new(child2_width, bc.min().height),
-                        Size::new(child2_width, bc.max().height),
-                    ),
+                my_size.height = child_size.height;
+                Rect::from_origin_size(
+                    Point::new(child1_size.width + bar_area, 0.0),
+                    child_size,
                 )
             }
             Axis::Vertical => {
-                let child1_height = (reduced_size.height * self.split_point_effective)
-                    .floor()
-                    .max(0.0);
-                let child2_height = (reduced_size.height - child1_height).max(0.0);
-                (
-                    BoxConstraints::new(
-                        Size::new(bc.min().width, child1_height),
-                        Size::new(bc.max().width, child1_height),
-                    ),
-                    BoxConstraints::new(
-                        Size::new(bc.min().width, child2_height),
-                        Size::new(bc.max().width, child2_height),
-                    ),
+                my_size.width = child_size.width;
+                Rect::from_origin_size(
+                    Point::new(0.0, child.height + bar_area),
+                    child_size,
                 )
             }
         };
-        let child1_size = self.child1.layout(ctx, &child1_bc, &data, env);
-        let child2_size = self.child2.layout(ctx, &child2_bc, &data, env);
+        self.child.set_layout_rect(child_rect);
 
-        // Top-left align for both children, out of laziness.
-        // Reduce our unsplit direction to the larger of the two widgets
-        let (child1_rect, child2_rect) = match self.split_axis {
-            Axis::Horizontal => {
-                my_size.height = child1_size.height.max(child2_size.height);
-                (
-                    Rect::from_origin_size(Point::ORIGIN, child1_size),
-                    Rect::from_origin_size(
-                        Point::new(child1_size.width + bar_area, 0.0),
-                        child2_size,
-                    ),
-                )
-            }
-            Axis::Vertical => {
-                my_size.width = child1_size.width.max(child2_size.width);
-                (
-                    Rect::from_origin_size(Point::ORIGIN, child1_size),
-                    Rect::from_origin_size(
-                        Point::new(0.0, child1_size.height + bar_area),
-                        child2_size,
-                    ),
-                )
-            }
-        };
-        self.child1.set_layout_rect(child1_rect);
-        self.child2.set_layout_rect(child2_rect);
-
-        let paint_rect = self.child1.paint_rect().union(self.child2.paint_rect());
-        let insets = paint_rect - Rect::ZERO.with_size(my_size);
+        let insets = self.paint_rect() - Rect::ZERO.with_size(my_size);
         ctx.set_paint_insets(insets);
 
         my_size
@@ -441,8 +349,7 @@ impl<T: Data> Widget<T> for Stretch<T> {
         } else {
             self.paint_stroked_bar(ctx, env);
         }
-        self.child1.paint_with_offset(ctx, &data, env);
-        self.child2.paint_with_offset(ctx, &data, env);
+        self.child.paint_with_offset(ctx, &data, env);
     }
 }
 

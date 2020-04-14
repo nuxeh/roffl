@@ -1,5 +1,8 @@
 //! `roffl` main window
 
+mod widgets;
+use widgets::panel::Stretch;
+
 use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
