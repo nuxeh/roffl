@@ -3,9 +3,13 @@
 use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
-use druid::widget::{Button, CrossAxisAlignment, Flex, Label, List, Scroll, TextBox};
+use druid::widget::{
+    Button, CrossAxisAlignment, Flex, Label, List, Scroll,
+    TextBox, Container, Split,
+};
 use druid::{
-    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget, WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
+    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget,
+    WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
 };
 
 #[derive(Clone, Data, Lens)]
@@ -113,7 +117,27 @@ fn ui_builder() -> impl Widget<AppData> {
     );
 
     // Add lists
-    root.add_flex_child(lists, 0.0);
+    //root.add_flex_child(lists, 0.0);
+
+
+
+
+
+    let draggable_cols =
+            Split::vertical(
+                Label::new("Split A"),
+                Label::new("Split B"),
+            )
+            .split_point(0.25)
+            .splitter_size(2.0)
+            .draggable(true)
+            .fill_splitter_handle(true)
+            .min_size(10.0)
+            .expand();//.fix_height(100.0);
+
+
+    root.add_flex_child(draggable_cols, 1.0);
+
 
     // Construct the footer
     let mut footer = Flex::row();
