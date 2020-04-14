@@ -167,7 +167,12 @@ fn make_ui() -> impl Widget<AppData> {
     );
 
     // Spacer to keep footer at the bottom
-    root.add_flex_spacer(1.0);
+    //root.add_flex_spacer(1.0);
+
+    let panel = Panel::new(Label::new("hi panel"))
+        .expand_height();
+
+    root.add_flex_child(panel, 1.0);
 
     root.add_child(
         footer
@@ -176,7 +181,7 @@ fn make_ui() -> impl Widget<AppData> {
             .expand_width(),
     );
 
-    root
+    root.debug_paint_layout()
 }
 
 const MENU_COLOURS_ACTION: Selector = Selector::new("menu-colours-action");
