@@ -126,7 +126,14 @@ fn make_ui() -> impl Widget<AppData> {
     let draggable_cols =
             Split::vertical(
                 Label::new("Split A"),
-                Label::new("Split B"),
+                Split::vertical(
+                     Label::new("Split B"),
+                     Label::new("Split C"),
+                )
+                .splitter_size(2.0)
+                .draggable(true)
+                .fill_splitter_handle(true)
+                .min_size(10.0)
             )
             .split_point(0.25)
             .splitter_size(2.0)
