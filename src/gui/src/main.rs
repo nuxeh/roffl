@@ -36,7 +36,7 @@ fn main() {
 
     // Set our initial data
     let data = AppData {
-        channels: Arc::new(vec![1, 2, 3, 1,1,2,3,2,1,2,2,3,1,2,2,3,1,2,2,3]),
+        channels: Arc::new(vec![1, 2, 3, 1,1,2,3,2,1,2,2,3,1,2,2,3,1,2,2,3,1,2,3,4,5,6,7,8,9,0,1,2,3,4,5,6,7,8]),
         messages: Arc::new(vec![1, 2, 3]),
         nicks: Arc::new(vec![1, 2]),
         message_text: String::from(""),
@@ -170,7 +170,6 @@ fn make_ui() -> impl Widget<AppData> {
     //root.add_flex_spacer(1.0);
 
     // Add panel layout
-
     let mut leftpanel_flex = Flex::column();
 
     let channels_list = Scroll::new(List::new(|| {
@@ -183,6 +182,7 @@ fn make_ui() -> impl Widget<AppData> {
             .background(Color::rgb(0.5, 0.5, 0.5))
     }))
     .vertical()
+    .padding(10.0)
     .lens(AppData::channels);
 
     leftpanel_flex.add_flex_child(
@@ -195,6 +195,7 @@ fn make_ui() -> impl Widget<AppData> {
         .expand_height()
         .fix_width(100.0);
 
+    // Build mid section
     let mut midsection = Flex::row();
     midsection.add_flex_child(left_panel, 0.0);
     midsection.add_flex_spacer(1.0);
