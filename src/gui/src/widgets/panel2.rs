@@ -23,6 +23,7 @@ use druid::{
 /// A widget that switches between two possible child views.
 pub struct Panel<T> {
     child: WidgetPod<T, Box<dyn Widget<T>>>,
+    left: bool,
 }
 
 impl<T> Panel<T> {
@@ -32,10 +33,26 @@ impl<T> Panel<T> {
     /// the `true_branch` widget is shown, otherwise `false_branch`.
     pub fn new(
         child: impl Widget<T> + 'static,
+        left: bool,
     ) -> Panel<T> {
         Panel {
             child: WidgetPod::new(child).boxed(),
+            left
         }
+    }
+
+    /// Create a panel for the left side
+    pub fn left(
+        child: impl Widget<T> + 'static,
+    ) -> Panel<T> {
+        Self::new(child, true)
+    }
+
+    /// Create a panel for the right side
+    pub fn right(
+        child: impl Widget<T> + 'static,
+    ) -> Panel<T> {
+        Self::new(child, false)
     }
 }
 
