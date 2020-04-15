@@ -209,6 +209,10 @@ fn make_menu<T: Data>() -> MenuDesc<T> {
         .append(MenuItem::new(
             LocalizedString::new("Messaging..."),
             MENU_MESSAGING_ACTION
+        ))
+        .append(MenuItem::new(
+            LocalizedString::new("About..."),
+            MENU_MESSAGING_ACTION
         ));
 
     let view_menu = MenuDesc::new(LocalizedString::new("View"))
