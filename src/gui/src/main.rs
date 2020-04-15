@@ -182,7 +182,6 @@ fn make_ui() -> impl Widget<AppData> {
             .background(Color::rgb(0.5, 0.5, 0.5))
     }))
     .vertical()
-    .padding(10.0)
     .lens(AppData::channels);
 
     leftpanel_flex.add_flex_child(
@@ -190,6 +189,7 @@ fn make_ui() -> impl Widget<AppData> {
         0.0
     );
     leftpanel_flex.add_flex_child(channels_list, 1.0);
+    leftpanel_flex.add_spacer(10.0);
 
     let left_panel = Panel::new(leftpanel_flex)
         .expand_height()
