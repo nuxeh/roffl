@@ -36,7 +36,7 @@ fn main() {
 
     // Set our initial data
     let data = AppData {
-        channels: Arc::new(vec![1, 2]),
+        channels: Arc::new(vec![1, 2, 3, 1,1,2,3,2,1,2,2,3,1,2,2,3,1,2,2,3]),
         messages: Arc::new(vec![1, 2, 3]),
         nicks: Arc::new(vec![1, 2]),
         message_text: String::from(""),
@@ -121,7 +121,7 @@ fn make_ui() -> impl Widget<AppData> {
     );
 
     // Add lists
-    root.add_flex_child(lists, 0.0);
+    //root.add_flex_child(lists, 0.0);
 
 
 
