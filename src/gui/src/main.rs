@@ -171,6 +171,8 @@ fn make_ui() -> impl Widget<AppData> {
 
     // Add panel layout
 
+    let mut leftpanel_flex = Flex::column();
+
     let channels_list = Scroll::new(List::new(|| {
         Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
             .with_text_size(10.0)
@@ -183,12 +185,14 @@ fn make_ui() -> impl Widget<AppData> {
     .vertical()
     .lens(AppData::channels);
 
-    let panel = Panel::new(channels_list)
-        .expand_height();
+    leftpanel_flex.add_flex_child(channels_list, 1.0);
 
+    let left_panel = Panel::new(leftpanel_flex)
+        .expand_height()
+        .fix_width(100.0);
 
     let mut midsection = Flex::row();
-    midsection.add_flex_child(panel, 0.0);
+    midsection.add_flex_child(left_panel, 0.0);
     midsection.add_flex_spacer(1.0);
 
     root.add_flex_child(midsection, 1.0);
