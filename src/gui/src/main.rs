@@ -179,7 +179,7 @@ fn make_ui() -> impl Widget<AppData> {
             .padding(2.0)
             .expand()
             .height(20.0)
-            .background(Color::rgb(0.5, 0.5, 0.5))
+            //.background(Color::rgb(0.5, 0.5, 0.5))
     }))
     .vertical()
     .lens(AppData::channels);
