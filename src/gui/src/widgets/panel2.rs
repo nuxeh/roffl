@@ -67,11 +67,16 @@ impl<T: Data> Widget<T> for Panel<T> {
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &T, env: &Env) {
         let size = ctx.size();
+        let mask_size = Size::new(10.0, size.height);
+
         let layout_rect = RoundedRect::from_origin_size(Point::ORIGIN, size, 10.0);
+        let corner_mask = Rect::from_origin_size(Point::ORIGIN, mask_size);
 
         let background_color = Color::rgb(0.5, 0.0, 0.5);
 
         ctx.fill(layout_rect, &background_color);
+        ctx.fill(corner_mask, &background_color);
+
         self.child.paint(ctx, data, env);
     }
 }
