@@ -170,8 +170,22 @@ fn make_ui() -> impl Widget<AppData> {
     //root.add_flex_spacer(1.0);
 
     // Add panel layout
-    let panel = Panel::new(Label::new("hi panel"))
+
+    let channels_list = Scroll::new(List::new(|| {
+        Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
+            .with_text_size(10.0)
+            .align_vertical(UnitPoint::LEFT)
+            .padding(2.0)
+            .expand()
+            .height(20.0)
+            .background(Color::rgb(0.5, 0.5, 0.5))
+    }))
+    .vertical()
+    .lens(AppData::channels);
+
+    let panel = Panel::new(channels_list)
         .expand_height();
+
 
     let mut midsection = Flex::row();
     midsection.add_flex_child(panel, 0.0);
@@ -186,7 +200,8 @@ fn make_ui() -> impl Widget<AppData> {
             .expand_width(),
     );
 
-    root.debug_paint_layout()
+    //root.debug_paint_layout()
+    root
 }
 
 const MENU_COLOURS_ACTION: Selector = Selector::new("menu-colours-action");
