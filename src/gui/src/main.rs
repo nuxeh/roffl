@@ -201,6 +201,7 @@ fn make_ui() -> impl Widget<AppData> {
     midsection.add_flex_spacer(1.0);
 
     root.add_flex_child(midsection, 1.0);
+    root.add_spacer(2.0);
 
     root.add_child(
         footer
