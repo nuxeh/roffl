@@ -185,6 +185,7 @@ fn make_ui() -> impl Widget<AppData> {
     .vertical()
     .lens(AppData::channels);
 
+    leftpanel_flex.add_flex_child(Label::new("Channels"), 0.0);
     leftpanel_flex.add_flex_child(channels_list, 1.0);
 
     let left_panel = Panel::new(leftpanel_flex)
