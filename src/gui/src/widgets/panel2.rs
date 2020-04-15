@@ -14,7 +14,7 @@
 
 //! A panel widget
 
-use druid::kurbo::{Point, Rect, Size};
+use druid::kurbo::{Point, Rect, Size, RoundedRect};
 use druid::{
     BoxConstraints, Data, Env, Event, EventCtx, LayoutCtx, LifeCycle, LifeCycleCtx, PaintCtx,
     UpdateCtx, Widget, WidgetPod, Color, RenderContext
@@ -67,7 +67,7 @@ impl<T: Data> Widget<T> for Panel<T> {
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &T, env: &Env) {
         let size = ctx.size();
-        let layout_rect = Rect::from_origin_size(Point::ORIGIN, size);
+        let layout_rect = RoundedRect::from_origin_size(Point::ORIGIN, size, 10.0);
 
         let background_color = Color::rgb(0.5, 0.0, 0.5);
 
