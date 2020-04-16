@@ -146,13 +146,18 @@ fn make_ui() -> impl Widget<AppData> {
     let mut left_panel_flex = Flex::column();
 
     let channels_list = Scroll::new(List::new(|| {
-        Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
-            .with_text_size(10.0)
-            .align_vertical(UnitPoint::LEFT)
-            .padding(2.0)
-            .expand()
-            .height(20.0)
-            //.background(Color::rgb(0.5, 0.5, 0.5))
+        Flex::row()
+            .with_spacer(10.0)
+            .with_flex_child(
+                Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
+                    .with_text_size(10.0)
+                    .align_vertical(UnitPoint::LEFT)
+                    .padding(2.0)
+                    .expand()
+                    .height(20.0)
+                    .background(Color::rgb(0.5, 0.5, 0.5)),
+                    1.0
+            )
     }))
     .vertical()
     .lens(AppData::channels);
@@ -166,11 +171,11 @@ fn make_ui() -> impl Widget<AppData> {
 
     let left_panel = Panel::left(left_panel_flex)
         .expand_height()
-        .fix_width(100.0);
+        .fix_width(200.0);
 
     let right_panel = Panel::right(Label::new("hi right"))
         .expand_height()
-        .fix_width(100.0);
+        .fix_width(200.0);
 
     // Build mid section
     let mut midsection = Flex::row();
