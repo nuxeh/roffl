@@ -87,7 +87,17 @@ impl<T: Data> Widget<T> for Panel<T> {
         let mask_size = Size::new(10.0, size.height);
 
         let layout_rect = RoundedRect::from_origin_size(Point::ORIGIN, size, 10.0);
-        let corner_mask = Rect::from_origin_size(Point::ORIGIN, mask_size);
+        let corner_mask = if self.left {
+            Rect::from_origin_size(Point::ORIGIN, mask_size)
+        } else {
+            Rect::from_origin_size(
+                Point {
+                    x: size.width - 10.0,
+                    y: 0.0
+                },
+                mask_size
+            )
+        };
 
         let background_color = Color::rgb(0.5, 0.0, 0.5);
 

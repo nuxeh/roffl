@@ -195,10 +195,15 @@ fn make_ui() -> impl Widget<AppData> {
         .expand_height()
         .fix_width(100.0);
 
+    let right_panel = Panel::right(Label::new("hi right"))
+        .expand_height()
+        .fix_width(100.0);
+
     // Build mid section
     let mut midsection = Flex::row();
     midsection.add_flex_child(left_panel, 0.0);
     midsection.add_flex_spacer(1.0);
+    midsection.add_flex_child(right_panel, 0.0);
 
     root.add_flex_child(midsection, 1.0);
     root.add_spacer(2.0);
