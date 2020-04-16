@@ -190,10 +190,11 @@ fn make_ui() -> impl Widget<AppData> {
                 )
                 .with_flex_spacer(1.0)
                 .padding(2.0)
-                .background(Color::rgb(0.5, 0.0, 0.5))
+                //.background(Color::rgb(0.5, 0.0, 0.5))
                 .fix_height(20.0)
         }))
         .vertical()
+        .align_vertical(UnitPoint::BOTTOM)
         .lens(lens::Id.map(
             // Expose shared data with children data
             |d: &AppData| (d.messages.clone(), d.messages.clone()),
