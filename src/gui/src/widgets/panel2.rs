@@ -17,7 +17,7 @@
 use druid::kurbo::{Point, Rect, Size, RoundedRect};
 use druid::{
     BoxConstraints, Data, Env, Event, EventCtx, LayoutCtx, LifeCycle, LifeCycleCtx, PaintCtx,
-    UpdateCtx, Widget, WidgetPod, Color, RenderContext
+    UpdateCtx, Widget, WidgetPod, Color, RenderContext, Cursor,
 };
 
 /// A widget that switches between two possible child views.
@@ -54,11 +54,52 @@ impl<T> Panel<T> {
     ) -> Panel<T> {
         Self::new(child, false)
     }
+
+    fn resize_hit_test(&self, size: Size, mouse_pos: Point) -> bool {
+        if self.left {
+            mouse_pos.x < size.width && mouse_pos.x > size.width - 4.0
+        } else {
+            mouse_pos.x < 4.0
+        }
+    }
 }
 
 impl<T: Data> Widget<T> for Panel<T> {
     fn event(&mut self, ctx: &mut EventCtx, event: &Event, data: &mut T, env: &Env) {
-            self.child.event(ctx, event, data, env)
+        // Dispatch event to child
+        if self.child.is_active() {
+            self.child.event(ctx, event, data, env);
+            if ctx.is_handled() {
+                return;
+            }
+        }
+
+        match event {
+            Event::MouseDown(mouse) => {
+                if mouse.button.is_left() && self.resize_hit_test(ctx.size(), mouse.pos) {
+                    ctx.set_active(true);
+                    ctx.set_handled();
+                }
+            }
+            Event::MouseUp(mouse) => {
+                if mouse.button.is_left() && ctx.is_active() {
+                    ctx.set_active(false);
+                    //self.update_width(ctx.size(), mouse.pos);
+                    ctx.request_paint();
+                }
+            }
+            Event::MouseMoved(mouse) => {
+                if ctx.is_active() {
+                    //self.update_width(ctx.size(), mouse.pos);
+                    //ctx.request_layout();
+                }
+
+                if ctx.is_hot() && self.resize_hit_test(ctx.size(), mouse.pos) || ctx.is_active() {
+                    ctx.set_cursor(&Cursor::ResizeLeftRight)
+                }
+            }
+            _ => {}
+        }
     }
 
     fn lifecycle(&mut self, ctx: &mut LifeCycleCtx, event: &LifeCycle, data: &T, env: &Env) {
