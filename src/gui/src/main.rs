@@ -76,33 +76,6 @@ fn make_ui() -> impl Widget<AppData> {
         1.0,
     );
 
-    // Build the message list with shared data
-    lists.add_flex_child(
-        Scroll::new(List::new(|| {
-            Flex::row()
-                .with_child(
-                    Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
-                        format!("List item #{}", item)
-                    })
-                    .with_text_size(10.0)
-                    .align_vertical(UnitPoint::LEFT),
-                )
-                .with_flex_spacer(1.0)
-                .padding(2.0)
-                .background(Color::rgb(0.5, 0.0, 0.5))
-                .fix_height(20.0)
-        }))
-        .vertical()
-        .lens(lens::Id.map(
-            // Expose shared data with children data
-            |d: &AppData| (d.messages.clone(), d.messages.clone()),
-            |d: &mut AppData, x: (Arc<Vec<u32>>, Arc<Vec<u32>>)| {
-                // If shared data was changed reflect the changes in our AppData
-                d.messages = x.0
-            },
-        )),
-        1.0,
-    );
 
     // Build the nick list
     lists.add_flex_child(
@@ -202,7 +175,36 @@ fn make_ui() -> impl Widget<AppData> {
     // Build mid section
     let mut midsection = Flex::row();
     midsection.add_flex_child(left_panel, 0.0);
-    midsection.add_flex_spacer(1.0);
+
+    // Add message list
+    // Build the message list with shared data
+    midsection.add_flex_child(
+        Scroll::new(List::new(|| {
+            Flex::row()
+                .with_child(
+                    Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
+                        format!("List item #{}", item)
+                    })
+                    .with_text_size(10.0)
+                    .align_vertical(UnitPoint::LEFT),
+                )
+                .with_flex_spacer(1.0)
+                .padding(2.0)
+                .background(Color::rgb(0.5, 0.0, 0.5))
+                .fix_height(20.0)
+        }))
+        .vertical()
+        .lens(lens::Id.map(
+            // Expose shared data with children data
+            |d: &AppData| (d.messages.clone(), d.messages.clone()),
+            |d: &mut AppData, x: (Arc<Vec<u32>>, Arc<Vec<u32>>)| {
+                // If shared data was changed reflect the changes in our AppData
+                d.messages = x.0
+            },
+        )),
+        1.0,
+    );
+
     midsection.add_flex_child(right_panel, 0.0);
 
     root.add_flex_child(midsection, 1.0);
