@@ -122,8 +122,14 @@ impl<T: Data> Widget<T> for Panel<T> {
         data: &T,
         env: &Env,
     ) -> Size {
-        let clamped = bc.constrain(Size::new(self.width, std::f64::INFINITY));
-        let size = self.child.layout(layout_ctx, bc, data, env);
+        let mut min = bc.min();
+        let mut max = bc.max();
+        println!("max {:?}", max);
+        println!("min {:?}", min);
+        max.width = self.width;
+        min.width = self.width;
+        let clamped = BoxConstraints::new(min, max);
+        let size = self.child.layout(layout_ctx, &clamped, data, env);
         self.child
             .set_layout_rect(Rect::from_origin_size(Point::ORIGIN, size));
         layout_ctx.set_paint_insets(self.child.paint_insets());
