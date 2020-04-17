@@ -24,6 +24,7 @@ use druid::{
 pub struct Panel<T> {
     child: WidgetPod<T, Box<dyn Widget<T>>>,
     left: bool,
+    width: f64,
 }
 
 impl<T> Panel<T> {
@@ -34,25 +35,29 @@ impl<T> Panel<T> {
     pub fn new(
         child: impl Widget<T> + 'static,
         left: bool,
+        initial_width: f64,
     ) -> Panel<T> {
         Panel {
             child: WidgetPod::new(child).boxed(),
-            left
+            left,
+            width: initial_width,
         }
     }
 
     /// Create a panel for the left side
     pub fn left(
         child: impl Widget<T> + 'static,
+        initial_width: f64,
     ) -> Panel<T> {
-        Self::new(child, true)
+        Self::new(child, true, initial_width)
     }
 
     /// Create a panel for the right side
     pub fn right(
         child: impl Widget<T> + 'static,
+        initial_width: f64,
     ) -> Panel<T> {
-        Self::new(child, false)
+        Self::new(child, false, initial_width)
     }
 
     fn resize_hit_test(&self, size: Size, mouse_pos: Point) -> bool {
@@ -91,7 +96,8 @@ impl<T: Data> Widget<T> for Panel<T> {
             Event::MouseMoved(mouse) => {
                 if ctx.is_active() {
                     //self.update_width(ctx.size(), mouse.pos);
-                    //ctx.request_layout();
+
+                    ctx.request_layout();
                 }
 
                 if ctx.is_hot() && self.resize_hit_test(ctx.size(), mouse.pos) || ctx.is_active() {
@@ -116,6 +122,11 @@ impl<T: Data> Widget<T> for Panel<T> {
         data: &T,
         env: &Env,
     ) -> Size {
+        let bc_clamped = bc.clone().clamp(
+            Size {
+                width: self.width,
+                height: std::f64::INFINITY
+            });
         let size = self.child.layout(layout_ctx, bc, data, env);
         self.child
             .set_layout_rect(Rect::from_origin_size(Point::ORIGIN, size));

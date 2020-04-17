@@ -169,11 +169,11 @@ fn make_ui() -> impl Widget<AppData> {
     left_panel_flex.add_flex_child(channels_list, 1.0);
     left_panel_flex.add_spacer(10.0);
 
-    let left_panel = Panel::left(left_panel_flex)
+    let left_panel = Panel::left(left_panel_flex, 150.0)
         .expand_height()
         .fix_width(200.0);
 
-    let right_panel = Panel::right(Label::new("hi right"))
+    let right_panel = Panel::right(Label::new("hi right"), 150.0)
         .expand_height()
         .fix_width(200.0);
 
