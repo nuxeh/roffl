@@ -25,6 +25,7 @@ pub struct Panel<T> {
     child: WidgetPod<T, Box<dyn Widget<T>>>,
     left: bool,
     width: f64,
+    mouse_down: Point,
 }
 
 impl<T> Panel<T> {
@@ -41,6 +42,7 @@ impl<T> Panel<T> {
             child: WidgetPod::new(child).boxed(),
             left,
             width: initial_width,
+            mouse_down: Point::ORIGIN,
         }
     }
 
@@ -67,6 +69,11 @@ impl<T> Panel<T> {
             mouse_pos.x < 4.0
         }
     }
+
+    fn update_width(&self, mouse_pos: &Point) {
+        let delta = mouse_pos.x - self.mouse_down.x;
+        println!("delta: {}", delta);
+    }
 }
 
 impl<T: Data> Widget<T> for Panel<T> {
@@ -82,6 +89,7 @@ impl<T: Data> Widget<T> for Panel<T> {
         match event {
             Event::MouseDown(mouse) => {
                 if mouse.button.is_left() && self.resize_hit_test(ctx.size(), mouse.pos) {
+                    self.mouse_down = mouse.pos;
                     ctx.set_active(true);
                     ctx.set_handled();
                 }
@@ -89,14 +97,13 @@ impl<T: Data> Widget<T> for Panel<T> {
             Event::MouseUp(mouse) => {
                 if mouse.button.is_left() && ctx.is_active() {
                     ctx.set_active(false);
-                    //self.update_width(ctx.size(), mouse.pos);
+                    self.update_width(&mouse.pos);
                     ctx.request_paint();
                 }
             }
             Event::MouseMoved(mouse) => {
                 if ctx.is_active() {
-                    //self.update_width(ctx.size(), mouse.pos);
-
+                    self.update_width(&mouse.pos);
                     ctx.request_layout();
                 }
 
@@ -122,13 +129,13 @@ impl<T: Data> Widget<T> for Panel<T> {
         data: &T,
         env: &Env,
     ) -> Size {
+        // Restrict child box constraints
         let mut min = bc.min();
         let mut max = bc.max();
-        println!("max {:?}", max);
-        println!("min {:?}", min);
-        max.width = self.width;
         min.width = self.width;
+        max.width = self.width;
         let clamped = BoxConstraints::new(min, max);
+
         let size = self.child.layout(layout_ctx, &clamped, data, env);
         self.child
             .set_layout_rect(Rect::from_origin_size(Point::ORIGIN, size));
