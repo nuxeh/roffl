@@ -104,15 +104,16 @@ impl<T: Data> Widget<T> for Panel<T> {
             }
             Event::MouseUp(mouse) => {
                 if mouse.button.is_left() && ctx.is_active() {
-                    ctx.set_active(false);
                     self.update_width(&mouse.pos);
+                    ctx.set_active(false);
+                    ctx.request_layout();
                     ctx.request_paint();
                 }
             }
             Event::MouseMoved(mouse) => {
                 if ctx.is_active() {
-                    self.update_width(&mouse.pos);
-                    ctx.request_layout();
+                    //self.update_width(&mouse.pos);
+                    //ctx.request_layout();
                 }
 
                 if ctx.is_hot() && self.resize_hit_test(ctx.size(), mouse.pos) || ctx.is_active() {
