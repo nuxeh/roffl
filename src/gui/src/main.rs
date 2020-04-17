@@ -139,7 +139,7 @@ fn make_ui() -> impl Widget<AppData> {
     let left_panel = Panel::left(left_panel_flex, 150.0)
         .expand_height();
 
-    let right_panel = Panel::right(Label::new("hi right"), 250.0)
+    let right_panel = Panel::right(lists, 250.0)
         .expand_height();
 
     // Build mid section
