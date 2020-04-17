@@ -26,6 +26,7 @@ pub struct Panel<T> {
     left: bool,
     width: f64,
     mouse_down: Point,
+    mouse_down_size: f64,
 }
 
 impl<T> Panel<T> {
@@ -43,6 +44,7 @@ impl<T> Panel<T> {
             left,
             width: initial_width,
             mouse_down: Point::ORIGIN,
+            mouse_down_size: 0.0,
         }
     }
 
@@ -72,7 +74,7 @@ impl<T> Panel<T> {
 
     fn update_width(&mut self, mouse_pos: &Point) {
         let delta = mouse_pos.x - self.mouse_down.x;
-        self.width += delta;
+        self.width = self.mouse_down_size + delta;
         println!("delta: {}", delta);
     }
 }
@@ -91,6 +93,7 @@ impl<T: Data> Widget<T> for Panel<T> {
             Event::MouseDown(mouse) => {
                 if mouse.button.is_left() && self.resize_hit_test(ctx.size(), mouse.pos) {
                     self.mouse_down = mouse.pos;
+                    self.mouse_down_size = self.width;
                     ctx.set_active(true);
                     ctx.set_handled();
                 }
