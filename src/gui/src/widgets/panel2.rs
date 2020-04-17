@@ -73,7 +73,11 @@ impl<T> Panel<T> {
     }
 
     fn update_width(&mut self, mouse_pos: &Point) {
-        let delta = mouse_pos.x - self.mouse_down.x;
+        let delta = if self.left {
+            mouse_pos.x - self.mouse_down.x
+        } else {
+            self.mouse_down.x - mouse_pos.x
+        };
         self.width = self.mouse_down_size + delta;
         println!("delta: {}", delta);
     }
