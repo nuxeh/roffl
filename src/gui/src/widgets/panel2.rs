@@ -120,6 +120,10 @@ impl<T: Data> Widget<T> for Panel<T> {
                 }
             }
             _ => {}
+        };
+
+        if !self.child.is_active() {
+            self.child.event(ctx, event, data, env);
         }
     }
 
@@ -168,7 +172,7 @@ impl<T: Data> Widget<T> for Panel<T> {
             )
         };
 
-        let background_color = Color::rgb(0.5, 0.0, 0.5);
+        let background_color = Color::rgb(0.08627451, 0.176470588, 0.31372549);
 
         ctx.fill(layout_rect, &background_color);
         ctx.fill(corner_mask, &background_color);

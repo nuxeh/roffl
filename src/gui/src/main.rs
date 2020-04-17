@@ -121,8 +121,8 @@ fn make_ui() -> impl Widget<AppData> {
                     .align_vertical(UnitPoint::LEFT)
                     .padding(2.0)
                     .expand()
-                    .height(20.0)
-                    .background(Color::rgb(0.5, 0.5, 0.5)),
+                    .height(20.0),
+                    //.background(Color::rgb(0.5, 0.5, 0.5)),
                     1.0
             )
     }))
@@ -144,7 +144,7 @@ fn make_ui() -> impl Widget<AppData> {
 
     // Build mid section
     let mut midsection = Flex::row();
-    midsection.add_flex_child(left_panel, 0.0);
+    midsection.add_child(left_panel);
 
     // Add message list
     // Build the message list with shared data
@@ -165,6 +165,7 @@ fn make_ui() -> impl Widget<AppData> {
         }))
         .vertical()
         .align_vertical(UnitPoint::BOTTOM)
+        .expand_width()
         .lens(lens::Id.map(
             // Expose shared data with children data
             |d: &AppData| (d.messages.clone(), d.messages.clone()),
@@ -176,7 +177,7 @@ fn make_ui() -> impl Widget<AppData> {
         1.0,
     );
 
-    midsection.add_flex_child(right_panel, 0.0);
+    midsection.add_child(right_panel);
 
     root.add_flex_child(midsection, 1.0);
     root.add_spacer(2.0);
