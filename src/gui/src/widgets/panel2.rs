@@ -122,11 +122,7 @@ impl<T: Data> Widget<T> for Panel<T> {
         data: &T,
         env: &Env,
     ) -> Size {
-        let bc_clamped = bc.clone().clamp(
-            Size {
-                width: self.width,
-                height: std::f64::INFINITY
-            });
+        let clamped = bc.constrain(Size::new(self.width, std::f64::INFINITY));
         let size = self.child.layout(layout_ctx, bc, data, env);
         self.child
             .set_layout_rect(Rect::from_origin_size(Point::ORIGIN, size));
