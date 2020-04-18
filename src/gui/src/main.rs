@@ -129,10 +129,12 @@ fn make_ui() -> impl Widget<AppData> {
     .vertical()
     .lens(AppData::channels);
 
+    /*
     left_panel_flex.add_flex_child(
         Label::new("Channels").padding(10.0),
         0.0
     );
+    */
     left_panel_flex.add_flex_child(channels_list, 1.0);
     left_panel_flex.add_spacer(10.0);
 
