@@ -86,7 +86,11 @@ pub fn make() -> impl Widget<AppData> {
         1.0,
     );
 
-    root.add_child(right_panel);
+    root.add_child(
+        SizedBox::new(right_panel)
+            .fix_width(200.0)
+            .background(Color::rgb(0.25, 0.25, 0.25))
+    );
 
     let mut footer = Flex::row();
     footer.add_flex_child(
