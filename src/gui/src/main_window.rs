@@ -14,8 +14,9 @@ use crate::widgets::panel2::Panel;
 
 pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
-    let mut right_panel = Flex::column();
     let mut left_panel = Flex::column();
+    let mut message_area = Flex::column();
+    let mut right_panel = Flex::column();
 
     let channel_list = Scroll::new(
         List::new(|| {
@@ -68,7 +69,33 @@ pub fn make() -> impl Widget<AppData> {
             )
         );
 
-    root.add_flex_child(messages, 1.0);
+    message_area.add_flex_child(messages, 1.0);
+
+    let mut input_box = Flex::row();
+
+    input_box.add_flex_child(
+        TextBox::new()
+            .padding(2.0)
+            .expand()
+            .align_vertical(UnitPoint::BOTTOM)
+            .lens(AppData::message_text),
+            1.0
+    );
+
+    input_box.add_child(
+        Button::new("Send")
+            .padding(2.0)
+            .align_vertical(UnitPoint::BOTTOM)
+    );
+
+    message_area.add_child(
+        input_box
+            .fix_height(30.0)
+            .padding(2.0)
+            .expand_width(),
+    );
+
+    root.add_flex_child(message_area, 1.0);
 
     let nick_list = Scroll::new(
         List::new(|| {
@@ -90,31 +117,6 @@ pub fn make() -> impl Widget<AppData> {
             .fix_width(200.0)
             .background(Color::rgb(0.25, 0.25, 0.25))
     );
-
-    let mut footer = Flex::row();
-    footer.add_flex_child(
-        TextBox::new()
-            .padding(2.0)
-            .expand()
-            .align_vertical(UnitPoint::BOTTOM)
-            .lens(AppData::message_text),
-            1.0
-    );
-
-    footer.add_child(
-        Button::new("Send")
-            .padding(2.0)
-            .align_vertical(UnitPoint::BOTTOM)
-    );
-
-    /*
-    root.add_child(
-        footer
-            .fix_height(30.0)
-            .padding(2.0)
-            .expand_width(),
-    );
-*/
 
     //root.debug_paint_layout()
     root
