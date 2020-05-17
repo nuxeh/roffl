@@ -17,21 +17,6 @@ pub fn make() -> impl Widget<AppData> {
     let mut right_panel = Flex::column();
     let mut left_panel = Flex::column();
 
-    let nick_list = Scroll::new(
-        List::new(|| {
-            Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
-                .with_text_size(10.0)
-                .align_vertical(UnitPoint::LEFT)
-                .padding(2.0)
-                .expand()
-                .height(20.0)
-                .background(Color::rgb(0.5, 0.5, 0.5))
-        }))
-        .vertical()
-        .lens(AppData::nicks);
-
-    right_panel.add_flex_child(nick_list, 1.0);
-
     let channel_list = Scroll::new(
         List::new(|| {
             Flex::row()
@@ -57,8 +42,8 @@ pub fn make() -> impl Widget<AppData> {
             .background(Color::rgb(0.25, 0.25, 0.25))
     );
 
-    root.add_flex_child(
-        Scroll::new(List::new(|| {
+    let messages = Scroll::new(
+       List::new(|| {
             Flex::row()
                 .with_child(
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
@@ -69,22 +54,36 @@ pub fn make() -> impl Widget<AppData> {
                 )
                 .with_flex_spacer(1.0)
                 .padding(2.0)
-                //.background(Color::rgb(0.5, 0.0, 0.5))
                 .fix_height(20.0)
         }))
         .vertical()
-        .align_vertical(UnitPoint::BOTTOM)
         .expand_width()
-        .lens(lens::Id.map(
-            // Expose shared data with children data
-            |d: &AppData| (d.messages.clone(), d.messages.clone()),
-            |d: &mut AppData, x: (Arc<Vec<u32>>, Arc<Vec<u32>>)| {
-                // If shared data was changed reflect the changes in our AppData
-                d.messages = x.0
-            },
-        )),
-        1.0,
-    );
+        .align_vertical(UnitPoint::BOTTOM)
+        .lens(
+            lens::Id.map(
+                |d: &AppData| (d.messages.clone(), d.messages.clone()),
+                |d: &mut AppData, x: (Arc<Vec<u32>>, Arc<Vec<u32>>)| {
+                    d.messages = x.0
+                },
+            )
+        );
+
+    root.add_flex_child(messages, 1.0);
+
+    let nick_list = Scroll::new(
+        List::new(|| {
+            Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
+                .with_text_size(10.0)
+                .align_vertical(UnitPoint::LEFT)
+                .padding(2.0)
+                .expand()
+                .height(20.0)
+                .background(Color::rgb(0.5, 0.5, 0.5))
+        }))
+        .vertical()
+        .lens(AppData::nicks);
+
+    right_panel.add_flex_child(nick_list, 1.0);
 
     root.add_child(
         SizedBox::new(right_panel)
