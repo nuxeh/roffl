@@ -75,23 +75,25 @@ pub fn make() -> impl Widget<AppData> {
 
     input_box.add_flex_child(
         TextBox::new()
-            .padding(2.0)
-            .expand()
+            //.padding(2.0)
+            .expand_width()
             .align_vertical(UnitPoint::BOTTOM)
             .lens(AppData::message_text),
             1.0
     );
 
+    /*
     input_box.add_child(
         Button::new("Send")
-            .padding(2.0)
-            .align_vertical(UnitPoint::BOTTOM)
+            //.padding(2.0)
+            //.align_vertical(UnitPoint::BOTTOM)
     );
+    */
 
     message_area.add_child(
         input_box
             .fix_height(30.0)
-            .padding(2.0)
+            .padding(1.0)
             .expand_width(),
     );
 
