@@ -13,7 +13,9 @@ use super::AppData;
 use crate::widgets::panel2::Panel;
 
 pub fn make() -> impl Widget<AppData> {
-    let mut root = Flex::column();
+    let mut root = Flex::row();
+    let mut right_panel = Flex::column();
+    let mut left_panel = Flex::column();
 
     let nick_list = Scroll::new(
         List::new(|| {
@@ -28,39 +30,34 @@ pub fn make() -> impl Widget<AppData> {
         .vertical()
         .lens(AppData::nicks);
 
-    let mut right_panel = Flex::column();
-
     right_panel.add_flex_child(nick_list, 1.0);
 
-    let mut left_panel = Flex::column();
-
-    let channel_list = Scroll::new(List::new(|| {
-        Flex::row()
-            .with_spacer(10.0)
-            .with_flex_child(
-                Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
-                    .with_text_size(10.0)
-                    .align_vertical(UnitPoint::LEFT)
-                    .padding(2.0)
-                    .expand()
-                    .height(20.0),
-                1.0
-            )
-    }))
-    .vertical()
-    .lens(AppData::channels);
+    let channel_list = Scroll::new(
+        List::new(|| {
+            Flex::row()
+                .with_spacer(10.0)
+                .with_flex_child(
+                    Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
+                        .with_text_size(10.0)
+                        .align_vertical(UnitPoint::LEFT)
+                        .padding(2.0)
+                        .expand()
+                        .height(20.0),
+                    1.0
+                )
+        }))
+        .vertical()
+        .lens(AppData::channels);
 
     left_panel.add_flex_child(channel_list, 1.0);
 
-    let mut midsection = Flex::row();
-
-    midsection.add_child(
+    root.add_child(
         SizedBox::new(left_panel)
             .fix_width(200.0)
             .background(Color::rgb(0.25, 0.25, 0.25))
     );
 
-    midsection.add_flex_child(
+    root.add_flex_child(
         Scroll::new(List::new(|| {
             Flex::row()
                 .with_child(
@@ -89,9 +86,7 @@ pub fn make() -> impl Widget<AppData> {
         1.0,
     );
 
-    midsection.add_child(right_panel);
-
-    root.add_flex_child(midsection, 1.0);
+    root.add_child(right_panel);
 
     let mut footer = Flex::row();
     footer.add_flex_child(
