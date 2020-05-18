@@ -10,7 +10,10 @@ use druid::{
     WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
 };
 use super::AppData;
-use crate::widgets::panel2::Panel;
+use crate::widgets::{
+    panel2::Panel,
+    borderless_textbox::BorderlessText,
+};
 
 pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
@@ -71,7 +74,7 @@ pub fn make() -> impl Widget<AppData> {
 
     message_area.add_flex_child(messages, 1.0);
 
-    let input_box = TextBox::new()
+    let input_box = BorderlessText::new()
         .padding(0.0)
         .expand_width()
         .align_vertical(UnitPoint::BOTTOM)
