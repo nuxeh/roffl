@@ -33,12 +33,16 @@ pub fn make() -> impl Widget<AppData> {
                     1.0
                 )
                 .with_child(
-                    Label::new("10")
-                        .with_text_size(8.0)
-                        .center()
-                        .background(Color::rgb(1.0, 0.74, 0.26))
-                        .rounded(4.0)
-                        .padding(4.0)
+                    SizedBox::new(
+                        Label::new("1000")
+                            .with_text_size(10.0)
+                            .center()
+                            .background(Color::rgb(1.0, 0.74, 0.26))
+                            //.rounded(4.0)
+                            //.padding(0.0)
+                    )
+                    .height(20.0)
+                    .background(Color::rgb(0.4, 0.4, 0.4))
                 )
         }))
         .vertical()
