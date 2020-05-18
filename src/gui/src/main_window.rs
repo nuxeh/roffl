@@ -32,6 +32,14 @@ pub fn make() -> impl Widget<AppData> {
                         .background(Color::rgb(0.4, 0.4, 0.4)),
                     1.0
                 )
+                .with_child(
+                    Label::new("10")
+                        .with_text_size(8.0)
+                        .center()
+                        .background(Color::rgb(1.0, 0.74, 0.26))
+                        .rounded(4.0)
+                        .padding(4.0)
+                )
         }))
         .vertical()
         .lens(AppData::channels);
