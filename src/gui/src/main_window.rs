@@ -37,7 +37,7 @@ pub fn make() -> impl Widget<AppData> {
                         Label::new("1000")
                             .with_text_size(10.0)
                             .center()
-                            .background(Color::rgb(1.0, 0.74, 0.26))
+                            .background(Color::rgb(1.0, 0.74, 0.20))
                             //.rounded(4.0)
                             //.padding(0.0)
                     )
@@ -46,6 +46,7 @@ pub fn make() -> impl Widget<AppData> {
                 )
         }))
         .vertical()
+        .padding(1.0)
         .lens(AppData::channels);
 
     left_panel.add_flex_child(channel_list, 1.0);
