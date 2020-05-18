@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/xi-editor/druid.git
+	branch = master
+	commit = 746409c9ff8f38c8668074aa39d0442502a879a8
+	parent = e74e63d919b58cc239a8dbbf36a7a2f0020f43db
+	method = merge
+	cmdver = 0.4.1
