@@ -21,14 +21,15 @@ pub fn make() -> impl Widget<AppData> {
     let channel_list = Scroll::new(
         List::new(|| {
             Flex::row()
-                .with_spacer(10.0)
+                //.with_spacer(10.0)
                 .with_flex_child(
                     Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
                         .with_text_size(10.0)
                         .align_vertical(UnitPoint::LEFT)
                         .padding(2.0)
                         .expand()
-                        .height(20.0),
+                        .height(20.0)
+                        .background(Color::rgb(0.4, 0.4, 0.4)),
                     1.0
                 )
         }))
@@ -51,7 +52,7 @@ pub fn make() -> impl Widget<AppData> {
                         format!("List item #{}", item)
                     })
                     .with_text_size(10.0)
-                    .align_vertical(UnitPoint::LEFT),
+                    //.align_vertical(UnitPoint::LEFT),
                 )
                 .with_flex_spacer(1.0)
                 .padding(2.0)
@@ -72,7 +73,7 @@ pub fn make() -> impl Widget<AppData> {
     message_area.add_flex_child(messages, 1.0);
 
     let input_box = BorderlessText::new()
-        .padding(0.0)
+        .padding(1.0)
         .expand_width()
         .align_vertical(UnitPoint::BOTTOM)
         .align_horizontal(UnitPoint::CENTER)
