@@ -34,8 +34,8 @@ struct AppState {
 fn main() {
     // Make the window
     let main_window = WindowDesc::new(make)
-        .title(LocalizedString::new("roffl").with_placeholder("roffl"))
-        .menu(make_menu());
+        .title(LocalizedString::new("roffl").with_placeholder("roffl"));
+        //.menu(make_menu());
 
     // Set our initial data
     let data = AppData {

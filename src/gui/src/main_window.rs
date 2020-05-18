@@ -58,7 +58,7 @@ pub fn make() -> impl Widget<AppData> {
                 .fix_height(20.0)
         }))
         .vertical()
-        .expand_width()
+        .expand()
         .align_vertical(UnitPoint::BOTTOM)
         .lens(
             lens::Id.map(
@@ -71,33 +71,22 @@ pub fn make() -> impl Widget<AppData> {
 
     message_area.add_flex_child(messages, 1.0);
 
-    let mut input_box = Flex::row();
+    let input_box = TextBox::new()
+        .padding(0.0)
+        .expand_width()
+        .align_vertical(UnitPoint::BOTTOM)
+        .align_horizontal(UnitPoint::CENTER)
+        .lens(AppData::message_text);
 
-    input_box.add_flex_child(
-        TextBox::new()
-            //.padding(2.0)
-            .expand_width()
-            .align_vertical(UnitPoint::BOTTOM)
-            .lens(AppData::message_text),
-            1.0
+    message_area.add_child(input_box);
+    message_area.add_spacer(1.0);
+
+    root.add_flex_child(
+        SizedBox::new(message_area)
+            .expand()
+            .background(Color::rgb(0.2, 0.2, 0.2)),
+        1.0
     );
-
-    /*
-    input_box.add_child(
-        Button::new("Send")
-            //.padding(2.0)
-            //.align_vertical(UnitPoint::BOTTOM)
-    );
-    */
-
-    message_area.add_child(
-        input_box
-            .fix_height(30.0)
-            .padding(1.0)
-            .expand_width(),
-    );
-
-    root.add_flex_child(message_area, 1.0);
 
     let nick_list = Scroll::new(
         List::new(|| {
@@ -107,7 +96,7 @@ pub fn make() -> impl Widget<AppData> {
                 .padding(2.0)
                 .expand()
                 .height(20.0)
-                .background(Color::rgb(0.5, 0.5, 0.5))
+                .background(Color::rgb(0.4, 0.4, 0.4))
         }))
         .vertical()
         .lens(AppData::nicks);
