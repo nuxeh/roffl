@@ -1,22 +1,15 @@
 //! `roffl` main window
 
 mod widgets;
-use widgets::panel2::Panel;
-//use widgets::panel::Stretch;
+//use widgets::panel2::Panel;
 
 mod main_window;
 use main_window::make;
 
 use std::sync::Arc;
 
-use druid::lens::{self, LensExt};
-use druid::widget::{
-    Button, CrossAxisAlignment, Flex, Label, List, Scroll,
-    TextBox, Container, Split,
-};
 use druid::{
-    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget,
-    WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
+    Data, Lens, WindowDesc, LocalizedString, AppLauncher, Selector, MenuDesc, MenuItem
 };
 
 #[derive(Clone, Data, Lens)]

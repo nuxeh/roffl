@@ -2,16 +2,13 @@ use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
 use druid::widget::{
-    Button, CrossAxisAlignment, Flex, Label, List, Scroll,
-    TextBox, Container, Split, SizedBox
+    Flex, Label, List, Scroll, SizedBox
 };
 use druid::{
-    AppLauncher, Color, Data, Lens, LocalizedString, UnitPoint, Widget,
-    WidgetExt, WindowDesc, MenuDesc, MenuItem, Selector,
+    Color, UnitPoint, Widget, WidgetExt
 };
 use super::AppData;
 use crate::widgets::{
-    panel2::Panel,
     borderless_textbox::BorderlessText,
 };
 
