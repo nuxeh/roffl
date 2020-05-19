@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg4116"
+   version="1.1"
+   viewBox="0 0 65.000008 50"
+   height="50mm"
+   width="65.000008mm">
+  <defs
+     id="defs4110" />
+  <metadata
+     id="metadata4113">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(198.05357,-8.1726189)"
+     id="layer1">
+    <rect
+       id="rect4072"
+       width="65.000008"
+       height="50"
+       x="-198.05357"
+       y="8.1726189"
+       style="fill:#4d4d4d;stroke-width:0.05747038" />
+    <g
+       id="g4084"
+       style="fill:#ffffff"
+       transform="matrix(0.22271073,0,0,0.22271073,-262.20702,91.247907)">
+      <path
+         style="fill:#ffffff;stroke-width:0.26458332"
+         d="m 355.40947,-305.66584 v 89.80227 h 22.45031 v -67.35196 h 22.45083 v -22.45031 z"
+         id="path4074" />
+      <rect
+         id="rect4076"
+         width="22.450638"
+         height="44.901291"
+         x="445.21191"
+         y="-283.21536"
+         style="fill:#ffffff;stroke-width:0.26458332" />
+      <rect
+         id="rect4078"
+         width="44.90126"
+         height="22.450645"
+         x="467.66257"
+         y="-305.66599"
+         style="fill:#ffffff;stroke-width:0.26458332" />
+      <rect
+         id="rect4080"
+         width="44.90126"
+         height="22.450638"
+         x="467.66257"
+         y="-238.31413"
+         style="fill:#ffffff;stroke-width:0.26458332" />
+      <rect
+         id="rect4082"
+         width="22.45063"
+         height="22.450607"
+         x="400.31064"
+         y="-283.21533"
+         style="fill:#ffffff;stroke-width:0.26458332" />
+    </g>
+  </g>
+</svg>
