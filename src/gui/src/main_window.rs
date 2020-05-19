@@ -26,7 +26,7 @@ pub fn make() -> impl Widget<AppData> {
             .align_horizontal(UnitPoint::LEFT)
         )
         .align_horizontal(UnitPoint::LEFT)
-        .padding(10.0)
+        .padding(5.0)
         .fix_height(60.0)
         .background(Color::rgb(0.078, 0.212, 0.259))
     );
