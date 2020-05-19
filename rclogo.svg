@@ -5,15 +5,13 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   id="svg4116"
+   height="200"
+   width="324"
+   id="svg280"
    version="1.1"
-   viewBox="0 0 85.724999 52.916664"
-   height="52.916664mm"
-   width="85.724998mm">
-  <defs
-     id="defs4110" />
+   viewBox="0 0 324 200">
   <metadata
-     id="metadata4113">
+     id="metadata286">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -24,79 +22,81 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <defs
+     id="defs284" />
   <g
-     transform="matrix(1.0583333,0,0,1.0583333,130.82284,4.8917863)"
-     id="layer1">
+     id="layer1"
+     transform="matrix(3.9999998,0,0,3.9999998,494.44852,18.488641)">
     <rect
-       style="fill:#143642;stroke-width:0.06415492;fill-opacity:1"
-       y="-4.6221604"
-       x="-123.61214"
-       height="50"
+       id="rect3725"
        width="81"
-       id="rect3725" />
+       height="50"
+       x="-123.61214"
+       y="-4.6221604"
+       style="fill:#143642;fill-opacity:1;stroke-width:0.06415492" />
     <path
-       style="fill:#218380;stroke-width:0.05892554;fill-opacity:1"
+       id="path3727"
        d="M -100.61213,10.377893 V 30.37782 h 4.999925 V 15.377817 h 5.00004 v -4.999924 z"
-       id="path3727" />
+       style="fill:#218380;fill-opacity:1;stroke-width:0.05892554" />
     <rect
-       id="rect3729"
-       width="4.9999976"
-       height="9.999999"
-       x="-80.61216"
+       style="fill:#218380;fill-opacity:1;stroke-width:0.05892554"
        y="15.377855"
-       style="fill:#218380;stroke-width:0.05892554;fill-opacity:1" />
-    <rect
-       id="rect3731"
-       width="9.9999924"
-       height="4.9999995"
-       x="-75.61216"
-       y="10.377861"
-       style="fill:#218380;stroke-width:0.05892554;fill-opacity:1" />
-    <rect
-       id="rect3733"
-       width="9.9999924"
-       height="4.9999976"
-       x="-75.61216"
-       y="25.377838"
-       style="fill:#218380;stroke-width:0.05892554;fill-opacity:1" />
-    <rect
-       id="rect3735"
-       width="4.9999962"
-       height="4.9999909"
-       x="-90.61216"
-       y="15.377861"
-       style="fill:#218380;stroke-width:0.05892554;fill-opacity:1" />
-    <path
-       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554"
-       d="M -99.61213,11.377893 V 31.37782 h 4.999925 V 16.377817 h 5.00004 v -4.999924 z"
-       id="path4542" />
-    <rect
-       id="rect4544"
-       width="4.9999976"
+       x="-80.61216"
        height="9.999999"
-       x="-79.61216"
-       y="16.377861"
-       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554" />
+       width="4.9999976"
+       id="rect3729" />
     <rect
-       id="rect4546"
-       width="9.9999924"
+       style="fill:#218380;fill-opacity:1;stroke-width:0.05892554"
+       y="10.377861"
+       x="-75.61216"
        height="4.9999995"
-       x="-74.61216"
-       y="11.377861"
-       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554" />
-    <rect
-       id="rect4548"
        width="9.9999924"
+       id="rect3731" />
+    <rect
+       style="fill:#218380;fill-opacity:1;stroke-width:0.05892554"
+       y="25.377838"
+       x="-75.61216"
        height="4.9999976"
-       x="-74.61216"
-       y="26.377838"
+       width="9.9999924"
+       id="rect3733" />
+    <rect
+       style="fill:#218380;fill-opacity:1;stroke-width:0.05892554"
+       y="15.377861"
+       x="-90.61216"
+       height="4.9999909"
+       width="4.9999962"
+       id="rect3735" />
+    <path
+       id="path4542"
+       d="M -99.61213,11.377893 V 31.37782 h 4.999925 V 16.377817 h 5.00004 v -4.999924 z"
        style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554" />
     <rect
-       id="rect4550"
-       width="4.9999962"
-       height="4.9999909"
-       x="-89.61216"
+       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554"
        y="16.377861"
-       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554" />
+       x="-79.61216"
+       height="9.999999"
+       width="4.9999976"
+       id="rect4544" />
+    <rect
+       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554"
+       y="11.377861"
+       x="-74.61216"
+       height="4.9999995"
+       width="9.9999924"
+       id="rect4546" />
+    <rect
+       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554"
+       y="26.377838"
+       x="-74.61216"
+       height="4.9999976"
+       width="9.9999924"
+       id="rect4548" />
+    <rect
+       style="fill:#f6ae2d;fill-opacity:1;stroke-width:0.05892554"
+       y="16.377861"
+       x="-89.61216"
+       height="4.9999909"
+       width="4.9999962"
+       id="rect4550" />
   </g>
 </svg>
