@@ -19,6 +19,8 @@ pub fn make() -> impl Widget<AppData> {
     let mut right_panel = Flex::column();
 
     let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
+    let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
+    let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
 
     left_panel.add_child(
         SizedBox::new(
@@ -112,9 +114,21 @@ pub fn make() -> impl Widget<AppData> {
         .align_horizontal(UnitPoint::CENTER)
         .lens(AppData::message_text);
 
+    let send_button = Svg::new(send.clone())
+        .fix_width(20.0)
+        .fix_height(20.0);
+    let search_button = Svg::new(search.clone())
+        .fix_width(20.0)
+        .fix_height(20.0);
+
     message_area.add_child(
-        SizedBox::new(input_box)
+        SizedBox::new(
+            Flex::row()
+                .with_flex_child(input_box, 1.0)
+                .with_child(send_button)
+                .with_child(search_button)
             .background(Color::rgb(0.11, 0.11, 0.11))
+        )
     );
 
     root.add_flex_child(
