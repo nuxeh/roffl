@@ -5,11 +5,11 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   id="svg4116"
+   width="85.724998mm"
+   height="52.916664mm"
+   viewBox="0 0 85.724999 52.916664"
    version="1.1"
-   viewBox="0 0 65.000008 50"
-   height="50mm"
-   width="65.000008mm">
+   id="svg4116">
   <defs
      id="defs4110" />
   <metadata
@@ -25,51 +25,46 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(198.05357,-8.1726189)"
-     id="layer1">
+     id="layer1"
+     transform="matrix(1.0583333,0,0,1.0583333,130.82284,4.8917863)">
     <rect
-       id="rect4072"
-       width="65.000008"
+       id="rect3725"
+       width="81"
        height="50"
-       x="-198.05357"
-       y="8.1726189"
-       style="fill:#4d4d4d;stroke-width:0.05747038" />
-    <g
-       id="g4084"
-       style="fill:#ffffff"
-       transform="matrix(0.22271073,0,0,0.22271073,-262.20702,91.247907)">
-      <path
-         style="fill:#ffffff;stroke-width:0.26458332"
-         d="m 355.40947,-305.66584 v 89.80227 h 22.45031 v -67.35196 h 22.45083 v -22.45031 z"
-         id="path4074" />
-      <rect
-         id="rect4076"
-         width="22.450638"
-         height="44.901291"
-         x="445.21191"
-         y="-283.21536"
-         style="fill:#ffffff;stroke-width:0.26458332" />
-      <rect
-         id="rect4078"
-         width="44.90126"
-         height="22.450645"
-         x="467.66257"
-         y="-305.66599"
-         style="fill:#ffffff;stroke-width:0.26458332" />
-      <rect
-         id="rect4080"
-         width="44.90126"
-         height="22.450638"
-         x="467.66257"
-         y="-238.31413"
-         style="fill:#ffffff;stroke-width:0.26458332" />
-      <rect
-         id="rect4082"
-         width="22.45063"
-         height="22.450607"
-         x="400.31064"
-         y="-283.21533"
-         style="fill:#ffffff;stroke-width:0.26458332" />
-    </g>
+       x="-123.61214"
+       y="-4.6221604"
+       style="fill:#4d4d4d;stroke-width:0.06415492" />
+    <path
+       id="path3727"
+       d="M -100.61213,10.377893 V 30.37782 h 4.999925 V 15.377817 h 5.00004 v -4.999924 z"
+       style="fill:#ffffff;stroke-width:0.05892554" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.05892554"
+       y="15.377855"
+       x="-80.61216"
+       height="9.999999"
+       width="4.9999976"
+       id="rect3729" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.05892554"
+       y="10.377861"
+       x="-75.61216"
+       height="4.9999995"
+       width="9.9999924"
+       id="rect3731" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.05892554"
+       y="25.377838"
+       x="-75.61216"
+       height="4.9999976"
+       width="9.9999924"
+       id="rect3733" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.05892554"
+       y="15.377861"
+       x="-90.61216"
+       height="4.9999909"
+       width="4.9999962"
+       id="rect3735" />
   </g>
 </svg>
