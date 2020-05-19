@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
 use druid::widget::{
-    Flex, Label, List, Scroll, SizedBox, TextBox
+    Flex, Label, List, Scroll, SizedBox, TextBox, Svg, SvgData
 };
 use druid::{
     Color, UnitPoint, Widget, WidgetExt
@@ -17,6 +17,17 @@ pub fn make() -> impl Widget<AppData> {
     let mut left_panel = Flex::column();
     let mut message_area = Flex::column();
     let mut right_panel = Flex::column();
+
+    let logo = match include_str!("../../../rclogo.svg").parse::<SvgData>() {
+        Ok(svg) => svg,
+        Err(err) => {
+            eprintln!("{}", err);
+            eprintln!("Using an empty SVG instead.");
+            SvgData::default()
+        }
+    };
+
+    left_panel.add_flex_child(Svg::new(logo.clone()).fix_width(60.0).center(), 1.0);
 
     let channel_list = Scroll::new(
         List::new(|| {
