@@ -48,7 +48,7 @@ pub fn make() -> impl Widget<AppData> {
                             .with_text_size(10.0)
                             .with_text_color(Color::rgb(0.25, 0.25, 0.25))
                             .center()
-                            .background(Color::rgb(1.0, 0.74, 0.20))
+                            .background(Color::rgb(0.965, 0.682, 0.176))
                             //.rounded(4.0)
                             //.padding(0.0)
                     )
