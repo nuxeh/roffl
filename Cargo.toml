@@ -1,5 +1,4 @@
 [workspace]
-
 members = [
     "src/bridge",
     "src/gui",
@@ -7,3 +6,4 @@ members = [
     "src/roffl",
     "src/sntp_cached",
 ]
+exclude = [ "./druid" ]
