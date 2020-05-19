@@ -36,6 +36,7 @@ pub fn make() -> impl Widget<AppData> {
                     SizedBox::new(
                         Label::new("1000")
                             .with_text_size(10.0)
+                            .with_text_color(Color::rgb(0.25, 0.25, 0.25))
                             .center()
                             .background(Color::rgb(1.0, 0.74, 0.20))
                             //.rounded(4.0)
