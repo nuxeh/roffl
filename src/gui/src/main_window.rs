@@ -22,13 +22,18 @@ pub fn make() -> impl Widget<AppData> {
 
     left_panel.add_child(
         SizedBox::new(
-        Svg::new(logo.clone())
-            .align_horizontal(UnitPoint::LEFT)
+            Svg::new(logo.clone())
+                .align_horizontal(UnitPoint::LEFT)
         )
         .align_horizontal(UnitPoint::LEFT)
-        .padding(5.0)
+        .padding(0.0)
         .fix_height(60.0)
         .background(Color::rgb(0.078, 0.212, 0.259))
+    );
+
+    left_panel.add_child(
+        SizedBox::empty()
+            .fix_height(1.0)
     );
 
     let channel_list = Scroll::new(
@@ -60,7 +65,6 @@ pub fn make() -> impl Widget<AppData> {
                 )
         }))
         .vertical()
-        .padding(1.0)
         .lens(AppData::channels);
 
     left_panel.add_flex_child(channel_list, 1.0);
