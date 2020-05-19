@@ -50,6 +50,7 @@ pub struct TextBox {
     cursor_timer: TimerToken,
     cursor_on: bool,
     border: bool,
+    background: bool,
 }
 
 impl TextBox {
@@ -66,6 +67,7 @@ impl TextBox {
             cursor_on: false,
             placeholder: String::new(),
             border: true,
+            background: true,
         }
     }
 
@@ -78,6 +80,12 @@ impl TextBox {
     /// Builder-style method to set the drawing of the `TextBox`'s border.
     pub fn with_border(mut self, border: bool) -> Self {
         self.border = border;
+        self
+    }
+
+    /// Builder-style method to set the drawing of the `TextBox`'s background.
+    pub fn with_background(mut self, background: bool) -> Self {
+        self.background = background;
         self
     }
 
@@ -420,7 +428,9 @@ impl Widget<String> for TextBox {
             env.get(theme::TEXTBOX_BORDER_RADIUS),
         );
 
-        ctx.fill(clip_rect, &background_color);
+        if self.background {
+            ctx.fill(clip_rect, &background_color);
+        }
 
         // Render text, selection, and cursor inside a clip
         ctx.with_save(|rc| {

@@ -105,14 +105,17 @@ pub fn make() -> impl Widget<AppData> {
 
     let input_box = TextBox::new()
         .with_border(false)
+        .with_background(false)
         .padding(1.0)
         .expand_width()
         .align_vertical(UnitPoint::BOTTOM)
         .align_horizontal(UnitPoint::CENTER)
         .lens(AppData::message_text);
 
-    message_area.add_child(input_box);
-    message_area.add_spacer(1.0);
+    message_area.add_child(
+        SizedBox::new(input_box)
+            .background(Color::rgb(0.15, 0.15, 0.15))
+    );
 
     root.add_flex_child(
         SizedBox::new(message_area)
