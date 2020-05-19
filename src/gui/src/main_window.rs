@@ -18,16 +18,15 @@ pub fn make() -> impl Widget<AppData> {
     let mut message_area = Flex::column();
     let mut right_panel = Flex::column();
 
-    let logo = match include_str!("../../../rclogo.svg").parse::<SvgData>() {
-        Ok(svg) => svg,
-        Err(err) => {
-            eprintln!("{}", err);
-            eprintln!("Using an empty SVG instead.");
-            SvgData::default()
-        }
-    };
+    let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
 
-    left_panel.add_flex_child(Svg::new(logo.clone()).fix_width(60.0).center(), 1.0);
+    left_panel.add_flex_child(
+        Svg::new(logo.clone())
+            .expand()
+            //.fix_width(60.0)
+            .center()
+        , 1.0
+    );
 
     let channel_list = Scroll::new(
         List::new(|| {
