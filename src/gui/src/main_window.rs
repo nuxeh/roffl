@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
 use druid::widget::{
-    Flex, Label, List, Scroll, SizedBox
+    Flex, Label, List, Scroll, SizedBox, TextBox
 };
 use druid::{
     Color, UnitPoint, Widget, WidgetExt
@@ -85,7 +85,7 @@ pub fn make() -> impl Widget<AppData> {
 
     message_area.add_flex_child(messages, 1.0);
 
-    let input_box = BorderlessText::new()
+    let input_box = TextBox::new()
         .padding(1.0)
         .expand_width()
         .align_vertical(UnitPoint::BOTTOM)
