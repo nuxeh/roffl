@@ -115,9 +115,11 @@ pub fn make() -> impl Widget<AppData> {
         .lens(AppData::message_text);
 
     let send_button = Svg::new(send.clone())
+        .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
     let search_button = Svg::new(search.clone())
+        .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
 
