@@ -114,7 +114,7 @@ pub fn make() -> impl Widget<AppData> {
 
     message_area.add_child(
         SizedBox::new(input_box)
-            .background(Color::rgb(0.15, 0.15, 0.15))
+            .background(Color::rgb(0.11, 0.11, 0.11))
     );
 
     root.add_flex_child(
