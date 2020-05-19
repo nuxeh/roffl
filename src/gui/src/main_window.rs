@@ -29,7 +29,7 @@ pub fn make() -> impl Widget<AppData> {
         )
         .align_horizontal(UnitPoint::LEFT)
         .padding(0.0)
-        .fix_height(60.0)
+        .fix_height(50.0)
         .background(Color::rgb(0.078, 0.212, 0.259))
     );
 
