@@ -1,4 +1,4 @@
-//! `roffl` main window
+//! `rcchat` main window
 
 mod widgets;
 //use widgets::panel2::Panel;
@@ -27,7 +27,7 @@ struct AppState {
 fn main() {
     // Make the window
     let main_window = WindowDesc::new(make)
-        .title(LocalizedString::new("roffl").with_placeholder("roffl"));
+        .title(LocalizedString::new("rc").with_placeholder("rc"));
         //.menu(make_menu());
 
     // Set our initial data

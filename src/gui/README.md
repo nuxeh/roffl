@@ -1,4 +1,4 @@
-# `roffl` GUI client
+# `rcchat` GUI client
 
 ## Dependencies
 

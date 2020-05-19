@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 
 stdenv.mkDerivation {
-    name = "roffl";
+    name = "rcchat";
 
     buildInputs = [
       rustc

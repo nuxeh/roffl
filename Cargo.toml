@@ -3,7 +3,7 @@ members = [
     "src/bridge",
     "src/gui",
     "src/proto",
-    "src/roffl",
+    "src/rcchat",
     "src/sntp_cached",
     "tools/make_release"
 ]

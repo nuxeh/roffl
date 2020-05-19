@@ -1,9 +1,9 @@
 [package]
-name = "roffl"
+name = "rcchat"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
-description = "roffl, client and server library"
+description = "rcchat, client and server library"
 
 [dependencies]
 rmp = "0.8.9"

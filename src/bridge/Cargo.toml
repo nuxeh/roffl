@@ -1,9 +1,9 @@
 [package]
-name = "roffl_bridge"
+name = "rcchat_bridge"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
-description = "roffl bridge"
+description = "rcchat bridge"
 
 [dependencies]
 docopt = "1.1.0"

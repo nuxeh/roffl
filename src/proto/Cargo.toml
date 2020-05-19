@@ -1,9 +1,9 @@
 [package]
-name = "roffl_proto"
+name = "rcchat_proto"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
-description = "roffl chat protocol"
+description = "rcchat chat protocol"
 
 [dependencies]
 serde = "1.0.104"

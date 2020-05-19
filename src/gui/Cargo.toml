@@ -1,9 +1,9 @@
 [package]
-name = "roffl_gui"
+name = "rcchat_gui"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
-description = "roffl graphical client"
+description = "rcchat graphical client"
 
 [dependencies]
 druid = { version = "*", path="../../druid/druid", features=["svg"] }

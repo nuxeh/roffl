@@ -13,7 +13,7 @@ with import <nixpkgs> {};
 with import <rustoverlay/rust-overlay.nix> pkgs pkgs;
 
 stdenv.mkDerivation {
-  name = "roffl";
+  name = "rcchat";
 
   buildInputs = [
     latest.rustChannels.stable.rust
