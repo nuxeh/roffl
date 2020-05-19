@@ -104,6 +104,7 @@ pub fn make() -> impl Widget<AppData> {
     message_area.add_flex_child(messages, 1.0);
 
     let input_box = TextBox::new()
+        .with_border(false)
         .padding(1.0)
         .expand_width()
         .align_vertical(UnitPoint::BOTTOM)

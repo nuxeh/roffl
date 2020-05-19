@@ -49,6 +49,7 @@ pub struct TextBox {
     selection: Selection,
     cursor_timer: TimerToken,
     cursor_on: bool,
+    border: bool,
 }
 
 impl TextBox {
@@ -64,12 +65,19 @@ impl TextBox {
             cursor_timer: TimerToken::INVALID,
             cursor_on: false,
             placeholder: String::new(),
+            border: true,
         }
     }
 
     /// Builder-style method to set the `TextBox`'s placeholder text.
     pub fn with_placeholder(mut self, placeholder: impl Into<String>) -> Self {
         self.placeholder = placeholder.into();
+        self
+    }
+
+    /// Builder-style method to set the drawing of the `TextBox`'s border.
+    pub fn with_border(mut self, border: bool) -> Self {
+        self.border = border;
         self
     }
 
@@ -465,7 +473,9 @@ impl Widget<String> for TextBox {
         });
 
         // Paint the border
-        ctx.stroke(clip_rect, &border_color, BORDER_WIDTH);
+        if self.border {
+            ctx.stroke(clip_rect, &border_color, BORDER_WIDTH);
+        }
     }
 }
 
