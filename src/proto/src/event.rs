@@ -1,3 +1,10 @@
+use crate::timestamp::Timestamp;
+
+pub struct Event<T> {
+    evt: T,
+    timestamp: Timestamp,
+}
+
 pub enum UserEvent<'a> {
     Message {
         nick: &'a str,
