@@ -7,10 +7,29 @@ mod main_window;
 use main_window::make;
 
 use std::sync::Arc;
+use docopt::Docopt;
+use serde::Deserialize;
 
 use druid::{
     Data, Lens, WindowDesc, LocalizedString, AppLauncher, Selector, MenuDesc, MenuItem
 };
+
+const USAGE: &'static str = "
+rcchat GUI client.
+
+Usage:
+    rcchat_gui
+    rcchat_gui --help
+    rcchat_gui --version
+
+Options:
+    -h --help     Show this screen.
+    --version     Show version.
+";
+
+#[derive(Debug, Deserialize)]
+struct Args {
+}
 
 #[derive(Clone, Data, Lens)]
 struct AppData {
@@ -25,6 +44,12 @@ struct AppState {
 }
 
 fn main() {
+    // Process CLI args
+    let args: Args = Docopt::new(USAGE)
+        .and_then(|d| d.version(Some(String::from("0.1.0"))).parse())
+        .and_then(|d| d.deserialize())
+        .unwrap_or_else(|e| e.exit());
+
     // Make the window
     let main_window = WindowDesc::new(make)
         .title(LocalizedString::new("rc").with_placeholder("rc"));
