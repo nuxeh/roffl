@@ -113,7 +113,8 @@ pub fn make() -> impl Widget<AppData> {
         .align_vertical(UnitPoint::BOTTOM)
         .align_horizontal(UnitPoint::CENTER)
         .env_scope(|env, _| {
-            env.set(druid::theme::SELECTION_COLOR, Color::rgb(0.4, 0.4, 0.4))
+            env.set(druid::theme::SELECTION_COLOR, Color::rgb(0.4, 0.4, 0.4));
+            env.set(druid::theme::BACKGROUND_LIGHT, Color::rgba8(0, 0, 0, 0));
         })
         .lens(AppData::message_text);
 

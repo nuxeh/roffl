@@ -428,9 +428,7 @@ impl Widget<String> for TextBox {
             env.get(theme::TEXTBOX_BORDER_RADIUS),
         );
 
-        if self.background {
-            ctx.fill(clip_rect, &background_color);
-        }
+        ctx.fill(clip_rect, &background_color);
 
         // Render text, selection, and cursor inside a clip
         ctx.with_save(|rc| {
