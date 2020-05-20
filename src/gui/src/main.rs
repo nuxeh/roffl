@@ -44,7 +44,7 @@ struct AppState {
 }
 
 fn main() {
-    // Process CLI args
+    // Parse CLI args
     let args: Args = Docopt::new(USAGE)
         .and_then(|d| d.version(Some(String::from("0.1.0"))).parse())
         .and_then(|d| d.deserialize())
