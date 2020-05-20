@@ -112,6 +112,9 @@ pub fn make() -> impl Widget<AppData> {
         .expand_width()
         .align_vertical(UnitPoint::BOTTOM)
         .align_horizontal(UnitPoint::CENTER)
+        .env_scope(|env, _| {
+            env.set(druid::theme::SELECTION_COLOR, Color::rgb(0.4, 0.4, 0.4))
+        })
         .lens(AppData::message_text);
 
     let send_button = Svg::new(send.clone())
