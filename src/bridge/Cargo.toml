@@ -7,9 +7,9 @@ description = "rcchat bridge"
 
 [dependencies]
 docopt = "1.1.0"
-irc = "0.13.6"
+irc = "0.14.0"
 xmpp = "0.3.0"
 slack = "0.23.0"
-serenity = "0.8.3"
-tokio = "0.2.18"
+serenity = "0.8.6"
+tokio = "0.2.21"
 #discord = "0.8.0"
