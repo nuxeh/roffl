@@ -1,4 +1,4 @@
-pub enum Event<'a> {
+pub enum UserEvent<'a> {
     Message {
         nick: &'a str,
         text: &'a str,
@@ -14,3 +14,5 @@ pub enum Event<'a> {
         nick: &'a str,
     }
 }
+
+// TIME?
