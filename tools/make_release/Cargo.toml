@@ -5,3 +5,6 @@ authors = ["Ed Cragg <ed.cragg@eipi.xyz>"]
 edition = "2018"
 
 [dependencies]
+serde = "1.0.110"
+git2 = "0.13.6"
+docopt = "1.1.0"
