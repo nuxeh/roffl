@@ -34,4 +34,6 @@ fn main() {
     println!("Hello, world!");
 
     /// Put git ref in a file
+    /// Commit
+    /// Tag
 }
