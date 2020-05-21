@@ -18,10 +18,12 @@ pub fn make() -> impl Widget<AppData> {
     let mut message_area = Flex::column();
     let mut right_panel = Flex::column();
 
+    // Assets
     let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
     let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
     let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
 
+    // Logo
     left_panel.add_child(
         SizedBox::new(
             Svg::new(logo.clone())
@@ -38,6 +40,7 @@ pub fn make() -> impl Widget<AppData> {
             .fix_height(1.0)
     );
 
+    // Channel list
     let channel_list = Scroll::new(
         List::new(|| {
             Flex::row()
@@ -77,6 +80,7 @@ pub fn make() -> impl Widget<AppData> {
             .background(Color::rgb(0.25, 0.25, 0.25))
     );
 
+    // Message area and input box
     let messages = Scroll::new(
         Flex::row()
             .with_child(
@@ -172,6 +176,7 @@ pub fn make() -> impl Widget<AppData> {
         1.0
     );
 
+    // Nick list and search results panel
     let nick_list = Scroll::new(
         List::new(|| {
             Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
