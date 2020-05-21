@@ -82,13 +82,23 @@ pub fn make() -> impl Widget<AppData> {
             Flex::row()
                 .with_child(
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
-                        format!("List item #{}", item)
+                        format!("<user{}>", item)
                     })
                     .with_text_size(10.0)
-                    //.align_vertical(UnitPoint::LEFT),
+                    .background(Color::rgb(0.1, 0.1, 0.1))
+                    .align_vertical(UnitPoint::CENTER),
                 )
-                .with_flex_spacer(1.0)
-                .padding(2.0)
+                .with_flex_child(
+                    Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
+                        format!("hi, this is a message #{}", item)
+                    })
+                    .with_text_size(10.0)
+                    .background(Color::rgb(0.15, 0.15, 0.15))
+                    .align_vertical(UnitPoint::CENTER)
+                    .expand(),
+                    1.0
+                )
+                //.padding(2.0)
                 .fix_height(20.0)
         }))
         .vertical()
