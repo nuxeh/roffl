@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use druid::lens::{self, LensExt};
 use druid::widget::{
-    Flex, Label, List, Scroll, SizedBox, TextBox, Svg, SvgData
+    Flex, Label, List, Scroll, SizedBox, TextBox, Svg, SvgData, CrossAxisAlignment
 };
 use druid::{
     Color, UnitPoint, Widget, WidgetExt
@@ -16,7 +16,8 @@ pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
     let mut left_panel = Flex::column();
     let mut message_area = Flex::column();
-    let mut right_panel = Flex::column();
+    let mut right_panel = Flex::column()
+        .cross_axis_alignment(CrossAxisAlignment::End);
 
     // Assets
     let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
