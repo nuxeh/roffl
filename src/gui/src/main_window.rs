@@ -22,6 +22,7 @@ pub fn make() -> impl Widget<AppData> {
     let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
     let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
     let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
+    let list = include_str!("../assets/list.svg").parse::<SvgData>().unwrap();
 
     // Logo
     left_panel.add_child(
@@ -193,9 +194,22 @@ pub fn make() -> impl Widget<AppData> {
                 .background(Color::rgb(0.4, 0.4, 0.4))
         }))
         .vertical()
+        .expand_height() // makes a sized box?!
         .lens(AppData::nicks);
 
     right_panel.add_flex_child(nick_list, 1.0);
+
+    let list_button = Svg::new(list.clone())
+        .padding(4.0)
+        .fix_width(20.0)
+        .fix_height(20.0);
+
+    right_panel.add_child(
+        SizedBox::new(
+            Flex::row()
+                .with_child(list_button)
+        )
+    );
 
     root.add_child(
         SizedBox::new(right_panel)
