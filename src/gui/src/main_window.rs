@@ -112,7 +112,11 @@ pub fn make() -> impl Widget<AppData> {
             .with_flex_child(
                 List::new(|| {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
-                        format!("hi, this is a message #{}", item)
+                        if item != &4 {
+                            format!("hi, this is a message #{}", item)
+                       } else {
+                            format!("hi, this is a message #{}\r,split over multiple lines", item)
+                       }
                     })
                     .with_text_size(10.0)
                     .padding(2.0)
