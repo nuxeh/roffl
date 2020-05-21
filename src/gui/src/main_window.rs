@@ -87,9 +87,9 @@ pub fn make() -> impl Widget<AppData> {
                 List::new(|| {
                     Label::new("09:45")
                     .with_text_size(10.0)
-                    .background(Color::rgb(0.1, 0.1, 0.1))
+                    .align_vertical(UnitPoint::LEFT)
                     .padding(2.0)
-                    .align_vertical(UnitPoint::CENTER)
+                    .background(Color::rgb(0.1, 0.1, 0.1))
                 })
             )
             .with_child(
@@ -102,8 +102,8 @@ pub fn make() -> impl Widget<AppData> {
                        }
                     })
                     .with_text_size(10.0)
-                    .background(Color::rgb(0.1, 0.1, 0.1))
                     .padding(2.0)
+                    .background(Color::rgb(0.1, 0.1, 0.1))
                     .align_vertical(UnitPoint::CENTER)
                 })
             )
@@ -113,12 +113,12 @@ pub fn make() -> impl Widget<AppData> {
                         format!("hi, this is a message #{}", item)
                     })
                     .with_text_size(10.0)
-                    .background(Color::rgb(0.15, 0.15, 0.15))
                     .padding(2.0)
+                    .background(Color::rgb(0.15, 0.15, 0.15))
                     .align_vertical(UnitPoint::CENTER)
                     .align_horizontal(UnitPoint::LEFT)
-                    .expand()
-                    .height(20.0)
+                    .expand_width()
+                    //.height(20.0)
                 }),
                 1.0
             )
