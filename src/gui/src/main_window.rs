@@ -93,7 +93,7 @@ pub fn make() -> impl Widget<AppData> {
                     .background(Color::rgb(0.1, 0.1, 0.1))
                 })
             )
-            .with_flex_child(
+            .with_child(
                 List::new(|| {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
                         if item == &2 {
@@ -104,12 +104,10 @@ pub fn make() -> impl Widget<AppData> {
                     })
                     .with_text_size(10.0)
                     .padding(2.0)
-                    .expand_width()
-                    .height(20.0)
+                    .fix_height(20.0)
                     .align_vertical(UnitPoint::CENTER)
-                    .background(Color::rgb(0.1, 0.1, 0.1))
-                }),
-                1.0
+                    .background(Color::rgb(0.2, 0.2, 0.2))
+                })
             )
             .with_flex_child(
                 List::new(|| {
