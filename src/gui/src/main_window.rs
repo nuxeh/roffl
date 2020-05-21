@@ -50,7 +50,7 @@ pub fn make() -> impl Widget<AppData> {
                         .with_text_size(10.0)
                         .align_vertical(UnitPoint::LEFT)
                         .padding(2.0)
-                        .expand()
+                        .expand_width()
                         .height(20.0)
                         .background(Color::rgb(0.4, 0.4, 0.4)),
                     1.0
@@ -89,10 +89,11 @@ pub fn make() -> impl Widget<AppData> {
                     .with_text_size(10.0)
                     .align_vertical(UnitPoint::LEFT)
                     .padding(2.0)
+                    .fix_height(20.0)
                     .background(Color::rgb(0.1, 0.1, 0.1))
                 })
             )
-            .with_child(
+            .with_flex_child(
                 List::new(|| {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
                         if item == &2 {
@@ -103,9 +104,12 @@ pub fn make() -> impl Widget<AppData> {
                     })
                     .with_text_size(10.0)
                     .padding(2.0)
-                    .background(Color::rgb(0.1, 0.1, 0.1))
+                    .expand_width()
+                    .height(20.0)
                     .align_vertical(UnitPoint::CENTER)
-                })
+                    .background(Color::rgb(0.1, 0.1, 0.1))
+                }),
+                1.0
             )
             .with_flex_child(
                 List::new(|| {
@@ -114,13 +118,13 @@ pub fn make() -> impl Widget<AppData> {
                     })
                     .with_text_size(10.0)
                     .padding(2.0)
-                    .background(Color::rgb(0.15, 0.15, 0.15))
                     .align_vertical(UnitPoint::CENTER)
                     .align_horizontal(UnitPoint::LEFT)
                     .expand_width()
-                    //.height(20.0)
+                    .height(20.0)
+                    .background(Color::rgb(0.15, 0.15, 0.15))
                 }),
-                1.0
+                1.1
             )
         )
         .vertical()
@@ -183,7 +187,7 @@ pub fn make() -> impl Widget<AppData> {
                 .with_text_size(10.0)
                 .align_vertical(UnitPoint::LEFT)
                 .padding(2.0)
-                .expand()
+                .expand_width()
                 .height(20.0)
                 .background(Color::rgb(0.4, 0.4, 0.4))
         }))
