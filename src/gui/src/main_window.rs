@@ -14,7 +14,8 @@ use crate::widgets::{
 
 pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
-    let mut left_panel = Flex::column();
+    let mut left_panel = Flex::column()
+        .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut message_area = Flex::column();
     let mut right_panel = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::End);
@@ -71,9 +72,22 @@ pub fn make() -> impl Widget<AppData> {
                 )
         }))
         .vertical()
+        .expand_height()
         .lens(AppData::channels);
 
     left_panel.add_flex_child(channel_list, 1.0);
+
+    let list_button = Svg::new(list.clone())
+        .padding(4.0)
+        .fix_width(20.0)
+        .fix_height(20.0);
+
+    left_panel.add_child(
+        SizedBox::new(
+            Flex::row()
+                .with_child(list_button)
+        )
+    );
 
     root.add_child(
         SizedBox::new(left_panel)
