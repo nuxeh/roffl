@@ -44,7 +44,6 @@ pub fn make() -> impl Widget<AppData> {
     let channel_list = Scroll::new(
         List::new(|| {
             Flex::row()
-                //.with_spacer(10.0)
                 .with_flex_child(
                     Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
                         .with_text_size(10.0)
