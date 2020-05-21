@@ -81,11 +81,19 @@ pub fn make() -> impl Widget<AppData> {
        List::new(|| {
             Flex::row()
                 .with_child(
+                    Label::new("09:45")
+                    .with_text_size(10.0)
+                    .background(Color::rgb(0.1, 0.1, 0.1))
+                    .padding(2.0)
+                    .align_vertical(UnitPoint::CENTER),
+                )
+                .with_child(
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
                         format!("<user{}>", item)
                     })
                     .with_text_size(10.0)
                     .background(Color::rgb(0.1, 0.1, 0.1))
+                    .padding(2.0)
                     .align_vertical(UnitPoint::CENTER),
                 )
                 .with_flex_child(
@@ -94,12 +102,15 @@ pub fn make() -> impl Widget<AppData> {
                     })
                     .with_text_size(10.0)
                     .background(Color::rgb(0.15, 0.15, 0.15))
+                    .padding(2.0)
                     .align_vertical(UnitPoint::CENTER)
-                    .expand(),
+                    .align_horizontal(UnitPoint::LEFT)
+                    .expand()
+                    .height(20.0),
                     1.0
                 )
                 //.padding(2.0)
-                .fix_height(20.0)
+                //.fix_height(20.0)
         }))
         .vertical()
         .expand()
