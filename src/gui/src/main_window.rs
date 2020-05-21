@@ -78,25 +78,33 @@ pub fn make() -> impl Widget<AppData> {
     );
 
     let messages = Scroll::new(
-       List::new(|| {
-            Flex::row()
-                .with_child(
+        Flex::row()
+            .with_child(
+                List::new(|| {
                     Label::new("09:45")
                     .with_text_size(10.0)
                     .background(Color::rgb(0.1, 0.1, 0.1))
                     .padding(2.0)
-                    .align_vertical(UnitPoint::CENTER),
-                )
-                .with_child(
+                    .align_vertical(UnitPoint::CENTER)
+                })
+            )
+            .with_child(
+                List::new(|| {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
-                        format!("<user{}>", item)
+                        if item == &2 {
+                            format!("<verylongusername{}>", item)
+                       } else {
+                            format!("<user{}>", item)
+                       }
                     })
                     .with_text_size(10.0)
                     .background(Color::rgb(0.1, 0.1, 0.1))
                     .padding(2.0)
-                    .align_vertical(UnitPoint::CENTER),
-                )
-                .with_flex_child(
+                    .align_vertical(UnitPoint::CENTER)
+                })
+            )
+            .with_flex_child(
+                List::new(|| {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
                         format!("hi, this is a message #{}", item)
                     })
@@ -106,12 +114,11 @@ pub fn make() -> impl Widget<AppData> {
                     .align_vertical(UnitPoint::CENTER)
                     .align_horizontal(UnitPoint::LEFT)
                     .expand()
-                    .height(20.0),
-                    1.0
-                )
-                //.padding(2.0)
-                //.fix_height(20.0)
-        }))
+                    .height(20.0)
+                }),
+                1.0
+            )
+        )
         .vertical()
         .expand()
         .align_vertical(UnitPoint::BOTTOM)
