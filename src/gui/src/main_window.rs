@@ -23,7 +23,7 @@ pub fn make() -> impl Widget<AppData> {
         .cross_axis_alignment(CrossAxisAlignment::End);
 
     // Assets
-    let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
+    let logo = include_str!("../../../rc.svg").parse::<SvgData>().unwrap();
     let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
     let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
     let list = include_str!("../assets/list.svg")
