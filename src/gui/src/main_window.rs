@@ -25,7 +25,7 @@ pub fn make() -> impl Widget<AppData> {
     let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
     let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
     let list = include_str!("../assets/list.svg")
-        .replace("#fff", "#333333")
+        .replace("#fff", "#191919")
         .parse::<SvgData>().unwrap();
 
     // Logo
