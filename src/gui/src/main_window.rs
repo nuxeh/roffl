@@ -10,11 +10,13 @@ use druid::{
 use super::AppData;
 use crate::widgets::{
     borderless_textbox::BorderlessText,
+    overlay::Overlay,
 };
 
 pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
-    let mut left_panel = Flex::column()
+    let mut left_panel_base = Flex::column();
+    let mut left_panel_overlay = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut message_area = Flex::column();
     let mut right_panel = Flex::column()
@@ -29,7 +31,7 @@ pub fn make() -> impl Widget<AppData> {
         .parse::<SvgData>().unwrap();
 
     // Logo
-    left_panel.add_child(
+    left_panel_base.add_child(
         SizedBox::new(
             Svg::new(logo.clone())
                 .align_horizontal(UnitPoint::LEFT)
@@ -40,7 +42,7 @@ pub fn make() -> impl Widget<AppData> {
         .background(Color::rgb(0.078, 0.212, 0.259))
     );
 
-    left_panel.add_child(
+    left_panel_base.add_child(
         SizedBox::empty()
             .fix_height(1.0)
     );
@@ -77,19 +79,27 @@ pub fn make() -> impl Widget<AppData> {
         .expand_height()
         .lens(AppData::channels);
 
-    left_panel.add_flex_child(channel_list, 1.0);
+    left_panel_base.add_flex_child(channel_list, 1.0);
+
+    left_panel_overlay
+        .add_flex_child(
+            SizedBox::empty().expand_height(),
+            1.0
+        );
 
     let list_button = Svg::new(list.clone())
         .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
 
-    left_panel.add_child(
+    left_panel_overlay.add_child(
         SizedBox::new(
             Flex::row()
                 .with_child(list_button)
         )
     );
+
+    let left_panel = Overlay::new(left_panel_base, left_panel_overlay);
 
     root.add_child(
         SizedBox::new(left_panel)
