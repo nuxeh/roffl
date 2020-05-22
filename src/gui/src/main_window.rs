@@ -24,7 +24,9 @@ pub fn make() -> impl Widget<AppData> {
     let logo = include_str!("../../../rclogo.svg").parse::<SvgData>().unwrap();
     let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
     let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
-    let list = include_str!("../assets/list.svg").parse::<SvgData>().unwrap();
+    let list = include_str!("../assets/list.svg")
+        .replace("#fff", "#333333")
+        .parse::<SvgData>().unwrap();
 
     // Logo
     left_panel.add_child(
