@@ -10,5 +10,7 @@ jobs:
         profile: minimal
         toolchain: nightly
         override: true
+    - name: Dependencies
+      run: sudo apt-get install -y libgtk-3-dev libpango1.0-dev libcairo2-dev libcairo-gobject2
     - name: Build
       run: cargo build --verbose

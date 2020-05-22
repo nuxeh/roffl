@@ -33,8 +33,8 @@ fn main() {
 
     println!("Hello, world!");
 
-    /// Put git ref in a file
-    /// Commit
-    /// Tag
-    /// Ensure using latest stable Rust toolchain, and update release.nix
+    // Put git ref in a file
+    // Commit
+    // Tag
+    // Ensure using latest stable Rust toolchain, and update release.nix
 }
