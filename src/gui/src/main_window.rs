@@ -88,16 +88,23 @@ pub fn make() -> impl Widget<AppData> {
             1.0
         );
 
+    /*
     let list_button = Svg::new(list.clone())
         .padding(2.0)
         .fix_width(16.0)
         .fix_height(16.0)
         .background(Color::rgba(0.25, 0.25, 0.25, 0.5));
+    */
+    let square_button = SizedBox::empty()
+        .fix_width(10.0)
+        .fix_height(10.0)
+        .background(Color::rgba(0.1, 0.1, 0.1, 0.6))
+        .padding(4.0);
 
     left_panel_overlay.add_child(
         SizedBox::new(
             Flex::row()
-                .with_child(list_button)
+                .with_child(square_button)
         )
     );
 
