@@ -19,7 +19,8 @@ pub fn make() -> impl Widget<AppData> {
     let mut left_panel_overlay = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut message_area = Flex::column();
-    let mut right_panel = Flex::column()
+    let mut right_panel_base = Flex::column();
+    let mut right_panel_overlay = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::End);
 
     // Assets
@@ -225,19 +226,21 @@ pub fn make() -> impl Widget<AppData> {
         .expand_height() // makes a sized box?!
         .lens(AppData::nicks);
 
-    right_panel.add_flex_child(nick_list, 1.0);
+    right_panel_base.add_flex_child(nick_list, 1.0);
 
     let list_button = Svg::new(list.clone())
         .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
 
-    right_panel.add_child(
+    right_panel_overlay.add_child(
         SizedBox::new(
             Flex::row()
                 .with_child(list_button)
         )
     );
+
+    let right_panel = Overlay::new(right_panel_base, right_panel_overlay);
 
     root.add_child(
         SizedBox::new(right_panel)
