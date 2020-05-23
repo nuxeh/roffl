@@ -126,9 +126,9 @@ pub fn make() -> impl Widget<AppData> {
                 List::new(|| {
                     Label::new(|(_, item): &(Arc<Vec<u32>>, u32), _env: &_| {
                         if item == &2 {
-                            format!("<verylongusername{}>", item)
+                            format!("verylongusername{}", item)
                        } else {
-                            format!("<user{}>", item)
+                            format!("user{}", item)
                        }
                     })
                     .with_text_size(10.0)
