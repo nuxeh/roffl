@@ -1,0 +1,7 @@
+[package]
+name = "check_pr"
+version = "0.1.0"
+authors = ["Ed Cragg <ed.cragg@eipi.xyz>"]
+edition = "2018"
+
+[dependencies]

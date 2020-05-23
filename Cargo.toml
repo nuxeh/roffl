@@ -5,6 +5,7 @@ members = [
     "src/proto",
     "src/rcchat",
     "src/sntp_cached",
-    "tools/make_release"
+    "tools/make_release",
+    "tools/check_pr",
 ]
 exclude = [ "./druid" ]
