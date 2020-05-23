@@ -39,17 +39,11 @@ impl<T> Overlay<T> {
 
 impl<T: Data> Widget<T> for Overlay<T> {
     fn event(&mut self, ctx: &mut EventCtx, event: &Event, data: &mut T, env: &Env) {
-        // Dispatch event to child
-        if self.top.is_active() {
-            self.top.event(ctx, event, data, env);
-            if ctx.is_handled() {
-                return;
-            }
+        self.top.event(ctx, event, data, env);
+        if ctx.is_handled() {
+            return;
         }
-
-        if !self.top.is_active() {
-            self.top.event(ctx, event, data, env);
-        }
+        self.bottom.event(ctx, event, data, env);
     }
 
     fn lifecycle(&mut self, ctx: &mut LifeCycleCtx, event: &LifeCycle, data: &T, env: &Env) {
