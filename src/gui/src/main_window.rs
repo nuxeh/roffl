@@ -91,8 +91,8 @@ pub fn make() -> impl Widget<AppData> {
     let list_button = Svg::new(list.clone())
         .padding(2.0)
         .fix_width(16.0)
-        .fix_height(16.0)
-        .background(Color::rgb(0.25, 0.25, 0.25));
+        .fix_height(16.0);
+        //.background(Color::rgb(0.25, 0.25, 0.25));
 
     left_panel_overlay.add_child(
         SizedBox::new(
