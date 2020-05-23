@@ -144,7 +144,7 @@ pub fn make() -> impl Widget<AppData> {
                         if item != &4 {
                             format!("hi, this is a message #{}", item)
                        } else {
-                            format!("hi, this is a message #{}\r,split over multiple lines", item)
+                            format!("hi, this is a message #{}, split over multiple lines, split over multiple lines, split over multiple lines, hopefully", item)
                        }
                     })
                     .with_text_size(10.0)
