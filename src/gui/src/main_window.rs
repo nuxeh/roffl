@@ -91,8 +91,8 @@ pub fn make() -> impl Widget<AppData> {
     let list_button = Svg::new(list.clone())
         .padding(2.0)
         .fix_width(16.0)
-        .fix_height(16.0);
-        //.background(Color::rgb(0.25, 0.25, 0.25));
+        .fix_height(16.0)
+        .background(Color::rgb(0.25, 0.25, 0.25));
 
     left_panel_overlay.add_child(
         SizedBox::new(
@@ -229,9 +229,10 @@ pub fn make() -> impl Widget<AppData> {
     right_panel_base.add_flex_child(nick_list, 1.0);
 
     let list_button = Svg::new(list.clone())
-        .padding(4.0)
-        .fix_width(20.0)
-        .fix_height(20.0);
+        .padding(2.0)
+        .fix_width(16.0)
+        .fix_height(16.0)
+        .background(Color::rgb(0.25, 0.25, 0.25));
 
     right_panel_overlay
         .add_flex_child(
