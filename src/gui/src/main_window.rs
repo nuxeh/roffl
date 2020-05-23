@@ -92,7 +92,7 @@ pub fn make() -> impl Widget<AppData> {
         .padding(2.0)
         .fix_width(16.0)
         .fix_height(16.0)
-        .background(Color::rgb(0.25, 0.25, 0.25));
+        .background(Color::rgba(0.25, 0.25, 0.25, 0.5));
 
     left_panel_overlay.add_child(
         SizedBox::new(
@@ -232,7 +232,7 @@ pub fn make() -> impl Widget<AppData> {
         .padding(2.0)
         .fix_width(16.0)
         .fix_height(16.0)
-        .background(Color::rgb(0.25, 0.25, 0.25));
+        .background(Color::rgba(0.25, 0.25, 0.25, 0.5));
 
     right_panel_overlay
         .add_flex_child(
