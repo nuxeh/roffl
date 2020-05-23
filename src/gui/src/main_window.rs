@@ -233,6 +233,12 @@ pub fn make() -> impl Widget<AppData> {
         .fix_width(20.0)
         .fix_height(20.0);
 
+    right_panel_overlay
+        .add_flex_child(
+            SizedBox::empty().expand_height(),
+            1.0
+        );
+
     right_panel_overlay.add_child(
         SizedBox::new(
             Flex::row()
