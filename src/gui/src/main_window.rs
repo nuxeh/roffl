@@ -18,8 +18,6 @@ pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
     let mut left_panel_base = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::Start);
-    let mut left_panel_overlay = Flex::column()
-        .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut message_area = Flex::column();
     let mut right_panel_base = Flex::column();
     let mut right_panel_overlay = Flex::column()
@@ -161,29 +159,8 @@ pub fn make() -> impl Widget<AppData> {
 
     left_panel_base.add_flex_child(channel_list, 1.0);
 
-    left_panel_overlay
-        .add_flex_child(
-            SizedBox::empty().expand_height(),
-            1.0
-        );
-
-    let list_button = Svg::new(list.clone())
-        .padding(2.0)
-        .fix_width(16.0)
-        .fix_height(16.0)
-        .background(Color::rgba(0.25, 0.25, 0.25, 0.5));
-
-    left_panel_overlay.add_child(
-        SizedBox::new(
-            Flex::row()
-                .with_child(list_button)
-        )
-    );
-
-    let left_panel = Overlay::new(left_panel_base, left_panel_overlay);
-
     root.add_child(
-        SizedBox::new(left_panel)
+        SizedBox::new(left_panel_base)
             .fix_width(200.0)
             .background(Color::rgb(0.25, 0.25, 0.25))
     );
