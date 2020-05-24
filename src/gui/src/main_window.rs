@@ -15,7 +15,8 @@ use crate::widgets::{
 
 pub fn make() -> impl Widget<AppData> {
     let mut root = Flex::row();
-    let mut left_panel_base = Flex::column();
+    let mut left_panel_base = Flex::column()
+        .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut left_panel_overlay = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut message_area = Flex::column();
