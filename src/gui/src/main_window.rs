@@ -63,11 +63,6 @@ pub fn make() -> impl Widget<AppData> {
         .background(Color::rgb(0.078, 0.212, 0.259))
     );
 
-    left_panel_base.add_child(
-        SizedBox::empty()
-            .fix_height(1.0)
-    );
-
     let add_button = SvgButton::new(plus)
         .with_active_image(plus_active)
         .padding(4.0)
