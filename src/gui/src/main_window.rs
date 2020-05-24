@@ -54,6 +54,7 @@ pub fn make() -> impl Widget<AppData> {
     left_panel_base.add_child(
         SizedBox::new(
             SvgButton::new(logo.clone())
+                .on_click(|_, _, _| println!("hi"))
                 .align_horizontal(UnitPoint::LEFT)
         )
         .align_horizontal(UnitPoint::LEFT)
