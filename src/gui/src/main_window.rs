@@ -128,7 +128,7 @@ pub fn make() -> impl Widget<AppData> {
                 )
                 .with_child(
                     SizedBox::new(
-                        Label::new("1000")
+                        Label::new("10")
                             .with_text_size(10.0)
                             .with_text_color(Color::rgb(0.2, 0.2, 0.2))
                             .center()
