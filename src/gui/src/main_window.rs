@@ -25,7 +25,7 @@ pub fn make() -> impl Widget<AppData> {
     let mut right_panel_overlay = Flex::column()
         .cross_axis_alignment(CrossAxisAlignment::End);
 
-    // Assets
+    // Include, and generate derived, assets
     let logo = include_str!("../../../rc.svg").parse::<SvgData>().unwrap();
 
     let send_base = include_str!("../assets/send.svg");
@@ -62,6 +62,12 @@ pub fn make() -> impl Widget<AppData> {
         .replace("#fff", "#f6ae2d")
         .parse::<SvgData>().unwrap();
 
+    let rightpanel_base = include_str!("../assets/rightpanel.svg");
+    let rightpanel = rightpanel_base.parse::<SvgData>().unwrap();
+    let rightpanel_active = rightpanel_base
+        .replace("#fff", "#f6ae2d")
+        .parse::<SvgData>().unwrap();
+
     // Logo
     left_panel_base.add_child(
         SizedBox::new(
@@ -93,6 +99,12 @@ pub fn make() -> impl Widget<AppData> {
         .fix_width(20.0)
         .fix_height(20.0);
 
+    let rightpanel_button = SvgButton::new(rightpanel)
+        .with_active_image(rightpanel_active)
+        .padding(4.0)
+        .fix_width(20.0)
+        .fix_height(20.0);
+
     left_panel_base.add_child(
         SizedBox::new(
             Flex::row()
@@ -100,6 +112,7 @@ pub fn make() -> impl Widget<AppData> {
                 .with_child(settings_button)
                 .with_flex_spacer(1.0)
                 .with_child(leftpanel_button)
+                .with_child(rightpanel_button)
         )
     );
 
