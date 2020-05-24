@@ -43,7 +43,12 @@ pub fn make() -> impl Widget<AppData> {
     let list = include_str!("../assets/list.svg")
         .replace("#fff", "#191919")
         .parse::<SvgData>().unwrap();
-    let plus = include_str!("../assets/plus.svg").parse::<SvgData>().unwrap();
+
+    let plus_base = include_str!("../assets/plus.svg");
+    let plus = plus_base.parse::<SvgData>().unwrap();
+    let plus_active = plus_base
+        .replace("#fff", "#f08c14")
+        .parse::<SvgData>().unwrap();
 
     // Logo
     left_panel_base.add_child(
@@ -62,7 +67,8 @@ pub fn make() -> impl Widget<AppData> {
             .fix_height(1.0)
     );
 
-    let add_button = Svg::new(plus.clone())
+    let add_button = SvgButton::new(plus)
+        .with_active_image(plus_active)
         .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
