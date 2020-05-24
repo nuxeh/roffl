@@ -50,6 +50,12 @@ pub fn make() -> impl Widget<AppData> {
         .replace("#fff", "#f08c14")
         .parse::<SvgData>().unwrap();
 
+    let cog_base = include_str!("../assets/cog.svg");
+    let cog = cog_base.parse::<SvgData>().unwrap();
+    let cog_active = cog_base
+        .replace("#fff", "#f08c14")
+        .parse::<SvgData>().unwrap();
+
     // Logo
     left_panel_base.add_child(
         SizedBox::new(
@@ -69,10 +75,17 @@ pub fn make() -> impl Widget<AppData> {
         .fix_width(20.0)
         .fix_height(20.0);
 
+    let settings_button = SvgButton::new(cog)
+        .with_active_image(cog_active)
+        .padding(4.0)
+        .fix_width(20.0)
+        .fix_height(20.0);
+
     left_panel_base.add_child(
         SizedBox::new(
             Flex::row()
                 .with_child(add_button)
+                .with_child(settings_button)
         )
     );
 
