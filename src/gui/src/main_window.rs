@@ -107,11 +107,22 @@ pub fn make() -> impl Widget<AppData> {
                     SizedBox::new(
                         Label::new("1000")
                             .with_text_size(10.0)
-                            .with_text_color(Color::rgb(0.25, 0.25, 0.25))
+                            .with_text_color(Color::rgb(0.2, 0.2, 0.2))
                             .center()
                             .background(Color::rgb(0.965, 0.682, 0.176))
                             //.rounded(4.0)
                             //.padding(0.0)
+                    )
+                    .height(20.0)
+                    .background(Color::rgb(0.4, 0.4, 0.4))
+                )
+                .with_child(
+                    SizedBox::new(
+                        Label::new("1")
+                            .with_text_size(10.0)
+                            .with_text_color(Color::rgb(0.2, 0.2, 0.2))
+                            .center()
+                            .background(Color::rgb(0.129, 0.514, 0.502)) // #218380
                     )
                     .height(20.0)
                     .background(Color::rgb(0.4, 0.4, 0.4))
