@@ -91,11 +91,12 @@ impl<T: Data> Widget<T> for SvgButton<T> {
         if let LifeCycle::HotChanged(_) = event {
             ctx.request_paint();
         }
-        //self.label.lifecycle(ctx, event, data, env)
     }
 
     fn update(&mut self, ctx: &mut UpdateCtx, old_data: &T, data: &T, env: &Env) {
-        //self.label.update(ctx, old_data, data, env)
+        // Needed? Svg has no data, and update does nothing
+        // self.image.update(ctx, old_data, data, env);
+        // self.active_image.update(layout_ctx, &bc, data, env);
     }
 
     fn layout(
@@ -114,48 +115,15 @@ impl<T: Data> Widget<T> for SvgButton<T> {
     }
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &T, env: &Env) {
-        /*
-        let is_active = ctx.is_active();
-        let is_hot = ctx.is_hot();
         let size = ctx.size();
-
-        let rounded_rect = Rect::from_origin_size(Point::ORIGIN, size)
-            .to_rounded_rect(env.get(theme::BUTTON_BORDER_RADIUS));
-
-        let bg_gradient = if is_active {
-            LinearGradient::new(
-                UnitPoint::TOP,
-                UnitPoint::BOTTOM,
-                (env.get(theme::BUTTON_DARK), env.get(theme::BUTTON_LIGHT)),
-            )
-        } else {
-            LinearGradient::new(
-                UnitPoint::TOP,
-                UnitPoint::BOTTOM,
-                (env.get(theme::BUTTON_LIGHT), env.get(theme::BUTTON_DARK)),
-            )
-        };
-
-        let border_color = if is_hot {
-            env.get(theme::BORDER_LIGHT)
-        } else {
-            env.get(theme::BORDER_DARK)
-        };
-
-        ctx.stroke(
-            rounded_rect,
-            &border_color,
-            env.get(theme::BUTTON_BORDER_WIDTH),
-        );
-
-        ctx.fill(rounded_rect, &bg_gradient);
-
-        let label_offset = (size.to_vec2() - self.label_size.to_vec2()) / 2.0;
+        let is_active = ctx.is_active();
 
         ctx.with_save(|ctx| {
-            ctx.transform(Affine::translate(label_offset));
-            self.label.paint(ctx, data, env);
+            if is_active || self.is_active {
+                self.active_image.paint(ctx, data, env);
+            } else {
+                self.image.paint(ctx, data, env);
+            }
         });
-        */
     }
 }
