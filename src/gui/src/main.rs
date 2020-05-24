@@ -5,13 +5,16 @@ mod widgets;
 
 mod main_window;
 use main_window::make;
+mod about_window;
+use about_window::AboutWindow;
 
 use std::sync::Arc;
 use docopt::Docopt;
 use serde::Deserialize;
 
 use druid::{
-    Data, Lens, WindowDesc, LocalizedString, AppLauncher, Selector, MenuDesc, MenuItem
+    Data, Lens, WindowDesc, LocalizedString, AppLauncher, Selector, MenuDesc, MenuItem,
+    commands, AppDelegate, DelegateCtx, Target, Command, Env,
 };
 
 const USAGE: &'static str = "
@@ -64,9 +67,36 @@ fn main() {
     };
 
     AppLauncher::with_window(main_window)
+        //.delegate(Delegate)
         .use_simple_logger()
         .launch(data)
         .expect("launch failed");
+}
+
+#[derive(Clone, Data)]
+struct State;
+
+struct Delegate;
+
+impl AppDelegate<State> for Delegate {
+    fn command(
+        &mut self,
+        ctx: &mut DelegateCtx,
+        target: Target,
+        cmd: &Command,
+        data: &mut State,
+        _env: &Env,
+    ) -> bool {
+        match &cmd.selector {
+            &commands::SHOW_ABOUT => {
+                let window = WindowDesc::new(AboutWindow::make)
+                    .window_size((300.0, 500.0));
+                ctx.new_window(window);
+                false
+            },
+            _ => true,
+        }
+    }
 }
 
 const MENU_COLOURS_ACTION: Selector = Selector::new("menu-colours-action");
