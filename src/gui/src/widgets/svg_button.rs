@@ -24,13 +24,14 @@ use druid::{
 };
 
 /// A button with a text label.
-pub struct SvgButton<bool> {
+pub struct SvgButton<T> {
+    data: Option<T>,
     image: Svg,
     active_image: Option<Svg>,
     is_active: bool,
 }
 
-impl SvgButton<bool> {
+impl<T: Data> SvgButton<T> {
     /// Create a new button with an SVG image.
     ///
     /// Use the `.on_click` method to provide a closure to be called when the
@@ -45,8 +46,9 @@ impl SvgButton<bool> {
     ///     *data += 1;
     /// });
     /// ```
-    pub fn new(image: Svg) -> SvgButton<bool> {
+    pub fn new(image: Svg) -> Self {
         SvgButton {
+            data: None,
             image,
             active_image: None,
             is_active: false,
@@ -62,13 +64,13 @@ impl SvgButton<bool> {
     /// Provide a closure to be called when this button is clicked.
     pub fn on_click(
         self,
-        f: impl Fn(&mut EventCtx, &mut bool, &Env) + 'static,
-    ) -> ControllerHost<Self, Click<bool>> {
+        f: impl Fn(&mut EventCtx, &mut T, &Env) + 'static,
+    ) -> ControllerHost<Self, Click<T>> {
         ControllerHost::new(self, Click::new(f))
     }
 }
 
-impl<T: Data> Widget<T> for SvgButton<bool> {
+impl<T: Data> Widget<T> for SvgButton<T> {
     fn event(&mut self, ctx: &mut EventCtx, event: &Event, _data: &mut T, _env: &Env) {
         match event {
             Event::MouseDown(_) => {
