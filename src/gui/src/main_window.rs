@@ -27,7 +27,12 @@ pub fn make() -> impl Widget<AppData> {
 
     // Assets
     let logo = include_str!("../../../rc.svg").parse::<SvgData>().unwrap();
-    let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
+
+    let send_base = include_str!("../assets/send.svg");
+    let send = send_base.parse::<SvgData>().unwrap();
+    let send_active = send_base
+        .replace("#fff", "#f08c14")
+        .parse::<SvgData>().unwrap();
 
     let search_base = include_str!("../assets/search.svg");
     let search = search_base.parse::<SvgData>().unwrap();
@@ -206,11 +211,12 @@ pub fn make() -> impl Widget<AppData> {
         })
         .lens(AppData::message_text);
 
-    let send_button = Svg::new(send.clone())
+    let send_button = SvgButton::new(send)
+        .with_active_image(send_active)
         .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
-    let search_button = SvgButton::new(search.clone())
+    let search_button = SvgButton::new(search)
         .with_active_image(search_active)
         .padding(4.0)
         .fix_width(20.0)
