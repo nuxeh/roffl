@@ -115,14 +115,14 @@ impl<T: Data> Widget<T> for SvgButton<T> {
     }
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &T, env: &Env) {
-        let size = ctx.size();
         let is_active = ctx.is_active();
 
         ctx.with_save(|ctx| {
-            if is_active || self.is_active {
-                self.active_image.paint(ctx, data, env);
-            } else {
-                self.image.paint(ctx, data, env);
+            match &mut self.active_image {
+                Some(i) if is_active || self.is_active => {
+                    i.paint(ctx, data, env);
+                },
+                _ => self.image.paint(ctx, data, env),
             }
         });
     }
