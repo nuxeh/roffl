@@ -68,6 +68,11 @@ impl<T: Data> SvgButton<T> {
     ) -> ControllerHost<Self, Click<T>> {
         ControllerHost::new(self, Click::new(f))
     }
+
+    /// Set the active status of the button
+    pub fn set_active(&mut self, active: bool) {
+        self.is_active = active;
+    }
 }
 
 impl<T: Data> Widget<T> for SvgButton<T> {
