@@ -16,7 +16,7 @@
 use druid::theme;
 use druid::widget::prelude::*;
 use druid::widget::{
-    Click, ControllerHost, Label, LabelText, Svg
+    Click, ControllerHost, Label, LabelText, Svg, SvgData
 };
 
 use druid::{
@@ -46,18 +46,18 @@ impl<T: Data> SvgButton<T> {
     ///     *data += 1;
     /// });
     /// ```
-    pub fn new(image: Svg) -> Self {
+    pub fn new(image: SvgData) -> Self {
         SvgButton {
             data: None,
-            image,
+            image: Svg::new(image),
             active_image: None,
             is_active: false,
         }
     }
 
     /// Add an image to render when the button is active
-    pub fn with_active_image(mut self, image: Svg) -> Self {
-        self.active_image = Some(image);
+    pub fn with_active_image(mut self, image: SvgData) -> Self {
+        self.active_image = Some(Svg::new(image));
         self
     }
 

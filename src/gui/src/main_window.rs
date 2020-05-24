@@ -11,6 +11,7 @@ use super::AppData;
 use crate::widgets::{
     borderless_textbox::BorderlessText,
     overlay::Overlay,
+    svg_button::SvgButton,
 };
 
 pub fn make() -> impl Widget<AppData> {
@@ -27,7 +28,13 @@ pub fn make() -> impl Widget<AppData> {
     // Assets
     let logo = include_str!("../../../rc.svg").parse::<SvgData>().unwrap();
     let send = include_str!("../assets/send.svg").parse::<SvgData>().unwrap();
-    let search = include_str!("../assets/search.svg").parse::<SvgData>().unwrap();
+
+    let search_base = include_str!("../assets/search.svg");
+    let search = search_base.parse::<SvgData>().unwrap();
+    let search_active = search_base
+        .replace("#fff", "#f08c14")
+        .parse::<SvgData>().unwrap();
+
     let list = include_str!("../assets/list.svg")
         .replace("#fff", "#191919")
         .parse::<SvgData>().unwrap();
@@ -203,7 +210,8 @@ pub fn make() -> impl Widget<AppData> {
         .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
-    let search_button = Svg::new(search.clone())
+    let search_button = SvgButton::new(search.clone())
+        .with_active_image(search_active)
         .padding(4.0)
         .fix_width(20.0)
         .fix_height(20.0);
