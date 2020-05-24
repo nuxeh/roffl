@@ -56,6 +56,12 @@ pub fn make() -> impl Widget<AppData> {
         .replace("#fff", "#f6ae2d")
         .parse::<SvgData>().unwrap();
 
+    let leftpanel_base = include_str!("../assets/leftpanel.svg");
+    let leftpanel = leftpanel_base.parse::<SvgData>().unwrap();
+    let leftpanel_active = leftpanel_base
+        .replace("#fff", "#f6ae2d")
+        .parse::<SvgData>().unwrap();
+
     // Logo
     left_panel_base.add_child(
         SizedBox::new(
@@ -81,11 +87,19 @@ pub fn make() -> impl Widget<AppData> {
         .fix_width(20.0)
         .fix_height(20.0);
 
+    let leftpanel_button = SvgButton::new(leftpanel)
+        .with_active_image(leftpanel_active)
+        .padding(4.0)
+        .fix_width(20.0)
+        .fix_height(20.0);
+
     left_panel_base.add_child(
         SizedBox::new(
             Flex::row()
                 .with_child(add_button)
                 .with_child(settings_button)
+                .with_flex_spacer(1.0)
+                .with_child(leftpanel_button)
         )
     );
 
