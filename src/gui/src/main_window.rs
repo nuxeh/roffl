@@ -20,8 +20,6 @@ pub fn make() -> impl Widget<AppData> {
         .cross_axis_alignment(CrossAxisAlignment::Start);
     let mut message_area = Flex::column();
     let mut right_panel_base = Flex::column();
-    let mut right_panel_overlay = Flex::column()
-        .cross_axis_alignment(CrossAxisAlignment::End);
 
     // Include, and generate derived, assets
     let logo = include_str!("../../../rc.svg").parse::<SvgData>().unwrap();
@@ -286,29 +284,8 @@ pub fn make() -> impl Widget<AppData> {
 
     right_panel_base.add_flex_child(nick_list, 1.0);
 
-    let list_button = Svg::new(list.clone())
-        .padding(2.0)
-        .fix_width(16.0)
-        .fix_height(16.0)
-        .background(Color::rgba(0.25, 0.25, 0.25, 0.5));
-
-    right_panel_overlay
-        .add_flex_child(
-            SizedBox::empty().expand_height(),
-            1.0
-        );
-
-    right_panel_overlay.add_child(
-        SizedBox::new(
-            Flex::row()
-                .with_child(list_button)
-        )
-    );
-
-    let right_panel = Overlay::new(right_panel_base, right_panel_overlay);
-
     root.add_child(
-        SizedBox::new(right_panel)
+        SizedBox::new(right_panel_base)
             .fix_width(200.0)
             .background(Color::rgb(0.25, 0.25, 0.25))
     );
