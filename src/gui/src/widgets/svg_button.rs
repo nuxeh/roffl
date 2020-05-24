@@ -106,20 +106,11 @@ impl<T: Data> Widget<T> for SvgButton<T> {
         env: &Env,
     ) -> Size {
         bc.debug_check("SvgButton");
-        /*
-        let padding = Size::new(LABEL_INSETS.x_value(), LABEL_INSETS.y_value());
-        let label_bc = bc.shrink(padding).loosen();
-        self.label_size = self.label.layout(layout_ctx, &label_bc, data, env);
-        // HACK: to make sure we look okay at default sizes when beside a textbox,
-        // we make sure we will have at least the same height as the default textbox.
-        let min_height = env.get(theme::BORDERED_WIDGET_HEIGHT);
-
-        bc.constrain(Size::new(
-            self.label_size.width + padding.width,
-            (self.label_size.height + padding.height).max(min_height),
-        ))
-        */
-        Size::new(1.0, 0.0)
+        let size = self.image.layout(layout_ctx, &bc, data, env);
+        if let Some(i) = &mut self.active_image {
+            i.layout(layout_ctx, &bc, data, env);
+        }
+        size
     }
 
     fn paint(&mut self, ctx: &mut PaintCtx, data: &T, env: &Env) {
