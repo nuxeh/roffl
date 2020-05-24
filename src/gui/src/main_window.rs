@@ -31,13 +31,13 @@ pub fn make() -> impl Widget<AppData> {
     let send_base = include_str!("../assets/send.svg");
     let send = send_base.parse::<SvgData>().unwrap();
     let send_active = send_base
-        .replace("#fff", "#f08c14")
+        .replace("#fff", "#f6ae2d")
         .parse::<SvgData>().unwrap();
 
     let search_base = include_str!("../assets/search.svg");
     let search = search_base.parse::<SvgData>().unwrap();
     let search_active = search_base
-        .replace("#fff", "#f08c14")
+        .replace("#fff", "#f6ae2d")
         .parse::<SvgData>().unwrap();
 
     let list = include_str!("../assets/list.svg")
@@ -47,13 +47,13 @@ pub fn make() -> impl Widget<AppData> {
     let plus_base = include_str!("../assets/plus.svg");
     let plus = plus_base.parse::<SvgData>().unwrap();
     let plus_active = plus_base
-        .replace("#fff", "#f08c14")
+        .replace("#fff", "#f6ae2d")
         .parse::<SvgData>().unwrap();
 
     let cog_base = include_str!("../assets/cog.svg");
     let cog = cog_base.parse::<SvgData>().unwrap();
     let cog_active = cog_base
-        .replace("#fff", "#f08c14")
+        .replace("#fff", "#f6ae2d")
         .parse::<SvgData>().unwrap();
 
     // Logo
