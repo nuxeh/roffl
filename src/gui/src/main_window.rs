@@ -143,13 +143,13 @@ impl MainWindow {
                             SizedBox::empty()
                                 .fix_height(20.0)
                                 .fix_width(20.0)
-                                .background(Color::rgb(0.965, 0.682, 0.176))
+                                .background(Color::rgba(0.965, 0.682, 0.176, 0.5))
                         )
                         .with_child(
                             SizedBox::empty()
                                 .fix_height(20.0)
                                 .fix_width(20.0)
-                                .background(Color::rgb(0.129, 0.514, 0.502)) // #218380
+                                .background(Color::rgba(0.129, 0.514, 0.502, 0.5)) // #218380
                         )
                 )
                 .background(Color::rgb(0.4, 0.4, 0.4))
