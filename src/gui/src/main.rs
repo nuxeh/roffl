@@ -51,7 +51,8 @@ fn main() {
 
     // Make the window
     let main_window = WindowDesc::new(MainWindow::make)
-        .title(LocalizedString::new("rc").with_placeholder("rc"));
+        .title(LocalizedString::new("rc").with_placeholder("rc"))
+        .window_size((1200.0, 800.0));
         //.menu(make_menu());
 
     // Set our initial data
@@ -83,7 +84,9 @@ impl AppDelegate<AppData> for Delegate {
         match &cmd.selector {
             &commands::SHOW_ABOUT => {
                 let window = WindowDesc::new(AboutWindow::make)
-                    .window_size((300.0, 500.0));
+                    .title(LocalizedString::new("About rc")
+                        .with_placeholder("About rc"))
+                    .window_size((324.0, 400.0));
                 ctx.new_window(window);
                 false
             },
