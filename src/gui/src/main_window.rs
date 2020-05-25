@@ -5,7 +5,7 @@ use druid::widget::{
     Flex, Label, List, Scroll, SizedBox, TextBox, Svg, SvgData, CrossAxisAlignment
 };
 use druid::{
-    Color, UnitPoint, Widget, WidgetExt
+    Color, UnitPoint, Widget, WidgetExt, Target, commands
 };
 use super::AppData;
 use crate::widgets::{
@@ -71,7 +71,10 @@ impl MainWindow {
         left_panel_base.add_child(
             SizedBox::new(
                 SvgButton::new(logo.clone())
-                    .on_click(|_, _, _| println!("hi"))
+                    .on_click(|ctx, _data , _env| {
+                        println!("hi");
+                        ctx.submit_command(commands::SHOW_ABOUT, Target::Global);
+                    })
                     .align_horizontal(UnitPoint::LEFT)
             )
             .align_horizontal(UnitPoint::LEFT)
