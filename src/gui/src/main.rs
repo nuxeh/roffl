@@ -18,15 +18,15 @@ use druid::{
 };
 
 const USAGE: &'static str = "
-rcchat GUI client.
+rc chat GUI client.
 
 Usage:
-    rcchat_gui
-    rcchat_gui --help
-    rcchat_gui --version
+    rc_gui
+    rc_gui --help
+    rc_gui --version
 
 Options:
-    -h --help     Show this screen.
+    -h --help     Show this message.
     --version     Show version.
 ";
 
