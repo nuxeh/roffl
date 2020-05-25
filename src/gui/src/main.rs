@@ -42,10 +42,6 @@ struct AppData {
     message_text: String,
 }
 
-#[derive(Clone, Data, Lens)]
-struct AppState {
-}
-
 fn main() {
     // Parse CLI args
     let args: Args = Docopt::new(USAGE)
@@ -67,24 +63,21 @@ fn main() {
     };
 
     AppLauncher::with_window(main_window)
-        //.delegate(Delegate)
+        .delegate(Delegate)
         .use_simple_logger()
         .launch(data)
         .expect("launch failed");
 }
 
-#[derive(Clone, Data)]
-struct State;
-
 struct Delegate;
 
-impl AppDelegate<State> for Delegate {
+impl AppDelegate<AppData> for Delegate {
     fn command(
         &mut self,
         ctx: &mut DelegateCtx,
         target: Target,
         cmd: &Command,
-        data: &mut State,
+        data: &mut AppData,
         _env: &Env,
     ) -> bool {
         match &cmd.selector {
