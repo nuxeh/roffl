@@ -4,7 +4,7 @@ mod widgets;
 //use widgets::panel2::Panel;
 
 mod main_window;
-use main_window::make;
+use main_window::MainWindow;
 mod about_window;
 use about_window::AboutWindow;
 
@@ -54,7 +54,7 @@ fn main() {
         .unwrap_or_else(|e| e.exit());
 
     // Make the window
-    let main_window = WindowDesc::new(make)
+    let main_window = WindowDesc::new(MainWindow::make)
         .title(LocalizedString::new("rc").with_placeholder("rc"));
         //.menu(make_menu());
 
