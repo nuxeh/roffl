@@ -123,18 +123,6 @@ impl MainWindow {
             List::new(|| {
                 SizedBox::new(
                     Flex::row()
-                        .with_child(
-                            SizedBox::empty()
-                                .fix_height(20.0)
-                                .fix_width(4.0)
-                                .background(Color::rgb(0.129, 0.514, 0.502)) // #218380
-                        )
-                        .with_child(
-                            SizedBox::empty()
-                                .fix_height(20.0)
-                                .fix_width(4.0)
-                                .background(Color::rgb(0.965, 0.682, 0.176))
-                        )
                         .with_flex_child(
                             Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
                                 .with_text_size(10.0)
@@ -151,7 +139,19 @@ impl MainWindow {
                                 .with_text_color(Color::rgb(0.3, 0.3, 0.3))
                                 .background(Color::rgb(0.4, 0.4, 0.4)),
                         )
-                        .with_spacer(20.0)
+                        .with_child(
+                            SizedBox::empty()
+                                .fix_height(20.0)
+                                .fix_width(4.0)
+                                .background(Color::rgb(0.129, 0.514, 0.502)) // #218380
+                        )
+                        .with_child(
+                            SizedBox::empty()
+                                .fix_height(20.0)
+                                .fix_width(4.0)
+                                .background(Color::rgb(0.965, 0.682, 0.176))
+                        )
+                        .with_spacer(10.0)
                 )
                 .background(Color::rgb(0.4, 0.4, 0.4))
             }))
