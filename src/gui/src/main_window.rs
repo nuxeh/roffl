@@ -121,41 +121,39 @@ impl MainWindow {
         // Channel list
         let channel_list = Scroll::new(
             List::new(|| {
-                Flex::row()
-                    .with_flex_child(
-                        Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
-                            .with_text_size(10.0)
-                            .align_vertical(UnitPoint::LEFT)
-                            .padding(2.0)
-                            .expand_width()
-                            .height(20.0)
-                            .background(Color::rgb(0.4, 0.4, 0.4)),
-                        1.0
-                    )
-                    .with_child(
-                        SizedBox::new(
-                            Label::new("10")
-                                .with_text_size(10.0)
-                                .with_text_color(Color::rgb(0.2, 0.2, 0.2))
-                                .center()
-                                .background(Color::rgb(0.965, 0.682, 0.176))
-                                //.rounded(4.0)
-                                //.padding(0.0)
-                        )
-                        .height(20.0)
-                        .background(Color::rgb(0.4, 0.4, 0.4))
-                    )
-                    .with_child(
-                        SizedBox::new(
-                            Label::new("1")
-                                .with_text_size(10.0)
-                                .with_text_color(Color::rgb(0.2, 0.2, 0.2))
-                                .center()
+                SizedBox::new(
+                    Flex::row()
+                        .with_child(
+                            SizedBox::empty()
+                                .fix_height(20.0)
+                                .fix_width(4.0)
                                 .background(Color::rgb(0.129, 0.514, 0.502)) // #218380
                         )
-                        .height(20.0)
-                        .background(Color::rgb(0.4, 0.4, 0.4))
-                    )
+                        .with_child(
+                            SizedBox::empty()
+                                .fix_height(20.0)
+                                .fix_width(4.0)
+                                .background(Color::rgb(0.965, 0.682, 0.176))
+                        )
+                        .with_flex_child(
+                            Label::new(|item: &u32, _env: &_| format!("List item #{}", item))
+                                .with_text_size(10.0)
+                                .align_vertical(UnitPoint::LEFT)
+                                .padding(2.0)
+                                .expand_width()
+                                .height(20.0)
+                                .background(Color::rgb(0.4, 0.4, 0.4)),
+                            1.0
+                        )
+                        .with_child(
+                            Label::new("10")
+                                .with_text_size(10.0)
+                                .with_text_color(Color::rgb(0.3, 0.3, 0.3))
+                                .background(Color::rgb(0.4, 0.4, 0.4)),
+                        )
+                        .with_spacer(20.0)
+                )
+                .background(Color::rgb(0.4, 0.4, 0.4))
             }))
             .vertical()
             .expand_height()
