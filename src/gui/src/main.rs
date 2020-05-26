@@ -1,7 +1,9 @@
 //! `rcchat` main window
 
 mod widgets;
-//use widgets::panel2::Panel;
+
+mod assets;
+use assets::*;
 
 mod main_window;
 use main_window::MainWindow;

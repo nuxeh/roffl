@@ -25,8 +25,6 @@ impl MainWindow {
         let mut right_panel_base = Flex::column();
 
         // Include, and generate derived, assets
-        let logo = include_str!("../../../rc.svg").parse::<SvgData>().unwrap();
-
         let send_base = include_str!("../assets/send.svg");
         let send = send_base.parse::<SvgData>().unwrap();
         let send_active = send_base
@@ -70,7 +68,7 @@ impl MainWindow {
         // Logo
         left_panel_base.add_child(
             SizedBox::new(
-                SvgButton::new(logo.clone())
+                SvgButton::new(crate::LOGO.parse().unwrap())
                     .on_click(|ctx, _data , _env| {
                         println!("hi");
                         ctx.submit_command(commands::SHOW_ABOUT, Target::Global);
