@@ -1,15 +1,16 @@
 use super::AppData;
+
 use druid::{
     Widget,
 };
 use druid::widget::{
-    SizedBox,
+    Flex, Svg,
 };
 
 pub struct AboutWindow;
 
 impl AboutWindow {
     pub fn make() -> impl Widget<AppData> {
-        SizedBox::empty()
+        Svg::new(crate::LOGO.parse().unwrap())
     }
 }
