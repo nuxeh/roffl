@@ -23,6 +23,8 @@ use druid::{
     Affine, Data, Insets, LinearGradient, Point, Rect, RenderContext, UnitPoint, Widget
 };
 
+// TODO: dimensions max if they're not constrained
+
 /// A button with a text label.
 pub struct SvgButton<T> {
     data: Option<T>,

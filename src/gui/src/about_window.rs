@@ -4,13 +4,24 @@ use druid::{
     Widget,
 };
 use druid::widget::{
-    Flex, Svg,
+    Flex, Label, Button
+};
+// TODO clean up imports
+use crate::widgets::{
+    svg_button::SvgButton
 };
 
 pub struct AboutWindow;
 
 impl AboutWindow {
     pub fn make() -> impl Widget<AppData> {
-        Svg::new(crate::LOGO.parse().unwrap())
+        Flex::column()
+            .with_flex_child(
+                SvgButton::new(crate::LOGO.parse().unwrap()),
+                1.0
+            )
+            .with_child(
+                Label::new("Hi")
+            )
     }
 }
