@@ -1,5 +1,5 @@
 [package]
-name = "rcchat"
+name = "rcchat-rs"
 version = "0.1.0"
 authors = ["Ed Cragg <drq.11235@gmail.com>"]
 edition = "2018"
@@ -20,5 +20,5 @@ murmur3 = "0.5.1"
 hybrid-clocks = "0.5.3"
 
 [dependencies.tokio]
-version = "0.2.11"
+version = "0.2.21"
 features = ["macros", "net"]
