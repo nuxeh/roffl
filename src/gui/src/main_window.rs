@@ -13,6 +13,9 @@ use crate::widgets::{
     overlay::Overlay,
     svg_button::SvgButton,
 };
+use crate::assets::{
+    ICON_ADD,
+};
 
 pub struct MainWindow;
 
@@ -41,9 +44,8 @@ impl MainWindow {
             .replace("#fff", "#191919")
             .parse::<SvgData>().unwrap();
 
-        let plus_base = include_str!("../assets/plus.svg");
-        let plus = plus_base.parse::<SvgData>().unwrap();
-        let plus_active = plus_base
+        let plus = ICON_ADD.parse::<SvgData>().unwrap();
+        let plus_active = ICON_ADD
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
