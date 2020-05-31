@@ -1,5 +1,4 @@
 pub mod client;
 pub mod server;
-
-mod crypto;
-mod transport;
+pub mod connection;
+pub mod crypto;
