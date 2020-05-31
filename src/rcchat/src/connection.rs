@@ -10,20 +10,20 @@ lazy_static! {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq)]
-enum ConnectorType {
+enum ConnectionType {
     Server,
     Client,
 }
 
-pub struct Connector {
-    kind: ConnectorType,
+pub struct Connection {
+    kind: ConnectionType,
     secret: [u8; 32],
 }
 
-impl Connector {
+impl Connection {
     /// Connect or begin listening
     pub fn init(&self) {
-        if self.kind == ConnectorType::Client {
+        if self.kind == ConnectionType::Client {
             self.init_client();
         } else {
             self.init_server();
@@ -39,30 +39,30 @@ impl Connector {
     }
 }
 
-pub struct TransportBuilder {
-    connector: Connector,
+pub struct ConnectionBuilder {
+    connector: Connection,
 }
 
-impl TransportBuilder {
-    pub fn client() -> TransportBuilder {
-        TransportBuilder {
-            connector: Connector {
-                kind: ConnectorType::Client,
+impl ConnectionBuilder {
+    pub fn client() -> ConnectionBuilder {
+        ConnectionBuilder {
+            connector: Connection {
+                kind: ConnectionType::Client,
                 secret: [0; 32],
             },
         }
     }
 
-    pub fn server() -> TransportBuilder {
-        TransportBuilder {
-            connector: Connector {
-                kind: ConnectorType::Server,
+    pub fn server() -> ConnectionBuilder {
+        ConnectionBuilder {
+            connector: Connection {
+                kind: ConnectionType::Server,
                 secret: [0; 32],
             },
         }
     }
 
-    pub fn password(&mut self, password: &str) -> &mut TransportBuilder {
+    pub fn password(&mut self, password: &str) -> &mut ConnectionBuilder {
         let secret = derive_key(password, 32);
 
         for (i, v) in secret.iter().enumerate() {
@@ -72,8 +72,8 @@ impl TransportBuilder {
         self
     }
 
-    pub fn build(&self) -> Connector {
-        Connector { ..self.connector }
+    pub fn build(&self) -> Connection {
+        Connection { ..self.connector }
     }
 }
 
@@ -83,21 +83,21 @@ mod tests {
 
     #[test]
     fn test_build_client() {
-        let t = TransportBuilder::client().build();
-        assert_eq!(t.kind, ConnectorType::Client);
-        assert_ne!(t.kind, ConnectorType::Server);
+        let t = ConnectionBuilder::client().build();
+        assert_eq!(t.kind, ConnectionType::Client);
+        assert_ne!(t.kind, ConnectionType::Server);
     }
 
     #[test]
     fn test_build_server() {
-        let t = TransportBuilder::server().build();
-        assert_eq!(t.kind, ConnectorType::Server);
-        assert_ne!(t.kind, ConnectorType::Client);
+        let t = ConnectionBuilder::server().build();
+        assert_eq!(t.kind, ConnectionType::Server);
+        assert_ne!(t.kind, ConnectionType::Client);
     }
 
     #[test]
     fn test_set_password() {
-        let t = TransportBuilder::client()
+        let t = ConnectionBuilder::client()
             .password("foobarbaz")
             .build();
 
