@@ -14,7 +14,7 @@ use crate::widgets::{
     svg_button::SvgButton,
 };
 use crate::assets::{
-    ICON_ADD,
+    ICON_ADD, ICON_SEND, ICON_LIST, ICON_COG, ICON_LEFT_PANEL, ICON_RIGHT_PANEL, ICON_SEARCH
 };
 
 pub struct MainWindow;
@@ -28,19 +28,17 @@ impl MainWindow {
         let mut right_panel_base = Flex::column();
 
         // Include, and generate derived, assets
-        let send_base = include_str!("../assets/send.svg");
-        let send = send_base.parse::<SvgData>().unwrap();
-        let send_active = send_base
+        let send = ICON_SEND.parse::<SvgData>().unwrap();
+        let send_active = ICON_SEND
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
-        let search_base = include_str!("../assets/search.svg");
-        let search = search_base.parse::<SvgData>().unwrap();
-        let search_active = search_base
+        let search = ICON_SEARCH.parse::<SvgData>().unwrap();
+        let search_active = ICON_SEARCH
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
-        let list = include_str!("../assets/list.svg")
+        let list = ICON_LIST
             .replace("#fff", "#191919")
             .parse::<SvgData>().unwrap();
 
@@ -49,21 +47,18 @@ impl MainWindow {
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
-        let cog_base = include_str!("../assets/cog.svg");
-        let cog = cog_base.parse::<SvgData>().unwrap();
-        let cog_active = cog_base
+        let cog = ICON_COG.parse::<SvgData>().unwrap();
+        let cog_active = ICON_COG
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
-        let leftpanel_base = include_str!("../assets/leftpanel.svg");
-        let leftpanel = leftpanel_base.parse::<SvgData>().unwrap();
-        let leftpanel_active = leftpanel_base
+        let leftpanel = ICON_LEFT_PANEL.parse::<SvgData>().unwrap();
+        let leftpanel_active = ICON_LEFT_PANEL
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
-        let rightpanel_base = include_str!("../assets/rightpanel.svg");
-        let rightpanel = rightpanel_base.parse::<SvgData>().unwrap();
-        let rightpanel_active = rightpanel_base
+        let rightpanel = ICON_RIGHT_PANEL.parse::<SvgData>().unwrap();
+        let rightpanel_active = ICON_RIGHT_PANEL
             .replace("#fff", "#f6ae2d")
             .parse::<SvgData>().unwrap();
 
