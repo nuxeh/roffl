@@ -5,13 +5,16 @@ const USAGE: &'static str = "
 rcchat bridge (server).
 
 Usage:
-    rcchat_bridge
+    rcchat_bridge [options] [--state-dir=DIR] [--config=PATH]
     rcchat_bridge --help
     rcchat_bridge --version
 
 Options:
-    -h --help     Show this screen.
-    --version     Show version.
+    --state-dir=DIR  Specify the state directory.
+    --config=PATH    Specify the configuration file.
+    --port=PORT      Specify the port to serve on.
+    -h --help        Show this screen.
+    --version        Show version.
 ";
 
 #[derive(Debug, Deserialize)]
