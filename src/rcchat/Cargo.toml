@@ -19,6 +19,7 @@ murmur3 = "0.5.1"
 #growable-bloom-filter = "0.2.2"
 hybrid-clocks = "0.5.3"
 futures = "0.3.5"
+rand_core = "0.5.1"
 
 [dependencies.tokio]
 version = "0.2.21"
