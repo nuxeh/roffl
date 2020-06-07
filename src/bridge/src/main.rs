@@ -6,6 +6,7 @@ rcchat bridge (server).
 
 Usage:
     rcchat_bridge [options] [--state-dir=DIR] [--config=PATH]
+    rcchat_bridge [options] --generate-config --no-run
     rcchat_bridge --help
     rcchat_bridge --version
 
