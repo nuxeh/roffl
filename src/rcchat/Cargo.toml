@@ -26,5 +26,5 @@ version = "0.2.21"
 features = ["macros", "net", "sync", "stream"]
 
 [dependencies.tokio-util]
-version = "0.3.1"
+version = "0.6.5"
 features = ["codec"]
